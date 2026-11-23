@@ -19,6 +19,10 @@ Todo está al inicio de `main.js`:
 - `MENU` — platos por categoría (nombre/descripción EN y ES, foto, precio).
 - `GALLERY` — fotos de la galería.
 
+Regla: un dato vacío se **oculta** en la web (nunca se publican datos inventados).
+
+Plan, pendientes del cliente y checklist de QA: ver [PROJECT.md](PROJECT.md).
+
 Fotos en `img/` (cada una en `.jpg` y `.webp`, máx. 1400px).
 
 ## Deploy

@@ -2,17 +2,15 @@
    DATOS DEL RESTAURANTE — EDITAR AQUÍ
    (Todo lo marcado TODO debe confirmarse con el cliente)
    ========================================================= */
+/* Regla: un dato vacío ("" o []) se OCULTA en la web. Nunca publicar datos inventados. */
 const BUSINESS = {
-  address: "TODO: Street address, Fort Lauderdale, FL 333XX",
-  mapQuery: "Fort Lauderdale, FL",          // TODO: dirección exacta para el mapa
-  phone: "+1 (954) 000-0000",               // TODO
+  address: "Fort Lauderdale, FL",           // TODO: dirección completa (calle, número, ZIP)
+  mapQuery: "Fort Lauderdale, FL",          // TODO: igual a la dirección completa
+  phone: "",                                // TODO: ej. "+1 (954) 555-1234"
+  whatsapp: "",                             // TODO: solo dígitos con código país, ej. "19545551234"
   instagram: "https://www.instagram.com/konakaiperuviancuisine/",
-  orderUrl: "",                             // TODO: Toast / Uber Eats / DoorDash (vacío = oculta botón)
-  hours: [                                  // TODO
-    { en: "Mon",       es: "Lun",       time: "Closed" },
-    { en: "Tue – Thu", es: "Mar – Jue", time: "11:30 AM – 9:00 PM" },
-    { en: "Fri – Sat", es: "Vie – Sáb", time: "11:30 AM – 10:00 PM" },
-    { en: "Sun",       es: "Dom",       time: "11:30 AM – 8:00 PM" },
+  orderUrl: "",                             // TODO: Toast / Uber Eats / DoorDash
+  hours: [                                  // TODO: ej. { en: "Tue – Thu", es: "Mar – Jue", time: "11:30 AM – 9:00 PM" }
   ],
 };
 
@@ -85,9 +83,16 @@ const I18N = {
   es: {
     "nav.menu": "Menú", "nav.selva": "Selva", "nav.gallery": "Galería", "nav.visit": "Visítanos",
     "cta.call": "Llámanos", "cta.menu": "Ver el menú", "cta.order": "Pedir en línea",
-    "hero.eyebrow": "Cocina peruana · Fort Lauderdale",
-    "hero.title": "De la costa a la selva, en una sola mesa.",
-    "hero.lead": "Ceviche al momento, lomo saltado al wok y los sabores amazónicos del tacacho y el juane. El Perú, cocinado como en casa.",
+    "cta.directions": "Cómo llegar", "cta.whatsapp": "Reservar por WhatsApp",
+    "a11y.skip": "Ir al menú",
+    "bar.call": "Llamar", "bar.directions": "Cómo llegar", "bar.menu": "Menú",
+    "hero.eyebrow": "Restaurante peruano · Fort Lauderdale",
+    "hero.title": "Comida peruana, de la costa a la selva.",
+    "hero.lead": "Ceviche al momento, lomo saltado al wok y los sabores amazónicos del tacacho y el juane. Cocina peruana de verdad, aquí en Fort Lauderdale.",
+    "hl.1.t": "Ceviche al momento", "hl.1.p": "Pescado fresco, limón y ají, curado cuando lo pides. Nunca antes.",
+    "hl.2.t": "La selva en tu plato", "hl.2.p": "Tacacho, cecina, chorizo regional y juane: platos de la Amazonía peruana difíciles de encontrar en Florida.",
+    "hl.3.t": "Para compartir", "hl.3.p": "Porciones generosas, recetas de familia y una mesa donde siempre cabe uno más.",
+    "visit.soon": "Próximamente", "visit.callfor": "Escríbenos por Instagram",
     "story.eyebrow": "Nuestra cocina",
     "story.title": "Las cevicherías de Lima. Los mercados de Iquitos. Tu barrio.",
     "story.p1": "En Konakai cocinamos el Perú con el que crecimos: ceviches bien cítricos, chicharrón crocante, huancaína cremosa y el plátano ahumado de la Amazonía.",
@@ -98,10 +103,11 @@ const I18N = {
     "selva.title": "Tacacho, cecina y juane",
     "selva.p": "Plátano verde majado con chancho, cecina ahumada, chorizo regional, maduro y juane: el desayuno selvático que alimenta a toda la familia. Difícil de encontrar en Florida. Fácil de encontrar aquí.",
     "selva.cta": "Ver platos de la selva",
-    "gallery.eyebrow": "Galería", "gallery.title": "Desde nuestra cocina", "gallery.ig": "Síguenos en Instagram",
+    "gallery.eyebrow": "Galería", "gallery.title": "Desde nuestra cocina",
     "visit.eyebrow": "Visítanos", "visit.title": "Ven con hambre.",
     "visit.address": "Dirección", "visit.phone": "Teléfono", "visit.hours": "Horario",
     "footer.tag": "Cocina peruana · Fort Lauderdale, FL",
+    "gallery.ig": "Síguenos en @konakaiperuviancuisine",
   },
 };
 
@@ -122,7 +128,7 @@ function dishName(img) { const d = allDishes().find(x => x.img === img); return 
 
 function renderTabs() {
   $("#menuTabs").innerHTML = MENU.map(c =>
-    `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}">${c[lang]}</button>`).join("");
+    `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
 function renderMenu() {
   const cat = MENU.find(c => c.id === activeTab);
@@ -142,16 +148,50 @@ function renderGallery() {
   observeReveal();
 }
 function renderBusiness() {
-  const tel = BUSINESS.phone.replace(/[^\d+]/g, "");
-  $$(".js-address").forEach(el => (el.textContent = BUSINESS.address));
-  $$(".js-map-link").forEach(el => (el.href = `https://maps.google.com/?q=${encodeURIComponent(BUSINESS.mapQuery)}`));
-  $(".js-map").src = `https://maps.google.com/maps?q=${encodeURIComponent(BUSINESS.mapQuery)}&z=15&output=embed`;
-  $$(".js-phone").forEach(el => { el.textContent = BUSINESS.phone; el.href = `tel:${tel}`; });
+  const B = BUSINESS, es = lang === "es";
+  const tel = B.phone.replace(/[^\d+]/g, "");
+  const show = (sel, ok) => $$(sel).forEach(el => (el.hidden = !ok));
+
+  $$(".js-address").forEach(el => (el.textContent = B.address));
+  $$(".js-directions").forEach(el => (el.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(B.mapQuery)}`));
+  const map = $(".js-map"), src = `https://maps.google.com/maps?q=${encodeURIComponent(B.mapQuery)}&z=14&output=embed`;
+  if (map.getAttribute("src") !== src) map.src = src;
+
+  $$(".js-phone").forEach(el => { el.textContent = B.phone; el.href = `tel:${tel}`; });
   $$(".js-call").forEach(el => (el.href = `tel:${tel}`));
-  $$(".js-ig").forEach(el => (el.href = BUSINESS.instagram));
-  $$(".js-order").forEach(el => BUSINESS.orderUrl ? (el.href = BUSINESS.orderUrl, el.target = "_blank") : el.remove());
-  $(".js-hours").innerHTML = BUSINESS.hours.map(h =>
-    `<li><span>${h[lang]}</span><span>${lang === "es" && h.time === "Closed" ? "Cerrado" : h.time}</span></li>`).join("");
+  show(".js-phone-row, .js-call", !!tel);
+
+  const waText = encodeURIComponent(es ? "Hola Konakai, quisiera reservar una mesa." : "Hi Konakai, I'd like to reserve a table.");
+  $$(".js-whatsapp").forEach(el => (el.href = `https://wa.me/${B.whatsapp}?text=${waText}`));
+  show(".js-whatsapp", !!B.whatsapp);
+
+  $$(".js-order").forEach(el => (el.href = B.orderUrl || "#"));
+  show(".js-order", !!B.orderUrl);
+  $$(".js-ig").forEach(el => (el.href = B.instagram));
+
+  $(".js-hours").innerHTML = B.hours.length
+    ? B.hours.map(h => `<li><span>${h[lang]}</span><span>${es && h.time === "Closed" ? "Cerrado" : h.time}</span></li>`).join("")
+    : `<li><span>${es ? "Pronto publicaremos el horario." : "Hours coming soon."}</span></li>
+       <li><a href="${B.instagram}" target="_blank" rel="noopener">${es ? "Escríbenos por Instagram" : "Message us on Instagram"}</a></li>`;
+}
+
+/* SEO: menú como datos estructurados (schema.org/Menu) */
+function injectMenuSchema() {
+  const data = {
+    "@context": "https://schema.org", "@type": "Menu",
+    "@id": "https://kanokai-web.vercel.app/#menu",
+    name: "Konakai Peruvian Cuisine Menu", inLanguage: ["en", "es"],
+    hasMenuSection: MENU.map(c => ({
+      "@type": "MenuSection", name: c.en,
+      hasMenuItem: c.items.map(d => ({
+        "@type": "MenuItem", name: d.en[0], description: d.en[1],
+        image: `https://kanokai-web.vercel.app/img/${d.img}.jpg`,
+      })),
+    })),
+  };
+  const sc = document.createElement("script");
+  sc.type = "application/ld+json"; sc.textContent = JSON.stringify(data);
+  document.head.appendChild(sc);
 }
 
 function applyLang() {
@@ -176,7 +216,23 @@ $("#menuTabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
   activeTab = b.dataset.id; renderTabs(); renderMenu();
 });
+$("#menuTabs").addEventListener("keydown", e => {
+  const i = MENU.findIndex(c => c.id === activeTab);
+  const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
+  activeTab = MENU[(i + d + MENU.length) % MENU.length].id; renderTabs(); renderMenu();
+  $(`.tab[data-id="${activeTab}"]`).focus();
+});
 $$("[data-tab]").forEach(a => a.addEventListener("click", () => { activeTab = a.dataset.tab; renderTabs(); renderMenu(); }));
+
+const burger = $("#burger");
+const setNav = open => {
+  document.body.classList.toggle("nav-open", open);
+  burger.setAttribute("aria-expanded", open);
+  burger.setAttribute("aria-label", open ? (lang === "es" ? "Cerrar menú" : "Close menu") : (lang === "es" ? "Abrir menú" : "Open menu"));
+};
+burger.addEventListener("click", () => setNav(!document.body.classList.contains("nav-open")));
+$$("#navLinks a").forEach(a => a.addEventListener("click", () => setNav(false)));
+addEventListener("keydown", e => { if (e.key === "Escape") setNav(false); });
 
 const lb = $("#lightbox");
 document.addEventListener("click", e => {
@@ -200,4 +256,5 @@ function observeReveal() {
 $$(".story, .section-head, .selva-inner, .visit-grid").forEach(el => el.classList.add("reveal"));
 
 $("#year").textContent = new Date().getFullYear();
+injectMenuSchema();
 applyLang();

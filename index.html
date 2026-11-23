@@ -2,24 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Konakai — Peruvian Kitchen · Fort Lauderdale</title>
-  <meta name="description" content="Konakai: authentic Peruvian food in Fort Lauderdale. Ceviches, lomo saltado, chicharrón, tacacho, juane and flavors from the Peruvian Amazon.">
-  <meta property="og:title" content="Konakai — Peruvian Kitchen · Fort Lauderdale">
-  <meta property="og:description" content="Ceviches, lomo saltado and flavors from the Peruvian Amazon, in Fort Lauderdale.">
-  <meta property="og:image" content="img/lomo-saltado-tallarin.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Konakai Peruvian Cuisine | Peruvian Restaurant in Fort Lauderdale, FL</title>
+  <meta name="description" content="Konakai Peruvian Cuisine in Fort Lauderdale: fresh ceviche, lomo saltado, chicharrón, papa rellena and Amazon dishes like tacacho con cecina and juane. See the menu and visit us.">
+  <link rel="canonical" href="https://kanokai-web.vercel.app/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:site_name" content="Konakai Peruvian Cuisine">
+  <meta property="og:url" content="https://kanokai-web.vercel.app/">
+  <meta property="og:title" content="Konakai Peruvian Cuisine · Fort Lauderdale">
+  <meta property="og:description" content="Fresh ceviche, lomo saltado and flavors from the Peruvian Amazon, in Fort Lauderdale.">
+  <meta property="og:image" content="https://kanokai-web.vercel.app/img/og-konakai.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="es_US">
+  <meta name="twitter:card" content="summary_large_image">
+
   <meta name="theme-color" content="#14110e">
+  <link rel="icon" href="img/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+  <link rel="preload" as="image" href="img/lomo-saltado-tallarin.webp" type="image/webp" fetchpriority="high">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='32' y='44' font-family='Georgia' font-size='36' text-anchor='middle' fill='%23f2b134'%3EK%3C/text%3E%3C/svg%3E">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": "https://kanokai-web.vercel.app/#restaurant",
+    "name": "Konakai Peruvian Cuisine",
+    "alternateName": "Konakai",
+    "url": "https://kanokai-web.vercel.app/",
+    "image": [
+      "https://kanokai-web.vercel.app/img/og-konakai.jpg",
+      "https://kanokai-web.vercel.app/img/ceviche-clasico.jpg",
+      "https://kanokai-web.vercel.app/img/tacacho-cecina.jpg"
+    ],
+    "servesCuisine": ["Peruvian", "Seafood", "Latin American"],
+    "hasMenu": "https://kanokai-web.vercel.app/#menu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Fort Lauderdale",
+      "addressRegion": "FL",
+      "addressCountry": "US"
+    },
+    "sameAs": ["https://www.instagram.com/konakaiperuviancuisine/"]
+  }
+  </script>
 </head>
 <body>
+<a class="skip" href="#menu" data-i18n="a11y.skip">Skip to menu</a>
 
 <header class="nav" id="top">
-  <a class="brand" href="#top" aria-label="Konakai home">KONAKAI</a>
-  <nav class="nav-links" aria-label="Main">
+  <a class="brand" href="#top" aria-label="Konakai Peruvian Cuisine, home">KONAKAI</a>
+  <nav class="nav-links" id="navLinks" aria-label="Main">
     <a href="#menu" data-i18n="nav.menu">Menu</a>
     <a href="#selva" data-i18n="nav.selva">Amazon</a>
     <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
@@ -27,68 +68,90 @@
   </nav>
   <div class="nav-actions">
     <button class="lang" id="langToggle" type="button" aria-label="Cambiar a español">ES</button>
-    <a class="btn btn-sm js-call" href="#visit" data-i18n="cta.call">Call us</a>
+    <a class="btn btn-sm js-call nav-call" href="#visit" data-i18n="cta.call">Call us</a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Open menu">
+      <span></span><span></span>
+    </button>
   </div>
 </header>
 
 <main>
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" aria-labelledby="hero-title">
     <picture>
       <source srcset="img/lomo-saltado-tallarin.webp" type="image/webp">
-      <img src="img/lomo-saltado-tallarin.jpg" alt="Lomo saltado with yellow noodles and parmesan" fetchpriority="high">
+      <img src="img/lomo-saltado-tallarin.jpg" alt="Lomo saltado over noodles in huancaína sauce with shaved parmesan" fetchpriority="high" width="1050" height="1400">
     </picture>
     <div class="hero-copy">
-      <p class="eyebrow" data-i18n="hero.eyebrow">Peruvian kitchen · Fort Lauderdale</p>
-      <h1 data-i18n="hero.title">From the coast to the Amazon, on one table.</h1>
-      <p class="lead" data-i18n="hero.lead">Ceviche cured to order, wok-fired lomo saltado and the jungle flavors of tacacho and juane. Peru, cooked the way it's cooked at home.</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Peruvian restaurant · Fort Lauderdale</p>
+      <h1 id="hero-title" data-i18n="hero.title">Peruvian food, from the coast to the Amazon.</h1>
+      <p class="lead" data-i18n="hero.lead">Ceviche made to order, wok-fired lomo saltado and the jungle flavors of tacacho and juane. Real Peruvian cooking, right here in Fort Lauderdale.</p>
       <div class="hero-ctas">
         <a class="btn" href="#menu" data-i18n="cta.menu">See the menu</a>
-        <a class="btn btn-ghost js-order" href="#visit" data-i18n="cta.order">Order online</a>
+        <a class="btn btn-ghost js-directions" href="#visit" target="_blank" rel="noopener" data-i18n="cta.directions">Get directions</a>
       </div>
     </div>
   </section>
 
+  <!-- HIGHLIGHTS -->
+  <section class="highlights wrap" aria-label="Highlights">
+    <div class="hl">
+      <span class="hl-num">01</span>
+      <h3 data-i18n="hl.1.t">Ceviche made to order</h3>
+      <p data-i18n="hl.1.p">Fresh fish, lime and ají, cured the moment you order. Never ahead of time.</p>
+    </div>
+    <div class="hl">
+      <span class="hl-num">02</span>
+      <h3 data-i18n="hl.2.t">The Amazon on your plate</h3>
+      <p data-i18n="hl.2.p">Tacacho, cecina, regional chorizo and juane: Peruvian jungle dishes that are hard to find in Florida.</p>
+    </div>
+    <div class="hl">
+      <span class="hl-num">03</span>
+      <h3 data-i18n="hl.3.t">Made to share</h3>
+      <p data-i18n="hl.3.p">Generous plates, family recipes and a table that always has room for one more.</p>
+    </div>
+  </section>
+
   <!-- STORY -->
-  <section class="story wrap">
+  <section class="story wrap" aria-labelledby="story-title">
     <div class="story-text">
       <p class="eyebrow" data-i18n="story.eyebrow">Our kitchen</p>
-      <h2 data-i18n="story.title">Lima's cevicherías. Iquitos' markets. Your neighborhood.</h2>
+      <h2 id="story-title" data-i18n="story.title">Lima's cevicherías. Iquitos' markets. Your neighborhood.</h2>
       <p data-i18n="story.p1">At Konakai we cook the Peru we grew up with: lime-bright ceviches, crisp chicharrón, creamy huancaína and the smoky plantain of the Amazon.</p>
       <p data-i18n="story.p2">Every plate is made from scratch, with Peruvian ají, fresh fish and recipes that came with us.</p>
     </div>
     <figure class="story-img">
       <picture>
         <source srcset="img/ceviche-cucharitas.webp" type="image/webp">
-        <img src="img/ceviche-cucharitas.jpg" alt="Ceviche served in spoons with choclo" loading="lazy">
+        <img src="img/ceviche-cucharitas.jpg" alt="Six ceviche bites served in red spoons with Peruvian corn" loading="lazy" width="788" height="1400">
       </picture>
     </figure>
   </section>
 
   <!-- MENU -->
-  <section class="menu wrap" id="menu">
+  <section class="menu wrap" id="menu" aria-labelledby="menu-title">
     <div class="section-head">
       <p class="eyebrow" data-i18n="menu.eyebrow">The menu</p>
-      <h2 data-i18n="menu.title">What we're cooking</h2>
+      <h2 id="menu-title" data-i18n="menu.title">What we're cooking</h2>
     </div>
-    <div class="tabs" role="tablist" id="menuTabs"></div>
-    <div class="dish-grid" id="menuGrid" aria-live="polite"></div>
+    <div class="tabs" role="tablist" id="menuTabs" aria-label="Menu categories"></div>
+    <div class="dish-grid" id="menuGrid" role="tabpanel"></div>
     <p class="menu-note" data-i18n="menu.note">Ask your server about today's catch and off-menu specials.</p>
   </section>
 
   <!-- SELVA FEATURE -->
-  <section class="selva" id="selva">
+  <section class="selva" id="selva" aria-labelledby="selva-title">
     <div class="selva-inner wrap">
       <div class="selva-copy">
         <p class="eyebrow" data-i18n="selva.eyebrow">Flavors of the Peruvian Amazon</p>
-        <h2 data-i18n="selva.title">Tacacho, cecina &amp; juane</h2>
+        <h2 id="selva-title" data-i18n="selva.title">Tacacho, cecina &amp; juane</h2>
         <p data-i18n="selva.p">Mashed green plantain with pork, smoked cecina, regional chorizo, sweet plantain and juane: the jungle breakfast that feeds the whole family. Hard to find in Florida. Easy to find here.</p>
         <a class="btn" href="#menu" data-tab="selva" data-i18n="selva.cta">See jungle dishes</a>
       </div>
       <div class="selva-imgs">
         <picture class="s1">
           <source srcset="img/tacacho-cecina.webp" type="image/webp">
-          <img src="img/tacacho-cecina.jpg" alt="Tacacho with cecina, chorizo and fried egg" loading="lazy">
+          <img src="img/tacacho-cecina.jpg" alt="Tacacho with cecina, regional chorizo, sweet plantain and a fried egg" loading="lazy">
         </picture>
         <picture class="s2">
           <source srcset="img/juane-maduros.webp" type="image/webp">
@@ -99,35 +162,36 @@
   </section>
 
   <!-- GALLERY -->
-  <section class="gallery wrap" id="gallery">
+  <section class="gallery wrap" id="gallery" aria-labelledby="gallery-title">
     <div class="section-head">
       <p class="eyebrow" data-i18n="gallery.eyebrow">Gallery</p>
-      <h2 data-i18n="gallery.title">From our kitchen</h2>
+      <h2 id="gallery-title" data-i18n="gallery.title">From our kitchen</h2>
     </div>
     <div class="masonry" id="galleryGrid"></div>
     <div class="center">
-      <a class="btn btn-ghost js-ig" href="#" target="_blank" rel="noopener" data-i18n="gallery.ig">Follow us on Instagram</a>
+      <a class="btn btn-ghost js-ig" href="https://www.instagram.com/konakaiperuviancuisine/" target="_blank" rel="noopener" data-i18n="gallery.ig">Follow @konakaiperuviancuisine</a>
     </div>
   </section>
 
   <!-- VISIT -->
-  <section class="visit" id="visit">
+  <section class="visit" id="visit" aria-labelledby="visit-title">
     <div class="wrap visit-grid">
       <div>
         <p class="eyebrow" data-i18n="visit.eyebrow">Visit us</p>
-        <h2 data-i18n="visit.title">Come hungry.</h2>
+        <h2 id="visit-title" data-i18n="visit.title">Come hungry.</h2>
         <dl class="info">
-          <div><dt data-i18n="visit.address">Address</dt><dd><a class="js-map-link" target="_blank" rel="noopener" href="#"><span class="js-address"></span></a></dd></div>
-          <div><dt data-i18n="visit.phone">Phone</dt><dd><a class="js-phone" href="#"></a></dd></div>
+          <div><dt data-i18n="visit.address">Address</dt><dd><a class="js-directions" target="_blank" rel="noopener" href="#"><span class="js-address"></span></a></dd></div>
+          <div class="js-phone-row"><dt data-i18n="visit.phone">Phone</dt><dd><a class="js-phone" href="#"></a></dd></div>
           <div><dt data-i18n="visit.hours">Hours</dt><dd><ul class="hours js-hours"></ul></dd></div>
         </dl>
         <div class="hero-ctas">
           <a class="btn js-call" href="#" data-i18n="cta.call">Call us</a>
+          <a class="btn btn-ghost js-whatsapp" href="#" target="_blank" rel="noopener" data-i18n="cta.whatsapp">Reserve on WhatsApp</a>
           <a class="btn btn-ghost js-order" href="#" target="_blank" rel="noopener" data-i18n="cta.order">Order online</a>
         </div>
       </div>
       <div class="map">
-        <iframe class="js-map" title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="js-map" title="Map to Konakai Peruvian Cuisine" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </section>
@@ -136,14 +200,21 @@
 <footer class="footer">
   <div class="wrap footer-inner">
     <span class="brand">KONAKAI</span>
-    <span data-i18n="footer.tag">Peruvian kitchen · Fort Lauderdale, FL</span>
-    <a class="js-ig" href="#" target="_blank" rel="noopener">Instagram</a>
-    <small>© <span id="year"></span> Konakai</small>
+    <span data-i18n="footer.tag">Peruvian cuisine · Fort Lauderdale, FL</span>
+    <a class="js-ig" href="https://www.instagram.com/konakaiperuviancuisine/" target="_blank" rel="noopener">Instagram</a>
+    <small>© <span id="year"></span> Konakai Peruvian Cuisine</small>
   </div>
 </footer>
 
+<!-- Mobile action bar -->
+<nav class="actionbar" aria-label="Quick actions">
+  <a class="js-call" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg><span data-i18n="bar.call">Call</span></a>
+  <a class="js-directions" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg><span data-i18n="bar.directions">Directions</span></a>
+  <a href="#menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v2H4zm0 6h16v2H4zm0 6h10v2H4z"/></svg><span data-i18n="bar.menu">Menu</span></a>
+</nav>
+
 <!-- Lightbox -->
-<dialog class="lightbox" id="lightbox">
+<dialog class="lightbox" id="lightbox" aria-label="Photo">
   <button class="lb-close" type="button" aria-label="Close">×</button>
   <img alt="">
   <p class="lb-cap"></p>
