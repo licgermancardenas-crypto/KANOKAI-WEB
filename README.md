@@ -1,6 +1,6 @@
-# Kanokai — Web
+# Konakai — Web
 
-Sitio web de **Kanokai**, cocina peruana en Fort Lauderdale, FL.
+Sitio web de **Konakai**, cocina peruana en Fort Lauderdale, FL.
 
 Sitio estático (HTML + CSS + JS, sin build). Bilingüe EN/ES.
 

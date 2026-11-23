@@ -90,7 +90,7 @@ const I18N = {
     "hero.lead": "Ceviche al momento, lomo saltado al wok y los sabores amazónicos del tacacho y el juane. El Perú, cocinado como en casa.",
     "story.eyebrow": "Nuestra cocina",
     "story.title": "Las cevicherías de Lima. Los mercados de Iquitos. Tu barrio.",
-    "story.p1": "En Kanokai cocinamos el Perú con el que crecimos: ceviches bien cítricos, chicharrón crocante, huancaína cremosa y el plátano ahumado de la Amazonía.",
+    "story.p1": "En Konakai cocinamos el Perú con el que crecimos: ceviches bien cítricos, chicharrón crocante, huancaína cremosa y el plátano ahumado de la Amazonía.",
     "story.p2": "Todo se prepara desde cero, con ají peruano, pescado fresco y recetas que viajaron con nosotros.",
     "menu.eyebrow": "La carta", "menu.title": "Lo que estamos cocinando",
     "menu.note": "Pregunta por la pesca del día y los especiales fuera de carta.",
@@ -111,7 +111,7 @@ const EN_DEFAULTS = {};
 $$("[data-i18n]").forEach(el => (EN_DEFAULTS[el.dataset.i18n] = el.innerHTML));
 
 let lang = "en";
-try { lang = localStorage.getItem("kanokai-lang") || (navigator.language || "").startsWith("es") && "es" || "en"; } catch {}
+try { lang = localStorage.getItem("konakai-lang") || (navigator.language || "").startsWith("es") && "es" || "en"; } catch {}
 let activeTab = MENU[0].id;
 
 const pic = (name, alt, lazy = true) =>
@@ -136,7 +136,7 @@ function renderMenu() {
 }
 function renderGallery() {
   $("#galleryGrid").innerHTML = GALLERY.map(g => {
-    const alt = dishName(g) || "Kanokai";
+    const alt = dishName(g) || "Konakai";
     return `<button type="button" class="reveal" data-zoom="${g}" aria-label="${alt}">${pic(g, alt)}</button>`;
   }).join("");
   observeReveal();
@@ -169,7 +169,7 @@ function applyLang() {
 /* Events */
 $("#langToggle").addEventListener("click", () => {
   lang = lang === "es" ? "en" : "es";
-  try { localStorage.setItem("kanokai-lang", lang); } catch {}
+  try { localStorage.setItem("konakai-lang", lang); } catch {}
   applyLang();
 });
 $("#menuTabs").addEventListener("click", e => {
