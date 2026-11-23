@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanokai — Peruvian Kitchen · Fort Lauderdale</title>
+  <meta name="description" content="Kanokai: authentic Peruvian food in Fort Lauderdale. Ceviches, lomo saltado, chicharrón, tacacho, juane and flavors from the Peruvian Amazon.">
+  <meta property="og:title" content="Kanokai — Peruvian Kitchen · Fort Lauderdale">
+  <meta property="og:description" content="Ceviches, lomo saltado and flavors from the Peruvian Amazon, in Fort Lauderdale.">
+  <meta property="og:image" content="img/lomo-saltado-tallarin.jpg">
+  <meta name="theme-color" content="#14110e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314110e'/%3E%3Ctext x='32' y='44' font-family='Georgia' font-size='36' text-anchor='middle' fill='%23f2b134'%3EK%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <a class="brand" href="#top" aria-label="Kanokai home">KANOKAI</a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#menu" data-i18n="nav.menu">Menu</a>
+    <a href="#selva" data-i18n="nav.selva">Amazon</a>
+    <a href="#gallery" data-i18n="nav.gallery">Gallery</a>
+    <a href="#visit" data-i18n="nav.visit">Visit</a>
+  </nav>
+  <div class="nav-actions">
+    <button class="lang" id="langToggle" type="button" aria-label="Cambiar a español">ES</button>
+    <a class="btn btn-sm js-call" href="#visit" data-i18n="cta.call">Call us</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <picture>
+      <source srcset="img/lomo-saltado-tallarin.webp" type="image/webp">
+      <img src="img/lomo-saltado-tallarin.jpg" alt="Lomo saltado with yellow noodles and parmesan" fetchpriority="high">
+    </picture>
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="hero.eyebrow">Peruvian kitchen · Fort Lauderdale</p>
+      <h1 data-i18n="hero.title">From the coast to the Amazon, on one table.</h1>
+      <p class="lead" data-i18n="hero.lead">Ceviche cured to order, wok-fired lomo saltado and the jungle flavors of tacacho and juane. Peru, cooked the way it's cooked at home.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="#menu" data-i18n="cta.menu">See the menu</a>
+        <a class="btn btn-ghost js-order" href="#visit" data-i18n="cta.order">Order online</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="story wrap">
+    <div class="story-text">
+      <p class="eyebrow" data-i18n="story.eyebrow">Our kitchen</p>
+      <h2 data-i18n="story.title">Lima's cevicherías. Iquitos' markets. Your neighborhood.</h2>
+      <p data-i18n="story.p1">At Kanokai we cook the Peru we grew up with: lime-bright ceviches, crisp chicharrón, creamy huancaína and the smoky plantain of the Amazon.</p>
+      <p data-i18n="story.p2">Every plate is made from scratch, with Peruvian ají, fresh fish and recipes that came with us.</p>
+    </div>
+    <figure class="story-img">
+      <picture>
+        <source srcset="img/ceviche-cucharitas.webp" type="image/webp">
+        <img src="img/ceviche-cucharitas.jpg" alt="Ceviche served in spoons with choclo" loading="lazy">
+      </picture>
+    </figure>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu wrap" id="menu">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="menu.eyebrow">The menu</p>
+      <h2 data-i18n="menu.title">What we're cooking</h2>
+    </div>
+    <div class="tabs" role="tablist" id="menuTabs"></div>
+    <div class="dish-grid" id="menuGrid" aria-live="polite"></div>
+    <p class="menu-note" data-i18n="menu.note">Ask your server about today's catch and off-menu specials.</p>
+  </section>
+
+  <!-- SELVA FEATURE -->
+  <section class="selva" id="selva">
+    <div class="selva-inner wrap">
+      <div class="selva-copy">
+        <p class="eyebrow" data-i18n="selva.eyebrow">Flavors of the Peruvian Amazon</p>
+        <h2 data-i18n="selva.title">Tacacho, cecina &amp; juane</h2>
+        <p data-i18n="selva.p">Mashed green plantain with pork, smoked cecina, regional chorizo, sweet plantain and juane: the jungle breakfast that feeds the whole family. Hard to find in Florida. Easy to find here.</p>
+        <a class="btn" href="#menu" data-tab="selva" data-i18n="selva.cta">See jungle dishes</a>
+      </div>
+      <div class="selva-imgs">
+        <picture class="s1">
+          <source srcset="img/tacacho-cecina.webp" type="image/webp">
+          <img src="img/tacacho-cecina.jpg" alt="Tacacho with cecina, chorizo and fried egg" loading="lazy">
+        </picture>
+        <picture class="s2">
+          <source srcset="img/juane-maduros.webp" type="image/webp">
+          <img src="img/juane-maduros.jpg" alt="Juane with sweet plantains and salsa criolla" loading="lazy">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery wrap" id="gallery">
+    <div class="section-head">
+      <p class="eyebrow" data-i18n="gallery.eyebrow">Gallery</p>
+      <h2 data-i18n="gallery.title">From our kitchen</h2>
+    </div>
+    <div class="masonry" id="galleryGrid"></div>
+    <div class="center">
+      <a class="btn btn-ghost js-ig" href="#" target="_blank" rel="noopener" data-i18n="gallery.ig">Follow us on Instagram</a>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section class="visit" id="visit">
+    <div class="wrap visit-grid">
+      <div>
+        <p class="eyebrow" data-i18n="visit.eyebrow">Visit us</p>
+        <h2 data-i18n="visit.title">Come hungry.</h2>
+        <dl class="info">
+          <div><dt data-i18n="visit.address">Address</dt><dd><a class="js-map-link" target="_blank" rel="noopener" href="#"><span class="js-address"></span></a></dd></div>
+          <div><dt data-i18n="visit.phone">Phone</dt><dd><a class="js-phone" href="#"></a></dd></div>
+          <div><dt data-i18n="visit.hours">Hours</dt><dd><ul class="hours js-hours"></ul></dd></div>
+        </dl>
+        <div class="hero-ctas">
+          <a class="btn js-call" href="#" data-i18n="cta.call">Call us</a>
+          <a class="btn btn-ghost js-order" href="#" target="_blank" rel="noopener" data-i18n="cta.order">Order online</a>
+        </div>
+      </div>
+      <div class="map">
+        <iframe class="js-map" title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <span class="brand">KANOKAI</span>
+    <span data-i18n="footer.tag">Peruvian kitchen · Fort Lauderdale, FL</span>
+    <a class="js-ig" href="#" target="_blank" rel="noopener">Instagram</a>
+    <small>© <span id="year"></span> Kanokai</small>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<dialog class="lightbox" id="lightbox">
+  <button class="lb-close" type="button" aria-label="Close">×</button>
+  <img alt="">
+  <p class="lb-cap"></p>
+</dialog>
+
+<script src="main.js" defer></script>
+</body>
+</html>
