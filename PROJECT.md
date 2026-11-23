@@ -12,7 +12,7 @@
 | Área | Estado |
 |---|---|
 | Diseño y desarrollo (desktop + móvil, EN/ES) | ✅ Listo |
-| Menú con 15 platos y fotos | ✅ Listo, falta que el cliente valide nombres y precios |
+| Carta oficial completa (PDF del cliente) con precios, almuerzos, cócteles y vinos | ✅ Listo (`menu-data.js`) |
 | SEO técnico (title, meta, Schema Restaurant + Menu, sitemap, robots, OG) | ✅ Listo |
 | Datos de contacto (dirección, teléfono, horario) | ✅ Tomados de la ficha de Google (nov 2026), falta que el cliente confirme |
 | Estructura UX de 6 bloques + WhatsApp flotante | ✅ Listo |
@@ -32,10 +32,10 @@ Todo se carga en `main.js`, en `BUSINESS` y `MENU`.
 - [x] Dirección, teléfonos y horario (de Google; confirmar)
 - [ ] ¿Qué número tiene WhatsApp?
 - [ ] 3 reseñas favoritas para mostrar textualmente
-- [ ] Precios de los platos sin precio y la carta completa en PDF
+- [x] Carta completa en PDF (cargada)
 - [ ] Link para pedir en línea (Toast, Uber Eats, DoorDash…) si existe
-- [ ] Validar el nombre de cada plato (los nombres salieron de las fotos)
-- [ ] Precios (opcional mostrarlos)
+- [x] Nombres y precios de platos (de la carta oficial)
+- [ ] Postres: la carta no trae sección de postres (Google muestra picarones, flan y cheesecake)
 - [ ] Platos que faltan en la carta, más bebidas y postres
 - [ ] Historia real del restaurante: quiénes son, de qué región de Perú, desde cuándo
 - [ ] Logo en alta (SVG o PNG) si tienen uno; hoy se usa un wordmark tipográfico

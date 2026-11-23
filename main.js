@@ -7,6 +7,7 @@ const BUSINESS = {
   address: "4305 NW 88th Ave, Sunrise, FL 33351",
   mapQuery: "Konakai Peruvian Cuisine, 4305 NW 88th Ave, Sunrise, FL 33351",
   phones: ["(954) 909-5525", "(954) 404-4272"],
+  email: "konakai1992@gmail.com",
   whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
   instagram: "https://www.instagram.com/konakaiperuviancuisine/",
   reviewsUrl: "https://www.google.com/maps/search/?api=1&query=Konakai+Peruvian+Cuisine+4305+NW+88th+Ave+Sunrise+FL",
@@ -25,63 +26,27 @@ const WA_TEXT = {
 /* Platos estrella (con foto). tag: "rec" = Recomendado, "share" = Para compartir.
    price: "" = sin precio publicado. */
 const FEATURED = [
-  { img: "ceviche-aji-amarillo", price: "20.99", tag: "rec",
-    en: ["Ceviche Ají Amarillo", "Fresh fish cured in lime and golden ají amarillo, with sweet potato and Peruvian corn."],
-    es: ["Ceviche Ají Amarillo", "Pescado fresco en limón y ají amarillo, con camote y choclo."] },
-  { img: "lomo-saltado-tallarin", price: "", tag: "rec",
-    en: ["Lomo Saltado", "Wok-seared beef with onion and tomato. Try it over noodles in huancaína."],
-    es: ["Lomo Saltado", "Lomo al wok con cebolla y tomate. Pruébalo con tallarín a la huancaína."] },
-  { img: "plato-amazonico", price: "", tag: "share",
-    en: ["Amazon Platter", "Juane, tacacho, regional chorizo and sweet plantains. Made to share."],
-    es: ["Plato Amazónico", "Juane, tacacho, chorizo regional y maduros. Para compartir."] },
-  { img: "chicharron-pescado", price: "", tag: "share",
-    en: ["Chicharrón de Pescado", "Crispy fried fish with cassava and salsa criolla."],
-    es: ["Chicharrón de Pescado", "Pescado frito crocante con yuca y salsa criolla."] },
-  { img: "tacacho-cecina", price: "", tag: "",
-    en: ["Tacacho con Cecina", "Green-plantain tacacho, smoked cecina, chorizo, sweet plantain and a fried egg."],
-    es: ["Tacacho con Cecina", "Tacacho, cecina ahumada, chorizo, maduro y huevo frito."] },
-  { img: "papas-rellenas", price: "", tag: "",
-    en: ["Papa Rellena", "Golden potato croquettes stuffed with seasoned beef."],
-    es: ["Papa Rellena", "Papa dorada rellena de carne sazonada."] },
+  { img: "ceviche-aji-amarillo", price: "19.99", tag: "rec",
+    en: ["Ceviche Clásico en Ají Amarillo", "House fish cured in lime and golden ají amarillo, with sweet potato and Peruvian corn."],
+    es: ["Ceviche Clásico en Ají Amarillo", "Pescado de la casa en limón y ají amarillo, con camote y choclo."] },
+  { img: "lomo-saltado-tallarin", price: "26.99", tag: "rec",
+    en: ["Tallarín a la Huancaína con Lomo Saltado", "Wok-seared beef with onion and tomato over noodles in creamy huancaína."],
+    es: ["Tallarín a la Huancaína con Lomo Saltado", "Lomo saltado al wok sobre tallarín en cremosa salsa huancaína."] },
+  { img: "plato-amazonico", price: "46.99", tag: "share",
+    en: ["Piqueo Amazónico", "Cecina, chorizo, tacacho, juane, salsa criolla and fried sweet plantains."],
+    es: ["Piqueo Amazónico", "Cecina, chorizo, tacacho, juane, sarsa de cebolla y maduros fritos."] },
+  { img: "tacacho-cecina", price: "59.99", tag: "share",
+    en: ["Chacarero Amazónico", "Cecina, chorizo, tacacho, juane, sweet plantains, fried egg and churrasco or grilled chicken."],
+    es: ["Chacarero Amazónico", "Cecina, chorizo, tacacho, juane, maduros, huevo frito y churrasco o pollo a la plancha."] },
+  { img: "chicharron-pescado", price: "21.99", tag: "",
+    en: ["Chicharrón de Pescado", "Crispy fried fish with yuca and salsa criolla. Also with corvina or calamari."],
+    es: ["Chicharrón de Pescado", "Pescado frito crocante con yuca y salsa criolla. También de corvina o calamar."] },
+  { img: "papas-rellenas", price: "15.99", tag: "",
+    en: ["Papa Rellena", "Golden potato stuffed with seasoned beef, with salsa criolla."],
+    es: ["Papa Rellena", "Papa dorada rellena de carne sazonada, con salsa criolla."] },
 ];
 
-/* Carta completa (lista). Precios de la ficha de Google; from = "desde". */
-const MENU = [
-  { id: "sea", en: "Ceviches & seafood", es: "Ceviches y mariscos", items: [
-    { name: "Ceviche Ají Amarillo", price: "20.99" },
-    { name: "Ceviche Clásico" }, { name: "Ceviche al Rocoto" },
-    { name: "Causa Acevichada", price: "15.99", from: true },
-    { name: "Choros a la Chalaca", price: "15.50" },
-    { name: "Pulpo Anticuchero", price: "22.99", from: true },
-    { name: "Parihuela", price: "21.99", from: true },
-    { name: "Mariscos Saltados Konakai", price: "21.99", from: true },
-    { name: "Arroz con Mariscos", price: "21.99", from: true },
-    { name: "Pescado a lo Macho", price: "23.99", from: true },
-    { name: "Chicharrón de Pescado" }, { name: "Sudado de Pescado" },
-  ]},
-  { id: "chifa", en: "Chifa", es: "Chifa", items: [
-    { name: "Special Konakai Fried Rice", price: "17.99", from: true },
-    { name: "Chicken Fried Rice", price: "17.20" },
-  ]},
-  { id: "criollo", en: "Creole classics", es: "Criollos", items: [
-    { name: "Lomo Saltado a lo Pobre", price: "25.99", from: true },
-    { name: "Churrasco a lo Macho", price: "28.99", from: true },
-    { name: "Tallarín Verde con Churrasco" },
-    { name: "Ají de Gallina", price: "15.99", from: true },
-    { name: "Anticucho con Papa a la Huancaína", price: "16.99", from: true },
-    { name: "Papa Rellena" }, { name: "Yuquitas a la Huancaína" },
-  ]},
-  { id: "selva", en: "From the Amazon", es: "De la selva", items: [
-    { name: "Tacacho con Lomo Saltado", price: "25.99", from: true },
-    { name: "Tacacho con Cecina" }, { name: "Juane" },
-  ]},
-  { id: "dessert", en: "Desserts & drinks", es: "Postres y bebidas", items: [
-    { name: "Picarones", price: "14.99" },
-    { name: "Flan", price: "6.99", from: true },
-    { name: "Passion Fruit Cheesecake", price: "6.99", from: true },
-    { name: "Cusqueña" },
-  ]},
-];
+/* La carta completa está en menu-data.js (CARTA). */
 
 /* Reseñas reales: copiar textualmente de Google con permiso del cliente.
    Formato: { text: "...", author: "Nombre I.", source: "Google" }. Vacío = se oculta. */
@@ -100,10 +65,10 @@ const I18N = {
     "hero.rating": "+1,400 reseñas en Google",
     "hero.eyebrow": "Negocio familiar desde 1992 · Sunrise, FL",
     "hero.title": "La mesa peruana de confianza en Broward desde 1992.",
-    "hero.lead": "Ceviche al momento, lomo saltado humeante y el mejor chifa de la zona. A minutos de Sawgrass Mills y Fort Lauderdale.",
+    "hero.lead": "Ceviches, lomo saltado humeante, el mejor chifa de la zona y sabores de la selva. A minutos de Sawgrass Mills y Fort Lauderdale.",
     "menu.eyebrow": "Favoritos de la casa", "menu.title": "Nuestros platos estrella",
     "menu.full": "Ver la carta completa", "menu.less": "Ocultar la carta",
-    "menu.note": "Precios referenciales, pueden variar. Pregunta por la pesca del día y los especiales de almuerzo (12–3:30 PM).",
+    "menu.note": "Avísanos si tienes alguna alergia alimentaria. Se agrega 18% de propina a grupos de 5 o más. Precios sujetos a cambio.",
     "about.eyebrow": "La experiencia Konakai",
     "about.title": "Tres décadas de cocina peruana, una sola familia.",
     "about.p1": "Konakai es un restaurante familiar desde 1992. Cocinamos todo el Perú: ceviches de la costa, clásicos criollos como el lomo saltado y el ají de gallina, y el chifa, la cocina peruano-china al wok que nos hizo conocidos.",
@@ -116,7 +81,10 @@ const I18N = {
     "visit.eyebrow": "Ubicación y horario", "visit.title": "Ven con hambre.",
     "visit.address": "Dirección", "visit.phone": "Teléfono / reservas", "visit.hours": "Horario",
     "visit.near": "Cerca de Sawgrass Mills · 20 min del centro de Fort Lauderdale",
-    "visit.lunch": "Especiales de almuerzo todos los días, 12–3:30 PM",
+    "visit.lunch": "Almuerzos ejecutivos de lunes a viernes, 12–3:30 PM (excepto feriados)",
+    "visit.events": "Karaoke viernes y sábado desde las 9 PM · Eventos privados y cumpleaños · Delivery",
+    "visit.email": "Email",
+    "about.p3": "Los viernes y sábados la noche sigue con karaoke desde las 9 PM. Celebramos cumpleaños, eventos especiales y todo tipo de celebración.",
   },
 };
 const TAGS = { rec: { en: "Recommended", es: "Recomendado" }, share: { en: "To share", es: "Para compartir" } };
@@ -129,7 +97,7 @@ EN_DEFAULTS["menu.less"] = "Hide the menu";
 
 let lang = "en";
 try { lang = localStorage.getItem("konakai-lang") || ((navigator.language || "").startsWith("es") ? "es" : "en"); } catch {}
-let activeTab = MENU[0].id;
+let activeTab = CARTA[0].id;
 let fullOpen = false;
 const t = k => (lang === "es" && I18N.es[k]) || EN_DEFAULTS[k];
 const money = (p, from) => p ? `${from ? (lang === "es" ? "desde " : "from ") : ""}$${p}` : "";
@@ -152,13 +120,20 @@ function renderFeatured() {
   }).join("");
 }
 function renderTabs() {
-  $("#menuTabs").innerHTML = MENU.map(c =>
+  $("#menuTabs").innerHTML = CARTA.map(c =>
     `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
+const fmt = p => p === "MKP" ? (lang === "es" ? "Precio de mercado" : "Market price") : `$${p}`;
 function renderList() {
-  const cat = MENU.find(c => c.id === activeTab);
-  $("#menuList").innerHTML = cat.items.map(i =>
-    `<li><span class="ml-name">${i.name}</span><span class="ml-dots" aria-hidden="true"></span><span class="ml-price">${money(i.price, i.from) || "—"}</span></li>`).join("");
+  const cat = CARTA.find(c => c.id === activeTab);
+  const item = i => `<li class="mi">
+      <div class="mi-row"><span class="ml-name">${i.n}</span><span class="ml-dots" aria-hidden="true"></span>${i.p ? `<span class="ml-price">${fmt(i.p)}</span>` : ""}</div>
+      ${i.d ? `<p class="mi-desc">${i.d}</p>` : ""}
+      ${i.v ? `<ul class="mi-vars">${i.v.map(([l, p]) => `<li><span>${l}</span><span class="ml-price">${fmt(p)}</span></li>`).join("")}</ul>` : ""}
+    </li>`;
+  $("#menuList").innerHTML =
+    (cat.note ? `<p class="cat-note">${cat.note[lang]}</p>` : "") +
+    cat.groups.map(g => `<section class="mgroup">${g.en ? `<h3 class="mgroup-title">${g[lang]}</h3>` : ""}<ul class="mitems">${g.items.map(item).join("")}</ul></section>`).join("");
 }
 function renderAbout() {
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
@@ -186,6 +161,7 @@ function renderBusiness() {
   $(".wa-float").setAttribute("aria-label", t("cta.whatsapp"));
 
   $$(".js-ig").forEach(el => (el.href = B.instagram));
+  $$(".js-email").forEach(el => { el.href = `mailto:${B.email}`; el.textContent = B.email; });
   $$(".js-reviews").forEach(el => (el.href = B.reviewsUrl));
   $(".js-hours").innerHTML = B.hours.map(h => `<li><span>${h[lang]}</span><span>${h.time}</span></li>`).join("");
 }
@@ -210,12 +186,13 @@ function injectMenuSchema() {
   const data = {
     "@context": "https://schema.org", "@type": "Menu", "@id": "https://kanokai-web.vercel.app/#menu",
     name: "Konakai Peruvian Cuisine Menu", inLanguage: ["en", "es"],
-    hasMenuSection: MENU.map(c => ({
+    hasMenuSection: CARTA.map(c => ({
       "@type": "MenuSection", name: c.en,
-      hasMenuItem: c.items.map(i => ({
-        "@type": "MenuItem", name: i.name,
-        ...(i.price && { offers: { "@type": "Offer", price: i.price, priceCurrency: "USD" } }),
-      })),
+      hasMenuItem: c.groups.flatMap(g => g.items).map(i => {
+        const price = i.p && i.p !== "MKP" ? i.p : (i.v || []).map(v => v[1]).find(x => x !== "MKP");
+        return { "@type": "MenuItem", name: i.n, ...(i.d && { description: i.d }),
+          ...(price && { offers: { "@type": "Offer", price, priceCurrency: "USD" } }) };
+      }),
     })),
   };
   const sc = document.createElement("script");
@@ -235,9 +212,9 @@ $("#menuTabs").addEventListener("click", e => {
   activeTab = b.dataset.id; renderTabs(); renderList();
 });
 $("#menuTabs").addEventListener("keydown", e => {
-  const i = MENU.findIndex(c => c.id === activeTab);
+  const i = CARTA.findIndex(c => c.id === activeTab);
   const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
-  activeTab = MENU[(i + d + MENU.length) % MENU.length].id; renderTabs(); renderList();
+  activeTab = CARTA[(i + d + CARTA.length) % CARTA.length].id; renderTabs(); renderList();
   $(`.tab[data-id="${activeTab}"]`).focus();
 });
 
@@ -269,5 +246,10 @@ const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecti
 $$(".section-head, .about-grid, .score, .visit-grid").forEach(el => { el.classList.add("reveal"); io.observe(el); });
 
 $("#year").textContent = new Date().getFullYear();
+/* Link directo a la carta: /#carta o /#carta-chifa */
+const h = location.hash.match(/^#carta(?:-(\w+))?$/);
+if (h) { fullOpen = true; if (CARTA.some(c => c.id === h[1])) activeTab = h[1]; }
+
 injectMenuSchema();
 applyLang();
+if (h) $("#fullMenu").scrollIntoView();
