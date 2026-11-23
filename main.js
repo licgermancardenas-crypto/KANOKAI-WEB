@@ -6,7 +6,7 @@ const BUSINESS = {
   address: "TODO: Street address, Fort Lauderdale, FL 333XX",
   mapQuery: "Fort Lauderdale, FL",          // TODO: dirección exacta para el mapa
   phone: "+1 (954) 000-0000",               // TODO
-  instagram: "https://www.instagram.com/", // TODO: perfil exacto (ej. https://www.instagram.com/kanokai/)
+  instagram: "https://www.instagram.com/konakaiperuviancuisine/",
   orderUrl: "",                             // TODO: Toast / Uber Eats / DoorDash (vacío = oculta botón)
   hours: [                                  // TODO
     { en: "Mon",       es: "Lun",       time: "Closed" },
