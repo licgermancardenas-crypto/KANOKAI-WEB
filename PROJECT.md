@@ -16,6 +16,9 @@
 | SEO técnico (title, meta, Schema Restaurant + Menu, sitemap, robots, OG) | ✅ Listo |
 | Datos de contacto (dirección, teléfono, horario) | ✅ Tomados de la ficha de Google (nov 2026), falta que el cliente confirme |
 | Estructura UX de 6 bloques + WhatsApp flotante | ✅ Listo |
+| Fase 2 UI: crema #FAF8F5, terracota #B8332A, dorado #D49A3A, verde #1E3F35, Playfair Display + Plus Jakarta Sans | ✅ Listo |
+| Formulario de reserva por WhatsApp (fecha, hora según horario, personas) | ✅ Listo |
+| Carta bilingüe con postres | ✅ Listo |
 | Reseñas textuales (3) | ⏳ Elegir con el cliente y cargar en `REVIEWS` |
 | Número de WhatsApp | ⚠️ Se usa (954) 404-4272: **confirmar** |
 | Dominio propio | ⏳ Pendiente de decisión del cliente |

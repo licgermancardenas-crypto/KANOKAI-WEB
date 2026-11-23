@@ -84,6 +84,12 @@ const I18N = {
     "visit.lunch": "Almuerzos ejecutivos de lunes a viernes, 12–3:30 PM (excepto feriados)",
     "visit.events": "Karaoke viernes y sábado desde las 9 PM · Eventos privados y cumpleaños · Delivery",
     "visit.email": "Email",
+    "res.eyebrow": "Reserva directa", "res.title": "Reserva tu mesa en 20 segundos",
+    "res.lead": "Elige fecha, hora y personas. Se abre WhatsApp con el mensaje listo para enviar.",
+    "res.name": "Tu nombre", "res.date": "Fecha", "res.time": "Hora", "res.people": "Personas",
+    "res.notes": "Ocasión o comentario (opcional)", "res.notesPh": "Cumpleaños, silla de bebé…",
+    "res.submit": "Reservar por WhatsApp", "res.namePh": "Opcional",
+    "res.fine": "Grupos de 5 o más: se agrega 18% de propina. Te confirmaremos por WhatsApp.",
     "about.p3": "Los viernes y sábados la noche sigue con karaoke desde las 9 PM. Celebramos cumpleaños, eventos especiales y todo tipo de celebración.",
   },
 };
@@ -96,7 +102,7 @@ $$("[data-i18n]").forEach(el => (EN_DEFAULTS[el.dataset.i18n] = el.innerHTML));
 EN_DEFAULTS["menu.less"] = "Hide the menu";
 
 let lang = "en";
-try { lang = localStorage.getItem("konakai-lang") || ((navigator.language || "").startsWith("es") ? "es" : "en"); } catch {}
+try { lang = localStorage.getItem("konakai-lang") || "en"; } catch {}
 let activeTab = CARTA[0].id;
 let fullOpen = false;
 const t = k => (lang === "es" && I18N.es[k]) || EN_DEFAULTS[k];
@@ -124,12 +130,13 @@ function renderTabs() {
     `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
 const fmt = p => p === "MKP" ? (lang === "es" ? "Precio de mercado" : "Market price") : `$${p}`;
+const desc = i => (lang === "es" ? i.de || i.d : i.d) || "";
 function renderList() {
   const cat = CARTA.find(c => c.id === activeTab);
   const item = i => `<li class="mi">
-      <div class="mi-row"><span class="ml-name">${i.n}</span><span class="ml-dots" aria-hidden="true"></span>${i.p ? `<span class="ml-price">${fmt(i.p)}</span>` : ""}</div>
-      ${i.d ? `<p class="mi-desc">${i.d}</p>` : ""}
-      ${i.v ? `<ul class="mi-vars">${i.v.map(([l, p]) => `<li><span>${l}</span><span class="ml-price">${fmt(p)}</span></li>`).join("")}</ul>` : ""}
+      <div class="mi-row"><span class="ml-name">${i.n}</span><span class="ml-dots" aria-hidden="true"></span>${i.p ? `<span class="ml-price">${i.from ? (lang === "es" ? "desde " : "from ") : ""}${fmt(i.p)}</span>` : ""}</div>
+      ${desc(i) ? `<p class="mi-desc">${desc(i)}</p>` : ""}
+      ${i.v ? `<ul class="mi-vars">${i.v.map(([l, p, les]) => `<li><span>${lang === "es" && les ? les : l}</span><span class="ml-price">${fmt(p)}</span></li>`).join("")}</ul>` : ""}
     </li>`;
   $("#menuList").innerHTML =
     (cat.note ? `<p class="cat-note">${cat.note[lang]}</p>` : "") +
@@ -157,7 +164,7 @@ function renderBusiness() {
 
   const wa = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_TEXT[lang])}`;
   $$(".js-whatsapp").forEach(el => (el.href = wa));
-  show(".js-whatsapp", !!B.whatsapp);
+  show(".js-whatsapp, .js-wa-dep", !!B.whatsapp);
   $(".wa-float").setAttribute("aria-label", t("cta.whatsapp"));
 
   $$(".js-ig").forEach(el => (el.href = B.instagram));
@@ -175,10 +182,14 @@ function renderFullToggle() {
 function applyLang() {
   document.documentElement.lang = lang;
   $$("[data-i18n]").forEach(el => (el.innerHTML = t(el.dataset.i18n)));
+  $$("[data-i18n-ph]").forEach(el => {
+    el.dataset.phEn ??= el.placeholder;
+    el.placeholder = lang === "es" ? I18N.es[el.dataset.i18nPh] : el.dataset.phEn;
+  });
   const tg = $("#langToggle");
   tg.textContent = lang === "es" ? "EN" : "ES";
   tg.setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
-  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderReviews(); renderBusiness(); renderFullToggle();
+  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
 }
 
 /* SEO: carta como datos estructurados */
@@ -199,6 +210,55 @@ function injectMenuSchema() {
   sc.type = "application/ld+json"; sc.textContent = JSON.stringify(data);
   document.head.appendChild(sc);
 }
+
+/* ---------- Reserva por WhatsApp ---------- */
+const pad = n => String(n).padStart(2, "0");
+const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`; };
+const parseDate = v => { const [y, m, d] = v.split("-").map(Number); return new Date(y, m - 1, d); };
+const label12 = mins => {
+  const h = Math.floor(mins / 60) % 24, m = mins % 60, ap = h < 12 ? "AM" : "PM", h12 = h % 12 || 12;
+  return `${h12}:${pad(m)} ${ap}`;
+};
+function renderTimes() {
+  const sel = $("#resTime"), dv = $("#resDate").value, prev = sel.value;
+  const dow = dv ? parseDate(dv).getDay() : -1;
+  const last = dow === 5 || dow === 6 ? 24 * 60 : 21 * 60 + 30;   // Vie–Sáb hasta 12 AM, resto 9:30 PM
+  let opts = "";
+  for (let m = 12 * 60; m <= last; m += 30) opts += `<option value="${m}">${label12(m)}</option>`;
+  sel.innerHTML = `<option value="">${lang === "es" ? "Elige hora" : "Pick a time"}</option>` + opts;
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+}
+function renderPeople() {
+  const sel = $("#resPeople"), prev = sel.value || "2";
+  let o = "";
+  for (let n = 1; n <= 12; n++) o += `<option value="${n}">${n} ${lang === "es" ? (n === 1 ? "persona" : "personas") : (n === 1 ? "person" : "people")}</option>`;
+  o += `<option value="13+">13+ ${lang === "es" ? "personas" : "people"}</option>`;
+  sel.innerHTML = o; sel.value = prev;
+}
+function renderReserve() {
+  $("#resDate").min = todayISO();
+  renderTimes(); renderPeople();
+  $("#reserveForm").hidden = !BUSINESS.whatsapp;
+}
+$("#resDate").addEventListener("change", renderTimes);
+$("#reserveForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.currentTarget;
+  if (!f.reportValidity()) return;
+  const es = lang === "es";
+  const date = parseDate($("#resDate").value).toLocaleDateString(es ? "es-US" : "en-US", { weekday: "long", day: "numeric", month: "long" });
+  const time = label12(Number($("#resTime").value));
+  const people = $("#resPeople").value;
+  const name = $("#resName").value.trim(), notes = $("#resNotes").value.trim();
+  let msg = es
+    ? `Hola KONAKAI, me gustaría reservar una mesa para ${people} ${people === "1" ? "persona" : "personas"} el ${date} a las ${time}.`
+    : `Hi KONAKAI, I'd like to reserve a table for ${people} ${people === "1" ? "person" : "people"} on ${date} at ${time}.`;
+  if (name) msg += es ? ` A nombre de: ${name}.` : ` Name: ${name}.`;
+  if (notes) msg += es ? ` Comentario: ${notes}.` : ` Note: ${notes}.`;
+  const url = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`;
+  const w = window.open(url, "_blank", "noopener");
+  if (!w) location.href = url;
+});
 
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
