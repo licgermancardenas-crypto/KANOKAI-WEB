@@ -1,6 +1,6 @@
 # Konakai Peruvian Cuisine — Proyecto web
 
-**Cliente:** Konakai Peruvian Cuisine · Fort Lauderdale, FL · Instagram [@konakaiperuviancuisine](https://www.instagram.com/konakaiperuviancuisine/)
+**Cliente:** Konakai Peruvian Cuisine · 4305 NW 88th Ave, Sunrise, FL 33351 (área de Fort Lauderdale) · (954) 909-5525 · familia desde 1992, especialistas en chifa · Instagram [@konakaiperuviancuisine](https://www.instagram.com/konakaiperuviancuisine/)
 **Responsable:** German Cardenas
 **Web en vivo:** https://kanokai-web.vercel.app · **Repo:** licgermancardenas-crypto/KANOKAI-WEB
 **Deploy:** automático en Vercel con cada push a `main`.
@@ -14,7 +14,10 @@
 | Diseño y desarrollo (desktop + móvil, EN/ES) | ✅ Listo |
 | Menú con 15 platos y fotos | ✅ Listo, falta que el cliente valide nombres y precios |
 | SEO técnico (title, meta, Schema Restaurant + Menu, sitemap, robots, OG) | ✅ Listo |
-| Datos de contacto (dirección, teléfono, horario) | ⏳ **Bloqueado: esperando al cliente** |
+| Datos de contacto (dirección, teléfono, horario) | ✅ Tomados de la ficha de Google (nov 2026), falta que el cliente confirme |
+| Estructura UX de 6 bloques + WhatsApp flotante | ✅ Listo |
+| Reseñas textuales (3) | ⏳ Elegir con el cliente y cargar en `REVIEWS` |
+| Número de WhatsApp | ⚠️ Se usa (954) 404-4272: **confirmar** |
 | Dominio propio | ⏳ Pendiente de decisión del cliente |
 | Google Business Profile | ⏳ Pendiente (lo crea o gestiona el cliente) |
 
@@ -26,10 +29,10 @@ Mientras falte un dato, la web **lo oculta** en vez de mostrar uno inventado. Po
 
 Todo se carga en `main.js`, en `BUSINESS` y `MENU`.
 
-- [ ] Dirección completa (calle, número, suite, ZIP)
-- [ ] Teléfono
-- [ ] WhatsApp para reservas (si lo usan)
-- [ ] Horario por día
+- [x] Dirección, teléfonos y horario (de Google; confirmar)
+- [ ] ¿Qué número tiene WhatsApp?
+- [ ] 3 reseñas favoritas para mostrar textualmente
+- [ ] Precios de los platos sin precio y la carta completa en PDF
 - [ ] Link para pedir en línea (Toast, Uber Eats, DoorDash…) si existe
 - [ ] Validar el nombre de cada plato (los nombres salieron de las fotos)
 - [ ] Precios (opcional mostrarlos)
