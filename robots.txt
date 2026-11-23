@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kanokai-web.vercel.app/sitemap.xml
+Sitemap: https://konakai-web.vercel.app/sitemap.xml

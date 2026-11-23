@@ -230,7 +230,7 @@ function applyLang() {
 /* SEO: carta como datos estructurados */
 function injectMenuSchema() {
   const data = {
-    "@context": "https://schema.org", "@type": "Menu", "@id": "https://kanokai-web.vercel.app/#menu",
+    "@context": "https://schema.org", "@type": "Menu", "@id": "https://konakai-web.vercel.app/#menu",
     name: "Konakai Peruvian Cuisine Menu", inLanguage: ["en", "es"],
     hasMenuSection: CARTA.map(c => ({
       "@type": "MenuSection", name: c.en,

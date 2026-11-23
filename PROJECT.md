@@ -2,7 +2,7 @@
 
 **Cliente:** Konakai Peruvian Cuisine · 4305 NW 88th Ave, Sunrise, FL 33351 (área de Fort Lauderdale) · (954) 909-5525 · familia desde 1992, especialistas en chifa · Instagram [@konakaiperuviancuisine](https://www.instagram.com/konakaiperuviancuisine/)
 **Responsable:** German Cardenas
-**Web en vivo:** https://kanokai-web.vercel.app · **Repo:** licgermancardenas-crypto/KANOKAI-WEB
+**Web en vivo:** https://konakai-web.vercel.app · **Repo:** licgermancardenas-crypto/KONAKAI-WEB
 **Deploy:** automático en Vercel con cada push a `main`.
 
 ---
