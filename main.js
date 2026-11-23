@@ -61,6 +61,20 @@ const FEATURED = [
    Formato: { text: "...", author: "Nombre I.", source: "Google" }. Vacío = se oculta. */
 const REVIEWS = [];
 
+/* Galería: [archivo, nombre EN, nombre ES] */
+const GALLERY = [
+  ["g-ceviche-mixto", "Ceviche Mixto Carretillero", "Ceviche Mixto Carretillero"],
+  ["g-trilogia-copas", "Trilogy of Ceviches", "Trilogía de Ceviches"],
+  ["g-causa-acevichada", "Causa Acevichada", "Causa Acevichada"],
+  ["g-chaufa-camaron", "Shrimp Fried Rice", "Chaufa de Camarón"],
+  ["g-jalea-pargo", "Jalea de Pargo", "Jalea de Pargo"],
+  ["g-leche-tigre", "Leche de Tigre Carretillera", "Leche de Tigre Carretillera"],
+  ["g-pollo-pina", "Chifa Chicken with Pineapple", "Pollo con Piña (chifa)"],
+  ["g-aji-gallina", "Ají de Gallina", "Ají de Gallina"],
+  ["g-torta-chocolate", "Chocolate Cake", "Torta de Chocolate"],
+  ["g-flan", "Flan", "Flan"],
+];
+
 const ABOUT_IMGS = ["parihuela-noche", "palta-rellena", "cheesecake-maracuya"];
 
 /* ========================================================= */
@@ -93,6 +107,8 @@ const I18N = {
     "visit.lunch": "Almuerzos ejecutivos de lunes a viernes, 12–3:30 PM (excepto feriados)",
     "visit.events": "Karaoke viernes y sábado desde las 9 PM · Eventos privados y cumpleaños · Delivery",
     "visit.email": "Email",
+    "nav.gallery": "Galería", "gallery.eyebrow": "Galería", "gallery.title": "Directo de nuestra cocina",
+    "gallery.ig": "Más en Instagram",
     "res.eyebrow": "Reserva directa", "res.title": "Reserva tu mesa en 20 segundos",
     "res.lead": "Elige fecha, hora y personas. Se abre WhatsApp con el mensaje listo para enviar.",
     "res.name": "Tu nombre", "res.date": "Fecha", "res.time": "Hora", "res.people": "Personas",
@@ -119,7 +135,11 @@ const money = (p, from) => p ? `${from ? (lang === "es" ? "desde " : "from ") : 
 
 const pic = (name, alt, lazy = true) =>
   `<picture><source srcset="img/${name}.webp" type="image/webp"><img src="img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy"' : ""}></picture>`;
-const dishName = img => { const d = FEATURED.find(x => x.img === img); return d ? d[lang][0] : "Konakai"; };
+const dishName = img => {
+  const d = FEATURED.find(x => x.img === img); if (d) return d[lang][0];
+  const g = GALLERY.find(x => x[0] === img); if (g) return lang === "es" ? g[2] : g[1];
+  return "Konakai";
+};
 
 function renderFeatured() {
   $("#featuredGrid").innerHTML = FEATURED.map((d, i) => {
@@ -150,6 +170,12 @@ function renderList() {
   $("#menuList").innerHTML =
     (cat.note ? `<p class="cat-note">${cat.note[lang]}</p>` : "") +
     cat.groups.map(g => `<section class="mgroup">${g.en ? `<h3 class="mgroup-title">${g[lang]}</h3>` : ""}<ul class="mitems">${g.items.map(item).join("")}</ul></section>`).join("");
+}
+function renderGallery() {
+  $("#galleryGrid").innerHTML = GALLERY.map(([img, en, es]) => {
+    const name = lang === "es" ? es : en;
+    return `<button type="button" class="gitem" data-zoom="${img}" aria-label="${name}">${pic(img, name)}<span class="gcap">${name}</span></button>`;
+  }).join("");
 }
 function renderAbout() {
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
@@ -198,7 +224,7 @@ function applyLang() {
   const tg = $("#langToggle");
   tg.textContent = lang === "es" ? "EN" : "ES";
   tg.setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
-  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
+  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderGallery(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
 }
 
 /* SEO: carta como datos estructurados */
@@ -312,7 +338,7 @@ const onScroll = () => nav.classList.toggle("scrolled", scrollY > 40);
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
 const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } }), { rootMargin: "0px 0px -8% 0px" });
-$$(".section-head, .about-grid, .score, .visit-grid").forEach(el => { el.classList.add("reveal"); io.observe(el); });
+$$(".section-head, .about-grid, .score, .visit-grid, .masonry").forEach(el => { el.classList.add("reveal"); io.observe(el); });
 
 $("#year").textContent = new Date().getFullYear();
 /* Link directo a la carta: /#carta o /#carta-chifa */
