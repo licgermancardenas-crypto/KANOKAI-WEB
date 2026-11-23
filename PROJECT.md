@@ -21,7 +21,7 @@
 | Dominio propio | ⏳ Pendiente de decisión del cliente |
 | Google Business Profile | ⏳ Pendiente (lo crea o gestiona el cliente) |
 
-Mientras falte un dato, la web **lo oculta** en vez de mostrar uno inventado. Por eso hoy no aparecen el botón Llamar, el horario ni el botón Pedir.
+Mientras falte un dato, la web **lo oculta** en vez de mostrar uno inventado. Hoy está oculto solo el botón Pedir en línea (no tienen link) y los testimonios textuales.
 
 ---
 
