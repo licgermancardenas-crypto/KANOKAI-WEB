@@ -26,24 +26,33 @@ const WA_TEXT = {
 /* Platos estrella (con foto). tag: "rec" = Recomendado, "share" = Para compartir.
    price: "" = sin precio publicado. */
 const FEATURED = [
-  { img: "ceviche-aji-amarillo", price: "19.99", tag: "rec",
-    en: ["Ceviche Clásico en Ají Amarillo", "House fish cured in lime and golden ají amarillo, with sweet potato and Peruvian corn."],
-    es: ["Ceviche Clásico en Ají Amarillo", "Pescado de la casa en limón y ají amarillo, con camote y choclo."] },
-  { img: "lomo-saltado-tallarin", price: "26.99", tag: "rec",
-    en: ["Tallarín a la Huancaína con Lomo Saltado", "Wok-seared beef with onion and tomato over noodles in creamy huancaína."],
-    es: ["Tallarín a la Huancaína con Lomo Saltado", "Lomo saltado al wok sobre tallarín en cremosa salsa huancaína."] },
-  { img: "plato-amazonico", price: "46.99", tag: "share",
-    en: ["Piqueo Amazónico", "Cecina, chorizo, tacacho, juane, salsa criolla and fried sweet plantains."],
-    es: ["Piqueo Amazónico", "Cecina, chorizo, tacacho, juane, sarsa de cebolla y maduros fritos."] },
-  { img: "tacacho-cecina", price: "59.99", tag: "share",
-    en: ["Chacarero Amazónico", "Cecina, chorizo, tacacho, juane, sweet plantains, fried egg and churrasco or grilled chicken."],
-    es: ["Chacarero Amazónico", "Cecina, chorizo, tacacho, juane, maduros, huevo frito y churrasco o pollo a la plancha."] },
-  { img: "chicharron-pescado", price: "21.99", tag: "",
-    en: ["Chicharrón de Pescado", "Crispy fried fish with yuca and salsa criolla. Also with corvina or calamari."],
-    es: ["Chicharrón de Pescado", "Pescado frito crocante con yuca y salsa criolla. También de corvina o calamar."] },
-  { img: "papas-rellenas", price: "15.99", tag: "",
-    en: ["Papa Rellena", "Golden potato stuffed with seasoned beef, with salsa criolla."],
-    es: ["Papa Rellena", "Papa dorada rellena de carne sazonada, con salsa criolla."] },
+  { img: "ceviche-carretillero", price: "22.99", tag: "rec",
+    en: ["Ceviche Carretillero", "Our classic ceviche crowned with crispy calamari, sweet potato and Peruvian corn."],
+    es: ["Ceviche Carretillero", "Nuestro ceviche clásico coronado con chicharrón de calamar, camote y choclo."] },
+  { img: "tropikal-konakai", price: "58.99", tag: "share",
+    en: ["Tropikal Konakai", "Causa, jalea mixta, tostones and shrimp chalaca, with a vuelve a la vida cocktail."],
+    es: ["Tropikal Konakai", "Causa, jalea mixta, tostones y camarones a la chalaca, con su vuelve a la vida."] },
+  { img: "pulpo-anticuchero", price: "27.99", tag: "rec",
+    en: ["Pulpo Anticuchero", "Octopus marinated in Peruvian spices and grilled, served sizzling with golden potatoes."],
+    es: ["Pulpo Anticuchero", "Pulpo marinado en especias peruanas, a la parrilla y servido en plancha caliente con papas doradas."] },
+  { img: "lomo-saltado", price: "24.99", tag: "rec",
+    en: ["Lomo Saltado", "Wok-seared steak with onion, tomato and cilantro in wine and soy sauce, with rice and fries."],
+    es: ["Lomo Saltado", "Lomo al wok con cebolla, tomate y culantro en vino y sillao, con arroz y papas fritas."] },
+  { img: "ceviche-afrodisiaco", price: "33.99", tag: "",
+    en: ["Ceviche Afrodisíaco del Chef", "Corvina, shrimp, mussels, octopus, scallops, calamari and avocado."],
+    es: ["Ceviche Afrodisíaco del Chef", "Corvina, camarón, choros, pulpo, conchas, calamar y palta."] },
+  { img: "arroz-con-mariscos", price: "24.99", tag: "",
+    en: ["Arroz con Mariscos", "Peruvian-style seafood rice, similar to paella."],
+    es: ["Arroz con Mariscos", "Arroz con mariscos a la peruana, al estilo de una paella."] },
+  { img: "kam-lu-wonton", price: "28.99", tag: "share",
+    en: ["Kam Lu Wonton", "Chifa classic: sweet and sour chicken, pork and shrimp over crispy wontons with pineapple."],
+    es: ["Kam Lu Wonton", "Clásico del chifa: pollo, cerdo y camarón agridulce sobre wantán crocante con piña."] },
+  { img: "tacacho-cecina-chorizo", price: "29.99", tag: "",
+    en: ["Cecina, Chorizo con Tacacho", "From the Amazon: smoked cecina, regional chorizo and green-plantain tacacho."],
+    es: ["Cecina, Chorizo con Tacacho", "De la selva: cecina ahumada, chorizo regional y tacacho de plátano verde."] },
+  { img: "anticuchos", price: "17.99", tag: "",
+    en: ["Anticuchos", "Beef heart skewers marinated in ají panca, grilled over high heat."],
+    es: ["Anticuchos", "Brochetas de corazón de res marinadas en ají panca, a la parrilla."] },
 ];
 
 /* La carta completa está en menu-data.js (CARTA). */
@@ -52,7 +61,7 @@ const FEATURED = [
    Formato: { text: "...", author: "Nombre I.", source: "Google" }. Vacío = se oculta. */
 const REVIEWS = [];
 
-const ABOUT_IMGS = ["sudado-pescado", "ceviche-cucharitas", "juane-maduros"];
+const ABOUT_IMGS = ["parihuela-noche", "palta-rellena", "cheesecake-maracuya"];
 
 /* ========================================================= */
 
