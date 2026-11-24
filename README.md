@@ -22,7 +22,7 @@ Todo está al inicio de `main.js`:
 ### Cambiar la carta
 
 1. Editar `menu-data.js` (platos, precios, descripciones EN/ES).
-2. Correr `node tools/build-menu.mjs`: escribe la carta dentro de `index.html` para que Google la indexe.
+2. Correr `node tools/build-menu.mjs`: escribe la carta dentro de `index.html` y genera la versión en español `es/index.html` (textos de `I18N.es` en `main.js`). Correrlo también después de cambiar cualquier texto de la página.
 3. Commit y push: Vercel publica solo.
 
 Regla: un dato vacío se **oculta** en la web (nunca se publican datos inventados).

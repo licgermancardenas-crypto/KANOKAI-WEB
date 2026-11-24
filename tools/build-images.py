@@ -7,13 +7,14 @@ Salida:  img/<nombre>-800.webp, -1400.webp, -2400.webp  +  img/<nombre>.jpg (160
 
 Para agregar o cambiar una foto: editar PHOTOS (nombre en la web -> archivo original) y volver a correr.
 """
+import sys
 from pathlib import Path
 from PIL import Image, ImageOps, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT.parent / "FOTOS PLATOS HD"
 OUT = ROOT / "img"
-WIDTHS = (800, 1400, 2400)          # se limita al tamaño real del original
+WIDTHS = (400, 800, 1400, 2400)          # se limita al tamaño real del original
 JPG_SIZE, JPG_Q, WEBP_Q = 1600, 88, 86
 
 P = "WhatsApp Image 2026-11-22 at "
@@ -44,6 +45,17 @@ PHOTOS = {
     "g-aji-gallina":          P + "4.25.06 PM.jpeg",
     "g-torta-chocolate":      P + "4.25.18 PM (2).jpeg",
     "g-flan":                 P + "4.25.19 PM.jpeg",
+    # galería 2 (platos que no aparecen en otras secciones)
+    "gx-chijaukay":           P + "4.13.58 PM (3).jpeg",
+    "gx-special-platter":     P + "4.13.58 PM (4).jpeg",
+    "gx-salmon-oriental":     P + "5.10.01 PM (1).jpeg",
+    "gx-parihuela":           P + "4.25.05 PM.jpeg",
+    "gx-arroz-nortena":       P + "4.25.06 PM (1).jpeg",
+    "gx-chupe":               P + "4.25.06 PM (2).jpeg",
+    "gx-tallarin-churrasco":  P + "5.10.05 PM (4).jpeg",
+    "gx-lomo-pobre":          P + "4.16.59 PM (1).jpeg",
+    "gx-tacu-tacu-seco":      P + "4.16.59 PM (5).jpeg",
+    "gx-pollo-pobre":         P + "4.16.57 PM (6).jpeg",
     # ubicación
     "loc-terraza":            P + "4.16.57 PM (2).jpeg",
     "loc-jardin":             P + "4.25.22 PM (2).jpeg",
@@ -61,10 +73,13 @@ def fit(im, w):
     return im.resize((w, h), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.0, percent=55, threshold=3))
 
 def main():
+    only = set(sys.argv[1:])          # opcional: generar solo estos nombres
     missing = [f for f in PHOTOS.values() if not (SRC / f).exists()]
     if missing:
         raise SystemExit("Faltan originales:\n  " + "\n  ".join(missing))
     for name, fname in PHOTOS.items():
+        if only and name not in only:
+            continue
         im = ImageOps.exif_transpose(Image.open(SRC / fname)).convert("RGB")
         # srcset por ANCHO: -800, -1400, -2400 (si el original es más angosto, se guarda a su ancho real)
         made = []

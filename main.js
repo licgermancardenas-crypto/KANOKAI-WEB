@@ -9,9 +9,13 @@ const BUSINESS = {
   directionsUrl: "https://maps.google.com/?cid=11511504645038760523",
   /* Vista 360°: punto frente al local (OpenStreetMap) y hacia dónde mira la cámara (0=N, 90=E, 180=S, 270=O) */
   streetView: { lat: 26.177652, lng: -80.2694242, heading: 0, pitch: 5 },
-  phones: ["(954) 909-5525", "(954) 404-4272"],
+  /* Teléfonos con su uso. El primero es el principal (llamadas y pedidos para llevar). */
+  phones: [
+    { num: "(954) 909-5525", en: "Restaurant · pickup orders", es: "Restaurante · pedidos para llevar" },
+    { num: "(954) 404-4272", en: "WhatsApp · reservations & events", es: "WhatsApp · reservas y eventos" },
+  ],
   email: "konakai1992@gmail.com",
-  whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
+  whatsapp: "19544044272",   // (954) 404-4272, confirmado por el cliente
   instagram: "https://www.instagram.com/konakaiperuviancuisine/",
   /* Pedidos online / delivery. Vacío = el botón se oculta. */
   order: {
@@ -42,6 +46,12 @@ const EVENT_TYPES = [
   { id: "custom",   es: "un evento a medida",  en: "a custom event",   les: "Otro / a medida",  len: "Something else" },
 ];
 
+/* Pedido para llevar por WhatsApp (sin comisión de apps) */
+const WA_PICKUP = {
+  es: "Hola KONAKAI, quiero hacer un pedido para recoger: ",
+  en: "Hi KONAKAI, I'd like to place a pickup order: ",
+};
+
 /* Mensaje predefinido de WhatsApp */
 const WA_TEXT = {
   es: "Hola KONAKAI, me gustaría reservar una mesa para ",
@@ -67,8 +77,8 @@ const FEATURED = [
     en: ["Ceviche Afrodisíaco del Chef", "Corvina, shrimp, mussels, octopus, scallops, calamari and avocado."],
     es: ["Ceviche Afrodisíaco del Chef", "Corvina, camarón, choros, pulpo, conchas, calamar y palta."] },
   { img: "arroz-con-mariscos", price: "24.99", tag: "",
-    en: ["Arroz con Mariscos", "Peruvian-style seafood rice, similar to paella."],
-    es: ["Arroz con Mariscos", "Arroz con mariscos a la peruana, al estilo de una paella."] },
+    en: ["Arroz con Mariscos", "Rice cooked in a rich seafood stock with ají amarillo, ají panca and cilantro, loaded with shrimp, squid and mussels."],
+    es: ["Arroz con Mariscos", "Arroz cocido en fondo de mariscos con ají amarillo, ají panca y culantro, con camarones, calamar y choros."] },
   { img: "kam-lu-wonton", price: "28.99", tag: "share",
     en: ["Kam Lu Wonton", "Chifa classic: sweet and sour chicken, pork and shrimp over crispy wontons with pineapple."],
     es: ["Kam Lu Wonton", "Clásico del chifa: pollo, cerdo y camarón agridulce sobre wantán crocante con piña."] },
@@ -88,19 +98,28 @@ const REVIEWS = [];
 
 /* Galería: [archivo, nombre EN, nombre ES] */
 const GALLERY = [
-  ["g-ceviche-mixto", "Ceviche Mixto Carretillero", "Ceviche Mixto Carretillero"],
-  ["g-trilogia-copas", "Trilogy of Ceviches", "Trilogía de Ceviches"],
-  ["g-causa-acevichada", "Causa Acevichada", "Causa Acevichada"],
-  ["g-chaufa-camaron", "Shrimp Fried Rice", "Chaufa de Camarón"],
-  ["g-jalea-pargo", "Jalea de Pargo", "Jalea de Pargo"],
-  ["g-leche-tigre", "Leche de Tigre Carretillera", "Leche de Tigre Carretillera"],
-  ["g-pollo-pina", "Chifa Chicken with Pineapple", "Pollo con Piña (chifa)"],
-  ["g-aji-gallina", "Ají de Gallina", "Ají de Gallina"],
-  ["g-torta-chocolate", "Chocolate Cake", "Torta de Chocolate"],
-  ["g-flan", "Flan", "Flan"],
+  ["gx-parihuela", "Parihuela", "Parihuela"],
+  ["gx-chijaukay", "Chijaukay", "Chijaukay"],
+  ["gx-arroz-nortena", "Arroz a la Norteña", "Arroz a la Norteña"],
+  ["gx-chupe", "Chupe", "Chupe"],
+  ["gx-salmon-oriental", "Salmón Oriental", "Salmón Oriental"],
+  ["gx-lomo-pobre", "Lomo Saltado a lo Pobre", "Lomo Saltado a lo Pobre"],
+  ["gx-special-platter", "Konakai Special Platter", "Konakai Special Platter"],
+  ["gx-tacu-tacu-seco", "Tacu Tacu con Seco", "Tacu Tacu con Seco"],
+  ["gx-tallarin-churrasco", "Tallarín Verde con Churrasco", "Tallarín Verde con Churrasco"],
+  ["gx-pollo-pobre", "Pollo a la Parrilla a lo Pobre", "Pollo a la Parrilla a lo Pobre"],
 ];
+/* Nombres de las fotos usadas en la carta (para la ampliación) */
+const PHOTO_NAMES = {
+  "g-chaufa-camaron": ["Arroz Chaufa de Camarón · Shrimp fried rice", "Arroz Chaufa de Camarón"],
+  "g-trilogia-copas": ["Trilogía de Ceviches", "Trilogía de Ceviches"], "g-leche-tigre": ["Leche de Tigre", "Leche de Tigre"],
+  "g-causa-acevichada": ["Causa Acevichada", "Causa Acevichada"], "g-jalea-pargo": ["Jalea de Pargo", "Jalea de Pargo"],
+  "g-pollo-pina": ["Chifa chicken with pineapple", "Pollo con piña (chifa)"], "g-aji-gallina": ["Ají de Gallina", "Ají de Gallina"],
+  "g-torta-chocolate": ["Chocolate Cake", "Torta de Chocolate"], "g-flan": ["Flan", "Flan"],
+  "palta-rellena": ["Palta Rellena", "Palta Rellena"], "cheesecake-maracuya": ["Passion Fruit Cheesecake", "Cheesecake de Maracuyá"],
+};
 
-const ABOUT_IMGS = ["hero-trilogia-ceviches", "palta-rellena", "cheesecake-maracuya"];
+const ABOUT_IMGS = ["hero-trilogia-ceviches", "loc-noche", "loc-terraza"];
 
 /* ========================================================= */
 
@@ -125,7 +144,7 @@ const I18N = {
     "pill.2.t": "Del mar", "pill.2.p": "Ceviches, parihuela, choros a la chalaca y pulpo anticuchero.",
     "pill.3.t": "Sabores de la selva", "pill.3.p": "Tacacho, cecina y juane, difíciles de encontrar en Florida.",
     "reviews.eyebrow": "Lo que dicen las familias", "reviews.title": "Querido en Broward desde 1992",
-    "reviews.count": "Basado en 1,439 reseñas de Google", "reviews.cta": "Leer todas las reseñas en Google",
+    "reviews.count": "Basado en +1,400 reseñas de Google", "reviews.cta": "Leer todas las reseñas en Google",
     "visit.eyebrow": "Ubicación y horario", "visit.title": "Ven con hambre.",
     "visit.address": "Dirección", "visit.phone": "Teléfono / reservas", "visit.hours": "Horario",
     "visit.near": "Cerca de Sawgrass Mills · 20 min del centro de Fort Lauderdale",
@@ -142,12 +161,16 @@ const I18N = {
     "ev.5.t": "Arma tu evento", "ev.5.p": "Piqueos para compartir, menú a medida y bebidas para tu grupo.",
     "ev.cta.t": "Te asesoramos en directo", "ev.cta.p": "Cuéntanos qué tienes en mente y te respondemos por WhatsApp con opciones y precios.",
     "ev.cta.pick": "¿Qué quieres celebrar?", "ev.cta.btn": "Hablar con un asesor",
-    "order.title": "¿Lo quieres en casa?", "order.sub": "Pide delivery o recoge en el local.",
+    "order.title": "¿Lo quieres en casa?", "order.sub": "Pide para llevar sin comisiones por WhatsApp, o delivery por Uber Eats.",
     "order.pickup": "Para llevar:",
     "loc.eyebrow": "Ubicación", "loc.title": "Tu mesa te espera en Sunrise.",
     "loc.parking": "Estacionamiento gratuito",
     "cta.call": "Llámanos",
     "cta.book": "Reserva tu mesa",
+    "open.now": "Abierto ahora · cierra a las", "open.closed": "Cerrado ahora · abre", "open.today": "hoy a las", "open.tomorrow": "mañana a las",
+    "menu.cartaTitle": "La carta completa", "menu.searchLabel": "Buscar en la carta", "menu.searchPh": "Buscar: ceviche, chaufa, lomo…",
+    "menu.noResults": "Ningún plato coincide con tu búsqueda.",
+    "order.waPickup": "Pedir para llevar por WhatsApp", "order.call": "Llamar:",
     "hero.sub": "Restaurante peruano · Sunrise, Florida", "hero.hours": "Horario de atención",
     "hero.note": "Reservas por WhatsApp o teléfono · Estacionamiento gratuito · Karaoke vie y sáb",
     "menu.lead": "Ceviches curados al momento, clásicos criollos al wok, nuestro famoso chifa y los sabores de la selva. 173 platos, cocinados como lo hace nuestra familia desde 1992.",
@@ -174,20 +197,19 @@ const EN_DEFAULTS = {};
 $$("[data-i18n]").forEach(el => (EN_DEFAULTS[el.dataset.i18n] = el.innerHTML));
 EN_DEFAULTS["menu.less"] = "Hide the menu";
 
-let lang = "en";
-try { lang = localStorage.getItem("konakai-lang") || "en"; } catch {}
-let activeTab = CARTA[0].id;
-let fullOpen = false;
+let lang = document.documentElement.lang === "es" ? "es" : "en";   // la página define el idioma: / (inglés) y /es/ (español)
+let activeTab = SECTIONS[0].id;
 const t = k => (lang === "es" && I18N.es[k]) || EN_DEFAULTS[k];
 const money = (p, from) => p ? `${from ? (lang === "es" ? "desde " : "from ") : ""}$${p}` : "";
 
 /* Foto responsive: el navegador elige 800/1400/2400 px según el tamaño en pantalla y la densidad */
-const srcset = n => `img/${n}-800.webp 800w, img/${n}-1400.webp 1400w, img/${n}-2400.webp 2400w`;
+const srcset = n => `/img/${n}-400.webp 400w, /img/${n}-800.webp 800w, /img/${n}-1400.webp 1400w, /img/${n}-2400.webp 2400w`;
 const pic = (name, alt, sizes = "100vw", lazy = true) =>
-  `<picture><source type="image/webp" srcset="${srcset(name)}" sizes="${sizes}"><img src="img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ""}></picture>`;
+  `<picture><source type="image/webp" srcset="${srcset(name)}" sizes="${sizes}"><img src="/img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ""}></picture>`;
 const dishName = img => {
   const d = FEATURED.find(x => x.img === img); if (d) return d[lang][0];
   const g = GALLERY.find(x => x[0] === img); if (g) return lang === "es" ? g[2] : g[1];
+  if (PHOTO_NAMES[img]) return PHOTO_NAMES[img][lang === "es" ? 1 : 0];
   return "Konakai";
 };
 
@@ -205,7 +227,7 @@ function renderFeatured() {
   }).join("");
 }
 function renderTabs() {
-  $("#menuTabs").innerHTML = CARTA.map(c =>
+  $("#menuTabs").innerHTML = SECTIONS.map(c =>
     `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
 function renderList() {
@@ -213,7 +235,32 @@ function renderList() {
 }
 function showTab(id) {
   activeTab = id; renderTabs();
+  if ($("#menuSearch").value) { $("#menuSearch").value = ""; filterMenu(""); }
   $$("#menuList .mcat").forEach(sec => (sec.hidden = sec.dataset.cat !== id));
+}
+/* Buscador de la carta (ignora tildes y mayúsculas) */
+const norm = x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+function filterMenu(q) {
+  const query = norm(q.trim());
+  const secs = $$("#menuList .mcat");
+  if (!query) {
+    secs.forEach(sec => { sec.hidden = sec.dataset.cat !== activeTab; $$(".mi, .mgroup, .mcat-sub, .cat-note", sec).forEach(x => (x.hidden = false)); });
+    $("#menuTabs").classList.remove("dim"); $("#searchEmpty").hidden = true; return;
+  }
+  let total = 0;
+  secs.forEach(sec => {
+    if (sec.dataset.cat === "glossary") { sec.hidden = true; return; }
+    let secCount = 0;
+    $$(".mgroup", sec).forEach(g => {
+      let n = 0;
+      $$(".mi", g).forEach(mi => { const ok = norm(mi.textContent).includes(query); mi.hidden = !ok; if (ok) n++; });
+      g.hidden = !n; secCount += n;
+    });
+    $$(".mcat-sub, .cat-note", sec).forEach(x => (x.hidden = true));
+    sec.hidden = !secCount; total += secCount;
+  });
+  $("#menuTabs").classList.add("dim");
+  $("#searchEmpty").hidden = total > 0;
 }
 function renderGallery() {
   $("#galleryGrid").innerHTML = GALLERY.map(([img, en, es]) => {
@@ -265,9 +312,11 @@ function renderBusiness() {
   const map = $(".js-map"), src = `https://maps.google.com/maps?q=${encodeURIComponent(B.mapQuery)}&z=15&output=embed`;
   if (map.getAttribute("src") !== src) map.src = src;
 
-  $(".js-phones").innerHTML = B.phones.map(p => `<a href="tel:+1${p.replace(/\D/g, "")}">${p}</a>`).join("<br>");
-  $$(".js-call").forEach(el => (el.href = `tel:+1${B.phones[0].replace(/\D/g, "")}`));
-  $$(".js-phone1").forEach(el => (el.textContent = B.phones[0]));
+  const tel = p => `tel:+1${p.num.replace(/\D/g, "")}`;
+  $(".js-phones").innerHTML = B.phones.map(p => `<a class="phone-row" href="${tel(p)}"><span class="phone-label">${p[lang]}</span><span class="phone-num">${p.num}</span></a>`).join("");
+  $$(".js-call").forEach(el => (el.href = tel(B.phones[0])));
+  $$(".js-phone1").forEach(el => (el.textContent = B.phones[0].num));
+  $$(".js-wa-pickup").forEach(el => (el.href = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_PICKUP[lang])}`));
   show(".js-phone-row", B.phones.length > 0);
 
   const wa = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_TEXT[lang])}`;
@@ -279,15 +328,29 @@ function renderBusiness() {
   $$(".js-email").forEach(el => { el.href = `mailto:${B.email}`; el.textContent = B.email; });
   $$(".js-reviews").forEach(el => (el.href = B.reviewsUrl));
   $(".js-hours").innerHTML = B.hours.map(h => `<li><span>${h[lang]}</span><span>${h.time}</span></li>`).join("");
-  const lunch = { en: "Lunch specials · Mon–Fri", es: "Almuerzos · Lun–Vie", time: "12:00 – 3:30 PM" };
-  $(".js-hero-hours").innerHTML = [...B.hours, lunch].map(h => `<li><span>${h[lang]}</span><strong>${h.time}</strong></li>`).join("");
+  renderOpenChip();
 }
-function renderFullToggle() {
-  const b = $("#fullMenuToggle");
-  b.textContent = t(fullOpen ? "menu.less" : "menu.full");
-  b.setAttribute("aria-expanded", fullOpen);
-  $("#fullMenu").hidden = !fullOpen;
+/* "Abierto ahora" según la hora de Florida. Horario: Dom–Jue 12–22 h · Vie–Sáb 12–01 h */
+function renderOpenChip() {
+  const chip = $(".js-open-chip"); if (!chip) return;
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", minute: "numeric", hourCycle: "h23" })
+    .formatToParts(new Date()).map(p => [p.type, p.value]));
+  const day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(parts.weekday), m = (+parts.hour % 24) * 60 + +parts.minute;
+  const late = d => d === 5 || d === 6;                         // vie y sáb cierran a la 1 AM
+  const prev = (day + 6) % 7;
+  let open = false, closes = "";
+  if (m < 60 && late(prev)) { open = true; closes = "1 AM"; }
+  else if (m >= 12 * 60) { const end = late(day) ? 25 * 60 : 22 * 60; if (m < end) { open = true; closes = late(day) ? "1 AM" : "10 PM"; } }
+  const es = lang === "es";
+  chip.classList.toggle("is-open", open);
+  $("span", chip).textContent = open
+    ? `${t("open.now") || "Open now · closes"} ${closes}`.replace("Abierto ahora · cierra a las 1 AM", "Abierto ahora · cierra a la 1 AM")
+    : `${t("open.closed") || "Closed now · opens"} ${m < 12 * 60 ? (t("open.today") || "today at") : (t("open.tomorrow") || "tomorrow at")} 12 PM`;
+  chip.hidden = false;
 }
+EN_DEFAULTS["open.now"] = "Open now · closes"; EN_DEFAULTS["open.closed"] = "Closed now · opens";
+EN_DEFAULTS["open.today"] = "today at"; EN_DEFAULTS["open.tomorrow"] = "tomorrow at";
+setInterval(renderOpenChip, 60000);
 
 function applyLang() {
   document.documentElement.lang = lang;
@@ -299,7 +362,8 @@ function applyLang() {
   const tg = $("#langToggle");
   tg.textContent = lang === "es" ? "EN" : "ES";
   tg.setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
-  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderGallery(); renderInstagram(); renderEvents(); renderOrder(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
+  tg.setAttribute("hreflang", lang === "es" ? "en" : "es");
+  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderGallery(); renderInstagram(); renderEvents(); renderOrder(); renderReviews(); renderBusiness(); renderReserve();
 }
 
 
@@ -461,20 +525,30 @@ document.addEventListener("click", e => {
 
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
-  lang = lang === "es" ? "en" : "es";
-  try { localStorage.setItem("konakai-lang", lang); } catch {}
-  applyLang();
+  location.href = (lang === "es" ? "/" : "/es/") + location.hash;
 });
-$("#fullMenuToggle").addEventListener("click", () => { fullOpen = !fullOpen; renderFullToggle(); });
-$("#openFullMenu").addEventListener("click", () => { fullOpen = true; renderFullToggle(); $("#fullMenu").scrollIntoView({ behavior: "smooth", block: "start" }); });
+$("#openFullMenu").addEventListener("click", () => $("#fullMenu").scrollIntoView({ behavior: "smooth", block: "start" }));
+$("#menuSearch").addEventListener("input", e => filterMenu(e.target.value));
+
+/* Panel de reserva: se abre desde cualquier "Book your table" */
+const drawer = $("#reserveDrawer");
+const openReserve = () => { setNav(false); drawer.showModal(); document.body.classList.add("drawer-open"); setTimeout(() => $("#resDate").focus(), 50); };
+document.addEventListener("click", e => {
+  const a = e.target.closest('[data-reserve], a[href="#reserve"], .js-open-reserve');
+  if (!a || !BUSINESS.whatsapp) return;
+  e.preventDefault(); openReserve();
+});
+drawer.addEventListener("close", () => document.body.classList.remove("drawer-open"));
+$(".drawer-close").addEventListener("click", () => drawer.close());
+drawer.addEventListener("click", e => { if (e.target === drawer) drawer.close(); });
 $("#menuTabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
   showTab(b.dataset.id);
 });
 $("#menuTabs").addEventListener("keydown", e => {
-  const i = CARTA.findIndex(c => c.id === activeTab);
+  const i = SECTIONS.findIndex(c => c.id === activeTab);
   const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
-  showTab(CARTA[(i + d + CARTA.length) % CARTA.length].id);
+  showTab(SECTIONS[(i + d + SECTIONS.length) % SECTIONS.length].id);
   $(`.tab[data-id="${activeTab}"]`).focus();
 });
 
@@ -491,7 +565,7 @@ addEventListener("keydown", e => { if (e.key === "Escape") setNav(false); });
 const lb = $("#lightbox");
 document.addEventListener("click", e => {
   const z = e.target.closest("[data-zoom]"); if (!z) return;
-  $("img", lb).src = `img/${z.dataset.zoom}-2400.webp`;
+  $("img", lb).src = `/img/${z.dataset.zoom}-2400.webp`;
   $("img", lb).alt = $(".lb-cap", lb).textContent = dishName(z.dataset.zoom);
   lb.showModal();
 });
@@ -508,7 +582,22 @@ $$(".section-head, .about-grid, .score, .visit-grid, .masonry").forEach(el => { 
 $("#year").textContent = new Date().getFullYear();
 /* Link directo a la carta: /#carta o /#carta-chifa */
 const h = location.hash.match(/^#carta(?:-(\w+))?$/);
-if (h) { fullOpen = true; if (CARTA.some(c => c.id === h[1])) activeTab = h[1]; }
+if (h && h[1]) activeTab = sectionOf(h[1]);
 
 applyLang();
 if (h) $("#fullMenu").scrollIntoView();
+if (location.hash === "#reserve" && BUSINESS.whatsapp) openReserve();
+
+/* Botón flotante de WhatsApp: se oculta donde ya hay botones de reserva (portada, cierre, pie) */
+(() => {
+  const fab = $(".wa-float"); if (!fab) return;
+  const vis = new Set();
+  new IntersectionObserver(es => {
+    es.forEach(e => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target)));
+    fab.classList.toggle("fab-hidden", vis.size > 0);
+  }, { threshold: .2 }).observe($(".hero"));
+  ["#visit + .visit", ".closing", ".footer", "#fullMenu"].forEach(sel => { const el = $(sel); el && new IntersectionObserver(es => {
+    es.forEach(e => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target)));
+    fab.classList.toggle("fab-hidden", vis.size > 0);
+  }, { threshold: .2 }).observe(el); });
+})();
