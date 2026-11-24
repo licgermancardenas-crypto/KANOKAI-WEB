@@ -33,7 +33,7 @@ const ES = ictx.I18N.es;
 // --- páginas ---
 const PAGES = [
   { key: "home", en: "/", es: "/es/", file: { en: "index.html", es: "es/index.html" },
-    title: { en: "Konakai | Peruvian & Chifa Restaurant in Sunrise, FL", es: "Konakai | Restaurante peruano y chifa en Sunrise, FL" },
+    title: { en: "Konakai Peruvian Cuisine | Sunrise, FL", es: "Konakai Peruvian Cuisine | Restaurante peruano en Sunrise, FL" },
     desc: { en: null, es: "Restaurante peruano familiar desde 1992 en Sunrise, FL, a minutos de Sawgrass Mills y Fort Lauderdale. Ceviche, lomo saltado, arroz chaufa, mariscos y platos de la selva. Reserva por WhatsApp." } },
   { key: "menu", en: "/menu", es: "/es/menu", main: "pages/menu.main.html", file: { en: "menu/index.html", es: "es/menu/index.html" },
     title: { en: "Menu | Konakai Peruvian Cuisine, Sunrise FL", es: "Carta | Konakai, cocina peruana en Sunrise FL" },

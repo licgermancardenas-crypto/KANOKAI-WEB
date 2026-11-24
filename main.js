@@ -189,7 +189,7 @@ const I18N = {
     "menu.cartaTitle": "La carta completa", "menu.searchLabel": "Buscar en la carta", "menu.searchPh": "Buscar: ceviche, chaufa, lomo…",
     "menu.noResults": "Ningún plato coincide con tu búsqueda.",
     "order.waPickup": "Pedir para llevar por WhatsApp", "order.call": "Llamar:",
-    "hero.sub": "Restaurante peruano · Sunrise, Florida", "hero.hours": "Horario de atención",
+    "hero.sub": "Sunrise, Florida · desde 1992", "hero.hours": "Horario de atención",
     "hero.note": "Reservas por WhatsApp o teléfono · Estacionamiento gratuito · Karaoke vie y sáb",
     "menu.lead": "Ceviches curados al momento, clásicos criollos al wok, nuestro famoso chifa y los sabores de la selva. 173 platos, cocinados como lo hace nuestra familia desde 1992.",
     "menu.favs": "Favoritos de la casa",
