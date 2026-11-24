@@ -7,6 +7,8 @@ const BUSINESS = {
   address: "4305 NW 88th Ave, Sunrise, FL 33351",
   mapQuery: "Konakai Peruvian Cuisine, 4305 NW 88th Ave, Sunrise, FL 33351",
   directionsUrl: "https://maps.google.com/?cid=11511504645038760523",
+  /* Vista 360°: punto frente al local (OpenStreetMap) y hacia dónde mira la cámara (0=N, 90=E, 180=S, 270=O) */
+  streetView: { lat: 26.177652, lng: -80.2694242, heading: 270, pitch: 5 },
   phones: ["(954) 909-5525", "(954) 404-4272"],
   email: "konakai1992@gmail.com",
   whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
@@ -111,6 +113,8 @@ const I18N = {
     "loc.eyebrow": "Ubicación", "loc.title": "Tu mesa te espera en Sunrise.",
     "loc.parking": "Estacionamiento gratuito",
     "cta.call": "Llámanos",
+    "sv.open": "Ver la fachada en 360°", "sv.eyebrow": "Vista 360°", "sv.title": "Fachada de Konakai · 4305 NW 88th Ave",
+    "sv.hint": "Arrastra para mirar alrededor. Imágenes © Google.", "sv.ext": "Abrir en Google Maps",
     "nav.gallery": "Galería", "gallery.eyebrow": "Galería", "gallery.title": "Directo de nuestra cocina",
     "gallery.ig": "Más en Instagram",
     "res.eyebrow": "Reserva directa", "res.title": "Reserva tu mesa en 20 segundos",
@@ -323,6 +327,22 @@ $("#reserveForm").addEventListener("submit", e => {
   bars[0].classList.add("on");
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); }, { threshold: .15 }).observe(root);
   document.addEventListener("visibilitychange", () => (document.hidden ? stop() : play()));
+})();
+
+/* ---------- Vista 360° (Street View) ---------- */
+(() => {
+  const dlg = $("#sv360"), btn = $("#sv360Open");
+  if (!dlg || !btn) return;
+  const { lat, lng, heading, pitch } = BUSINESS.streetView;
+  const embed = `https://maps.google.com/maps?q=&layer=c&cbll=${lat},${lng}&cbp=11,${heading},0,0,${pitch}&source=embed&output=svembed`;
+  $(".js-sv-ext").href = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}&heading=${heading}&pitch=${pitch}`;
+  btn.addEventListener("click", () => {
+    const fr = $("iframe", dlg);
+    if (!fr.src) fr.src = embed;          // se carga solo al abrir: no pesa en la carga inicial
+    dlg.showModal();
+  });
+  $(".sv360-close", dlg).addEventListener("click", () => dlg.close());
+  dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 })();
 
 /* Eventos */
