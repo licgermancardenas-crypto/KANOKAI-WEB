@@ -77,14 +77,17 @@ def fit(im, w):
     return im.resize((w, h), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.0, percent=55, threshold=3))
 
 def main():
-    only = set(sys.argv[1:])          # opcional: generar solo estos nombres
+    negro = "--negro" in sys.argv     # usar las versiones de ../FOTOS FONDO NEGRO cuando existan
+    only = {a for a in sys.argv[1:] if not a.startswith("--")}   # opcional: generar solo estos nombres
     missing = [f for f in PHOTOS.values() if not (SRC / f).exists()]
     if missing:
         raise SystemExit("Faltan originales:\n  " + "\n  ".join(missing))
     for name, fname in PHOTOS.items():
         if only and name not in only:
             continue
-        im = ImageOps.exif_transpose(Image.open(SRC / fname)).convert("RGB")
+        alt = ROOT.parent / "FOTOS FONDO NEGRO" / f"{name}.jpg"
+        src = alt if negro and alt.exists() else SRC / fname
+        im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
         # srcset por ANCHO: -800, -1400, -2400 (si el original es más angosto, se guarda a su ancho real)
         made = []
         for w in WIDTHS:
