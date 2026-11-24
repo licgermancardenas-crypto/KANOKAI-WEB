@@ -1,0 +1,80 @@
+"""
+Genera las fotos de la web desde los originales HD, en varios tamaños (srcset).
+
+Uso:  python tools/build-images.py
+Origen:  ../FOTOS PLATOS HD  (fuera del repo, no se sube a GitHub)
+Salida:  img/<nombre>-800.webp, -1400.webp, -2400.webp  +  img/<nombre>.jpg (1600 px, respaldo y redes)
+
+Para agregar o cambiar una foto: editar PHOTOS (nombre en la web -> archivo original) y volver a correr.
+"""
+from pathlib import Path
+from PIL import Image, ImageOps, ImageFilter
+
+ROOT = Path(__file__).resolve().parent.parent
+SRC = ROOT.parent / "FOTOS PLATOS HD"
+OUT = ROOT / "img"
+WIDTHS = (800, 1400, 2400)          # se limita al tamaño real del original
+JPG_SIZE, JPG_Q, WEBP_Q = 1600, 88, 86
+
+P = "WhatsApp Image 2026-11-22 at "
+PHOTOS = {
+    # portada y platos estrella
+    "hero-trilogia-ceviches": P + "5.09.54 PM.jpeg",
+    "ceviche-carretillero":   P + "4.16.57 PM (3).jpeg",
+    "tropikal-konakai":       P + "4.25.22 PM (2).jpeg",
+    "pulpo-anticuchero":      P + "5.10.05 PM (1).jpeg",
+    "anticuchos":             P + "4.13.57 PM (7).jpeg",
+    "lomo-saltado":           P + "4.17.01 PM.jpeg",
+    "arroz-con-mariscos":     P + "5.10.03 PM (1).jpeg",
+    "kam-lu-wonton":          P + "4.25.20 PM (3).jpeg",
+    "tacacho-cecina-chorizo": P + "4.13.57 PM (6).jpeg",
+    "ceviche-afrodisiaco":    P + "4.16.57 PM (1).jpeg",
+    # nosotros
+    "parihuela-noche":        P + "4.25.24 PM (1).jpeg",
+    "palta-rellena":          P + "4.25.21 PM (3).jpeg",
+    "cheesecake-maracuya":    P + "4.25.19 PM (1).jpeg",
+    # galería
+    "g-ceviche-mixto":        P + "4.16.57 PM (2).jpeg",
+    "g-trilogia-copas":       P + "5.10.03 PM (2).jpeg",
+    "g-causa-acevichada":     P + "4.25.22 PM (3).jpeg",
+    "g-chaufa-camaron":       P + "4.25.19 PM (3).jpeg",
+    "g-jalea-pargo":          P + "5.10.02 PM (1).jpeg",
+    "g-leche-tigre":          P + "5.09.59 PM (1).jpeg",
+    "g-pollo-pina":           P + "4.13.58 PM (5).jpeg",
+    "g-aji-gallina":          P + "4.25.06 PM.jpeg",
+    "g-torta-chocolate":      P + "4.25.18 PM (2).jpeg",
+    "g-flan":                 P + "4.25.19 PM.jpeg",
+    # ubicación
+    "loc-terraza":            P + "4.16.57 PM (2).jpeg",
+    "loc-jardin":             P + "4.25.22 PM (2).jpeg",
+    "loc-noche":              P + "4.25.24 PM (1).jpeg",
+    # eventos
+    "ev-brindis":             P + "4.25.24 PM (2).jpeg",
+    "ev-piqueo":              P + "5.10.00 PM.jpeg",
+    "ev-coctel":              P + "4.25.24 PM.jpeg",
+}
+
+def fit(im, w):
+    if im.width <= w:
+        return im.copy()
+    h = round(im.height * w / im.width)
+    return im.resize((w, h), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.0, percent=55, threshold=3))
+
+def main():
+    missing = [f for f in PHOTOS.values() if not (SRC / f).exists()]
+    if missing:
+        raise SystemExit("Faltan originales:\n  " + "\n  ".join(missing))
+    for name, fname in PHOTOS.items():
+        im = ImageOps.exif_transpose(Image.open(SRC / fname)).convert("RGB")
+        # srcset por ANCHO: -800, -1400, -2400 (si el original es más angosto, se guarda a su ancho real)
+        made = []
+        for w in WIDTHS:
+            fit(im, w).save(OUT / f"{name}-{w}.webp", quality=WEBP_Q, method=6)
+            made.append(min(w, im.width))
+        long_side = max(im.size)
+        jpg = fit(im, round(im.width * min(1, JPG_SIZE / long_side)))
+        jpg.save(OUT / f"{name}.jpg", quality=JPG_Q, optimize=True, progressive=True)
+        print(f"{name:24s} original {im.width}x{im.height}  ->  webp {made}  jpg {jpg.size}")
+
+if __name__ == "__main__":
+    main()

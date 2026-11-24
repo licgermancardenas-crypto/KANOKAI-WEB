@@ -175,8 +175,10 @@ let fullOpen = false;
 const t = k => (lang === "es" && I18N.es[k]) || EN_DEFAULTS[k];
 const money = (p, from) => p ? `${from ? (lang === "es" ? "desde " : "from ") : ""}$${p}` : "";
 
-const pic = (name, alt, lazy = true) =>
-  `<picture><source srcset="img/${name}.webp" type="image/webp"><img src="img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy"' : ""}></picture>`;
+/* Foto responsive: el navegador elige 800/1400/2400 px según el tamaño en pantalla y la densidad */
+const srcset = n => `img/${n}-800.webp 800w, img/${n}-1400.webp 1400w, img/${n}-2400.webp 2400w`;
+const pic = (name, alt, sizes = "100vw", lazy = true) =>
+  `<picture><source type="image/webp" srcset="${srcset(name)}" sizes="${sizes}"><img src="img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ""}></picture>`;
 const dishName = img => {
   const d = FEATURED.find(x => x.img === img); if (d) return d[lang][0];
   const g = GALLERY.find(x => x[0] === img); if (g) return lang === "es" ? g[2] : g[1];
@@ -188,7 +190,7 @@ function renderFeatured() {
     const [name, desc] = d[lang];
     const tag = d.tag ? `<span class="tag tag-${d.tag}">${TAGS[d.tag][lang]}</span>` : "";
     return `<article class="dish" style="animation-delay:${i * 60}ms">
-      <button type="button" data-zoom="${d.img}" aria-label="${name}">${pic(d.img, name)}${tag}</button>
+      <button type="button" data-zoom="${d.img}" aria-label="${name}">${pic(d.img, name, "(max-width: 600px) 92vw, (max-width: 980px) 46vw, 380px")}${tag}</button>
       <div class="dish-body">
         <div class="dish-top"><h3>${name}</h3>${d.price ? `<span class="price">${money(d.price)}</span>` : ""}</div>
         <p>${desc}</p>
@@ -210,7 +212,7 @@ function showTab(id) {
 function renderGallery() {
   $("#galleryGrid").innerHTML = GALLERY.map(([img, en, es]) => {
     const name = lang === "es" ? es : en;
-    return `<button type="button" class="gitem" data-zoom="${img}" aria-label="${name}">${pic(img, name)}<span class="gcap">${name}</span></button>`;
+    return `<button type="button" class="gitem" data-zoom="${img}" aria-label="${name}">${pic(img, name, "(max-width: 760px) 92vw, 50vw")}<span class="gcap">${name}</span></button>`;
   }).join("");
 }
 let eventType = "bday";
@@ -242,7 +244,7 @@ function renderInstagram() {
 }
 function renderAbout() {
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
-    `<button type="button" class="ai ai-${i}" data-zoom="${g}" aria-label="Konakai">${pic(g, "Konakai")}</button>`).join("");
+    `<button type="button" class="ai ai-${i}" data-zoom="${g}" aria-label="Konakai">${pic(g, "Konakai", "(max-width: 860px) 50vw, 28vw")}</button>`).join("");
 }
 function renderReviews() {
   const box = $("#quotes");
@@ -420,7 +422,7 @@ addEventListener("keydown", e => { if (e.key === "Escape") setNav(false); });
 const lb = $("#lightbox");
 document.addEventListener("click", e => {
   const z = e.target.closest("[data-zoom]"); if (!z) return;
-  $("img", lb).src = `img/${z.dataset.zoom}.jpg`;
+  $("img", lb).src = `img/${z.dataset.zoom}-2400.webp`;
   $("img", lb).alt = $(".lb-cap", lb).textContent = dishName(z.dataset.zoom);
   lb.showModal();
 });

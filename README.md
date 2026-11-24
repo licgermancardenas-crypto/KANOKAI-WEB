@@ -29,7 +29,9 @@ Regla: un dato vacío se **oculta** en la web (nunca se publican datos inventado
 
 Plan, pendientes del cliente y checklist de QA: ver [PROJECT.md](PROJECT.md).
 
-Fotos en `img/` (cada una en `.jpg` y `.webp`, máx. 1400px).
+### Fotos
+
+Se generan desde los originales (`../FOTOS PLATOS HD`) con `python tools/build-images.py`: cada foto en WebP de 800, 1400 y 2400 px (el navegador elige según la pantalla) + JPG de 1600 px como respaldo. Para cambiar o agregar una foto, editar `PHOTOS` en ese script.
 
 ## Deploy
 
