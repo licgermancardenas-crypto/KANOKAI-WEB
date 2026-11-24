@@ -201,9 +201,70 @@ p { margin: 0 0 1em; }
   .gcap { font-size: .8rem; padding: 1.6rem .6rem .55rem; }
 }
 
+/* ---------- Ubicación cinematográfica ---------- */
+.location { position: relative; isolation: isolate; min-height: min(100svh, 880px); display: grid; align-items: center; overflow: hidden; background: #14100E; color: #FAF8F5; padding: clamp(96px, 12vw, 140px) 0 clamp(80px, 10vw, 110px); }
+.kb, .kb-slide, .kb-shade, .kb-grain { position: absolute; inset: 0; }
+.kb { z-index: -1; }
+.kb-slide { margin: 0; opacity: 0; transition: opacity 1.6s ease; }
+.kb-slide.is-active { opacity: 1; }
+.kb-slide picture, .kb-slide img { width: 100%; height: 100%; display: block; }
+.kb-slide img { object-fit: cover; transform-origin: center; will-change: transform; }
+.kb-slide.run img { animation: 9s linear forwards; }
+.kb-a.run img { animation-name: kbA; }
+.kb-b.run img { animation-name: kbB; }
+.kb-c.run img { animation-name: kbC; }
+@keyframes kbA { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.18) translate(-3%, -2%); } }
+@keyframes kbB { from { transform: scale(1.2) translate(3%, 2%); } to { transform: scale(1.04) translate(0, -1%); } }
+@keyframes kbC { from { transform: scale(1.06) translate(-2%, 3%); } to { transform: scale(1.2) translate(2%, -2%); } }
+.location.paused .kb-slide img { animation-play-state: paused; }
+.kb-shade {
+  background:
+    linear-gradient(90deg, rgba(20,16,14,.92) 0%, rgba(20,16,14,.72) 38%, rgba(20,16,14,.25) 70%, rgba(20,16,14,.35) 100%),
+    linear-gradient(0deg, rgba(20,16,14,.7) 0%, transparent 35%),
+    radial-gradient(120% 80% at 80% 20%, rgba(184,51,42,.18), transparent 60%);
+}
+.kb-grain { opacity: .08; mix-blend-mode: overlay; background-image: radial-gradient(rgba(255,255,255,.6) 1px, transparent 1px); background-size: 3px 3px; }
+
+.loc-inner { position: relative; }
+.loc-card { max-width: 540px; }
+.location .eyebrow { color: var(--gold); }
+.location h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 700; }
+.loc-list { list-style: none; padding: 0; margin: 1.8rem 0 2rem; display: grid; gap: 1.1rem; }
+.loc-list > li { display: grid; grid-template-columns: 44px 1fr; gap: .9rem; align-items: center; }
+.loc-list > li > svg { width: 44px; height: 44px; padding: 11px; border-radius: 50%; fill: var(--gold); background: rgba(250,248,245,.08); border: 1px solid rgba(212,154,58,.35); }
+.loc-list strong { display: block; font-size: 1.08rem; font-weight: 700; }
+.loc-list span { display: block; color: #D9D1C6; font-size: .92rem; margin-top: .15rem; }
+.location .hours { margin: 0; }
+.location .hours li { max-width: 360px; font-weight: 600; }
+.location .hours li span:last-child { color: #FAF8F5; }
+.loc-ctas { display: flex; flex-wrap: wrap; gap: .8rem; }
+.loc-ctas .btn svg { width: 20px; height: 20px; fill: currentColor; flex: none; }
+.btn-lg { padding: 1.05rem 1.8rem; font-size: 1.02rem; }
+.btn-glass { background: rgba(250,248,245,.1); border-color: rgba(250,248,245,.45); color: #fff; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.btn-glass:hover { background: rgba(250,248,245,.2); border-color: var(--gold); box-shadow: none; }
+
+.kb-ui { position: absolute; left: 0; right: 0; bottom: clamp(20px, 4vw, 36px); }
+.kb-bars { display: flex; gap: 6px; justify-content: flex-end; }
+.kb-bar { width: 44px; height: 3px; border-radius: 3px; background: rgba(250,248,245,.25); overflow: hidden; }
+.kb-bar i { display: block; height: 100%; width: 0; background: var(--gold); }
+.kb-bar.done i { width: 100%; }
+.kb-bar.on i { animation: kbBar 7s linear forwards; }
+.location.paused .kb-bar.on i { animation-play-state: paused; }
+@keyframes kbBar { to { width: 100%; } }
+
+@media (max-width: 860px) {
+  .location { align-items: end; min-height: 100svh; padding-top: 84px; }
+  .kb-shade { background: linear-gradient(0deg, rgba(20,16,14,.95) 0%, rgba(20,16,14,.8) 45%, rgba(20,16,14,.35) 80%, rgba(20,16,14,.45) 100%); }
+  .loc-ctas .btn { flex: 1 1 auto; }
+  .kb-bars { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .kb-slide img { animation: none !important; transform: scale(1.04); } }
+
 /* ---------- Visit + reserva ---------- */
 .visit { background: var(--cream-2); padding: clamp(80px, 10vw, 130px) 0; }
-.visit-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.visit-side { display: grid; gap: 1.6rem; }
+.visit-side .info { margin: 0; grid-template-columns: 1fr 1fr; }
 .info { margin: 1.6rem 0 1.6rem; display: grid; gap: 1.3rem; }
 .info dt { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--brand); font-weight: 700; }
 .info dd { margin: .3rem 0 0; font-size: 1.05rem; }
@@ -212,7 +273,7 @@ p { margin: 0 0 1em; }
 .hours { list-style: none; padding: 0; margin: 0 0 .3rem; }
 .hours li { display: flex; justify-content: space-between; gap: 1rem; max-width: 330px; }
 .hours li span:last-child { color: var(--muted); }
-.events-line { margin: 0 0 1.6rem; color: var(--green); font-weight: 700; }
+.events-line { margin: 0; color: var(--green); font-weight: 700; }
 
 .reserve { position: relative; background: var(--card); border-radius: 20px; box-shadow: 0 2px 4px rgba(31,31,31,.04), 0 24px 60px rgba(31,31,31,.1); padding: clamp(1.4rem, 3vw, 2.2rem); border-top: 5px solid var(--brand); }
 .anchor { position: absolute; top: -100px; }
@@ -229,7 +290,7 @@ p { margin: 0 0 1em; }
 .field input:focus, .field select:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(30,63,53,.15); background-color: #fff; }
 .field input:user-invalid, .field select:user-invalid { border-color: var(--brand); }
 .reserve-fine { margin: .9rem 0 0; font-size: .8rem; color: var(--muted); text-align: center; }
-.visit .map { margin-top: clamp(2rem, 5vw, 3.5rem); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 380px; padding: 0; }
+.visit .map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 360px; }
 .map iframe { width: 100%; height: 100%; border: 0; display: block; }
 
 /* ---------- Footer ---------- */

@@ -6,13 +6,14 @@
 const BUSINESS = {
   address: "4305 NW 88th Ave, Sunrise, FL 33351",
   mapQuery: "Konakai Peruvian Cuisine, 4305 NW 88th Ave, Sunrise, FL 33351",
+  directionsUrl: "https://maps.google.com/?cid=11511504645038760523",
   phones: ["(954) 909-5525", "(954) 404-4272"],
   email: "konakai1992@gmail.com",
   whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
   instagram: "https://www.instagram.com/konakaiperuviancuisine/",
   reviewsUrl: "https://www.google.com/maps/search/?api=1&query=Konakai+Peruvian+Cuisine+4305+NW+88th+Ave+Sunrise+FL",
   hours: [
-    { en: "Sun – Thu", es: "Dom – Jue", time: "12:00 PM – 10:00 PM" },
+    { en: "Mon–Thu & Sun", es: "Lun–Jue y Dom", time: "12:00 PM – 10:00 PM" },
     { en: "Fri – Sat", es: "Vie – Sáb", time: "12:00 PM – 1:00 AM" },
   ],
 };
@@ -107,6 +108,9 @@ const I18N = {
     "visit.lunch": "Almuerzos ejecutivos de lunes a viernes, 12–3:30 PM (excepto feriados)",
     "visit.events": "Karaoke viernes y sábado desde las 9 PM · Eventos privados y cumpleaños · Delivery",
     "visit.email": "Email",
+    "loc.eyebrow": "Ubicación", "loc.title": "Tu mesa te espera en Sunrise.",
+    "loc.parking": "Estacionamiento gratuito",
+    "cta.call": "Llámanos",
     "nav.gallery": "Galería", "gallery.eyebrow": "Galería", "gallery.title": "Directo de nuestra cocina",
     "gallery.ig": "Más en Instagram",
     "res.eyebrow": "Reserva directa", "res.title": "Reserva tu mesa en 20 segundos",
@@ -190,11 +194,12 @@ function renderReviews() {
 function renderBusiness() {
   const B = BUSINESS, show = (sel, ok) => $$(sel).forEach(el => (el.hidden = !ok));
   $$(".js-address").forEach(el => (el.textContent = B.address));
-  $$(".js-directions").forEach(el => (el.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(B.mapQuery)}`));
+  $$(".js-directions").forEach(el => (el.href = B.directionsUrl));
   const map = $(".js-map"), src = `https://maps.google.com/maps?q=${encodeURIComponent(B.mapQuery)}&z=15&output=embed`;
   if (map.getAttribute("src") !== src) map.src = src;
 
   $(".js-phones").innerHTML = B.phones.map(p => `<a href="tel:+1${p.replace(/\D/g, "")}">${p}</a>`).join("<br>");
+  $$(".js-call").forEach(el => (el.href = `tel:+1${B.phones[0].replace(/\D/g, "")}`));
   show(".js-phone-row", B.phones.length > 0);
 
   const wa = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_TEXT[lang])}`;
@@ -294,6 +299,31 @@ $("#reserveForm").addEventListener("submit", e => {
   const w = window.open(url, "_blank", "noopener");
   if (!w) location.href = url;
 });
+
+/* ---------- Ubicación: carrusel Ken Burns ---------- */
+(() => {
+  const root = $(".location"), slides = $$(".kb-slide", root), bars = $$(".kb-bar", root);
+  if (!slides.length) return;
+  const DUR = 7000;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let i = 0, timer = null, visible = false;
+  const show = n => {
+    const prev = slides[i];
+    i = (n + slides.length) % slides.length;
+    const cur = slides[i];
+    slides.forEach(sl => sl !== prev && sl !== cur && sl.classList.remove("run"));
+    prev.classList.remove("is-active");
+    cur.classList.remove("run"); void cur.offsetWidth; cur.classList.add("run", "is-active");
+    bars.forEach((b, k) => { b.classList.toggle("done", k < i); b.classList.remove("on"); });
+    void bars[i].offsetWidth; bars[i].classList.add("on");
+  };
+  const play = () => { if (reduce || timer || !visible || document.hidden) return; timer = setInterval(() => show(i + 1), DUR); root.classList.remove("paused"); };
+  const stop = () => { clearInterval(timer); timer = null; root.classList.add("paused"); };
+  if (reduce) { root.classList.add("paused"); return; }
+  bars[0].classList.add("on");
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? play() : stop(); }, { threshold: .15 }).observe(root);
+  document.addEventListener("visibilitychange", () => (document.hidden ? stop() : play()));
+})();
 
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
