@@ -1,21 +1,25 @@
 /* =========================================================
-   KONAKAI — Identidad visual (Fase 2)
-   Crema cálido · Terracota ají · Dorado · Verde oscuro
-   Playfair Display (títulos) + Plus Jakarta Sans (texto, carta, botones)
+   KONAKAI — Identidad visual (Fase 3: negro elegante)
+   Negro cálido · Dorado champagne · Marfil · toque terracota
+   Playfair Display (títulos) + Cormorant Garamond itálica (acentos) + Plus Jakarta Sans (texto)
    ========================================================= */
 :root {
-  --cream: #FAF8F5;
-  --cream-2: #F3EEE7;
-  --card: #FFFFFF;
-  --ink: #1F1F1F;
-  --muted: #5E5750;
-  --brand: #B8332A;        /* terracota / rojo ají */
-  --brand-dark: #962820;
-  --gold: #D49A3A;
-  --green: #1E3F35;
-  --green-dark: #152E26;
-  --line: rgba(31, 31, 31, .12);
-  --shadow: 0 1px 2px rgba(31,31,31,.04), 0 8px 24px rgba(31,31,31,.06);
+  color-scheme: dark;
+  --cream: #0D0B0A;        /* fondo principal */
+  --cream-2: #12100E;      /* fondo alterno */
+  --card: #171311;         /* tarjetas */
+  --card-2: #1E1916;
+  --ink: #F1E9DD;          /* texto marfil */
+  --muted: #A99E90;
+  --brand: #C9A35E;        /* dorado champagne (acento principal) */
+  --brand-dark: #B38C48;
+  --gold: #C9A35E;
+  --aji: #B8332A;          /* terracota, detalles puntuales */
+  --green: #2F6B57;        /* WhatsApp */
+  --green-dark: #255546;
+  --line: rgba(201, 163, 94, .18);
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.45);
+  --script: "Cormorant Garamond", Georgia, serif;
   --radius: 16px;
   --serif: "Playfair Display", Georgia, serif;
   --sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
@@ -432,3 +436,113 @@ behold-widget { display: block; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal, .pop { opacity: 1; transform: none; }
 }
+
+
+/* =========================================================
+   TEMA OSCURO ELEGANTE — ajustes de componentes
+   ========================================================= */
+::selection { background: rgba(201,163,94,.35); color: #fff; }
+
+/* Acentos en cursiva (estilo "Taste the mood") */
+.eyebrow { font-family: var(--script); font-style: italic; font-weight: 500; font-size: clamp(1.2rem, 1.8vw, 1.45rem); letter-spacing: .01em; text-transform: none; color: var(--gold); margin-bottom: .35rem; }
+h1, h2 { font-weight: 500; letter-spacing: -.005em; }
+h2 { color: #F6EFE4; }
+.section-head h2::after, .events h2::after, .about h2::after, .location h2::after {
+  content: ""; display: block; width: 64px; height: 1px; margin-top: 1rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.center-head h2::after { margin-inline: auto; background: linear-gradient(90deg, transparent, var(--gold), transparent); width: 120px; }
+.brand { color: var(--gold); }
+
+/* Botones */
+.btn { color: #0D0B0A; }
+.btn:hover { box-shadow: 0 8px 26px rgba(201,163,94,.28); }
+.btn-ghost { color: var(--ink); border-color: rgba(241,233,221,.28); }
+.btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+.btn-wa { color: #fff; }
+.btn-wa:hover { box-shadow: 0 8px 22px rgba(47,107,87,.4); }
+.skip { color: #0D0B0A; }
+
+/* Navegación */
+.nav.scrolled { background: rgba(13,11,10,.9); color: var(--ink); box-shadow: 0 1px 0 var(--line); }
+.nav.scrolled .nav-links a:hover { color: var(--gold); }
+.nav-links a { letter-spacing: .04em; }
+@media (max-width: 860px) { .nav-links { background: #0D0B0A; } .nav-open .nav { color: var(--ink); } }
+
+/* Portada */
+.hero { background: #0D0B0A; }
+.hero::after {
+  background: linear-gradient(90deg, rgba(13,11,10,.92) 0%, rgba(13,11,10,.6) 45%, rgba(13,11,10,.15) 100%),
+              linear-gradient(0deg, #0D0B0A 0%, transparent 35%);
+}
+.stars .half { background: linear-gradient(90deg, var(--gold) 20%, rgba(241,233,221,.2) 20%); -webkit-background-clip: text; background-clip: text; }
+
+/* Platos estrella: tarjetas con marco dorado */
+.dish { background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+.dish:hover { border-color: rgba(201,163,94,.55); box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.dish h3 { color: #F6EFE4; font-weight: 500; }
+.price { color: var(--gold); }
+.tag-rec { background: var(--aji); color: #fff; }
+.tag-share { background: var(--gold); color: #0D0B0A; }
+
+/* Carta completa */
+.fullmenu-body { background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+.tab { background: var(--card-2); color: var(--muted); }
+.tab:hover { color: var(--ink); border-color: var(--line); }
+.tab[aria-selected="true"] { background: var(--gold); color: #0D0B0A; }
+.cat-note { background: rgba(201,163,94,.07); border-color: rgba(201,163,94,.3); }
+.mcat-title { color: #F6EFE4; font-weight: 500; }
+.ml-name { color: #F6EFE4; font-weight: 500; }
+.ml-dots { border-bottom-color: rgba(241,233,221,.16); }
+.ml-price { color: var(--gold); }
+
+/* Barra de pedidos */
+.orderbar { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--gold); box-shadow: none; }
+.orderbar-text > svg { background: rgba(201,163,94,.12); fill: var(--gold); }
+.obtn { background: var(--card-2); border-color: var(--line); color: var(--ink); }
+.obtn:hover { border-color: var(--gold); }
+.o-direct { color: #0D0B0A; }
+
+/* Nosotros */
+.about { background: #0F1311; }
+.about::before { opacity: .035; }
+
+/* Eventos */
+.events { background: #110E0C; }
+.ev-cta { background: var(--card); color: var(--ink); border-top-color: var(--gold); border: 1px solid var(--line); border-top: 3px solid var(--gold); }
+.ev-pick { color: var(--ink) !important; }
+.chip { background: var(--card-2); color: var(--ink); border-color: rgba(241,233,221,.16); }
+.chip:hover { border-color: var(--gold); }
+.chip[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #0D0B0A; }
+
+/* Reseñas y galería */
+.score-num { color: var(--gold); font-weight: 500; }
+.quote { background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+.gitem { box-shadow: none; outline: 1px solid var(--line); outline-offset: -1px; }
+
+/* Reserva, mapa y contacto */
+.visit { background: #110E0C; }
+.reserve { background: var(--card); border: 1px solid var(--line); border-top: 3px solid var(--gold); box-shadow: 0 24px 60px rgba(0,0,0,.45); }
+.reserve-title { color: #F6EFE4; font-weight: 500; }
+.field input, .field select { background-color: #0F0D0C; color: var(--ink); border-color: rgba(241,233,221,.14); }
+.field input::placeholder { color: #6F665C; }
+.field input:focus, .field select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,163,94,.15); background-color: #13110F; }
+.field input:user-invalid, .field select:user-invalid { border-color: var(--aji); }
+.events-line { color: var(--gold); }
+.visit .map { box-shadow: none; border: 1px solid var(--line); }
+.visit .map iframe { filter: grayscale(.35) contrast(1.05) brightness(.9); }
+
+/* Vista 360° */
+.sv360 { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+.sv360-close { background: var(--card-2); color: var(--ink); }
+.sv360-close:hover { background: var(--gold); color: #0D0B0A; }
+.sv360-foot a { color: var(--gold); }
+
+/* Pie de página */
+.footer { background: #080706; color: #8F857A; border-top: 1px solid var(--line); }
+.footer .brand { color: var(--gold); }
+
+/* Portada: aire bajo el menú y título algo más contenido */
+.hero { padding-top: 104px; }
+.hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.4rem); }
+.visit .map iframe { filter: invert(.9) hue-rotate(180deg) saturate(.6) brightness(.95) contrast(.9); }
