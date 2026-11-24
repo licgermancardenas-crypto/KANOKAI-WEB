@@ -100,7 +100,7 @@ const GALLERY = [
   ["g-flan", "Flan", "Flan"],
 ];
 
-const ABOUT_IMGS = ["parihuela-noche", "palta-rellena", "cheesecake-maracuya"];
+const ABOUT_IMGS = ["hero-trilogia-ceviches", "palta-rellena", "cheesecake-maracuya"];
 
 /* ========================================================= */
 
@@ -111,10 +111,10 @@ const I18N = {
     "cta.reserve": "Reservar mesa", "cta.whatsapp": "Reservar por WhatsApp", "cta.menu": "Ver la carta",
     "cta.directions": "Cómo llegar",
     "hero.rating": "+1,400 reseñas en Google",
-    "hero.eyebrow": "Negocio familiar desde 1992 · Sunrise, FL",
+    "hero.eyebrow": "Cocina peruana y chifa desde 1992",
     "hero.title": "La mesa peruana de confianza en Broward desde 1992.",
     "hero.lead": "Ceviches, lomo saltado humeante, el mejor chifa de la zona y sabores de la selva. A minutos de Sawgrass Mills y Fort Lauderdale.",
-    "menu.eyebrow": "Favoritos de la casa", "menu.title": "Nuestros platos estrella",
+    "menu.eyebrow": "Sabores que se sienten", "menu.title": "Nuestra Carta",
     "menu.full": "Ver la carta completa", "menu.less": "Ocultar la carta",
     "menu.note": "Avísanos si tienes alguna alergia alimentaria. Se agrega 18% de propina a grupos de 5 o más. Precios sujetos a cambio.",
     "about.eyebrow": "La experiencia Konakai",
@@ -147,6 +147,12 @@ const I18N = {
     "loc.eyebrow": "Ubicación", "loc.title": "Tu mesa te espera en Sunrise.",
     "loc.parking": "Estacionamiento gratuito",
     "cta.call": "Llámanos",
+    "cta.book": "Reserva tu mesa",
+    "hero.sub": "Restaurante peruano · Sunrise, Florida", "hero.hours": "Horario de atención",
+    "hero.note": "Reservas por WhatsApp o teléfono · Estacionamiento gratuito · Karaoke vie y sáb",
+    "menu.lead": "Ceviches curados al momento, clásicos criollos al wok, nuestro famoso chifa y los sabores de la selva. 173 platos, cocinados como lo hace nuestra familia desde 1992.",
+    "menu.favs": "Favoritos de la casa",
+    "closing.eyebrow": "Hasta pronto", "closing.title": "Te esperamos para compartir la mesa",
     "sv.open": "Ver la fachada en 360°", "sv.eyebrow": "Vista 360°", "sv.title": "Fachada de Konakai · 4305 NW 88th Ave",
     "sv.hint": "Arrastra para mirar alrededor. Imágenes © Google.", "sv.ext": "Abrir en Google Maps",
     "nav.gallery": "Galería", "gallery.eyebrow": "Galería", "gallery.title": "Directo de nuestra cocina",
@@ -273,6 +279,8 @@ function renderBusiness() {
   $$(".js-email").forEach(el => { el.href = `mailto:${B.email}`; el.textContent = B.email; });
   $$(".js-reviews").forEach(el => (el.href = B.reviewsUrl));
   $(".js-hours").innerHTML = B.hours.map(h => `<li><span>${h[lang]}</span><span>${h.time}</span></li>`).join("");
+  const lunch = { en: "Lunch specials · Mon–Fri", es: "Almuerzos · Lun–Vie", time: "12:00 – 3:30 PM" };
+  $(".js-hero-hours").innerHTML = [...B.hours, lunch].map(h => `<li><span>${h[lang]}</span><strong>${h.time}</strong></li>`).join("");
 }
 function renderFullToggle() {
   const b = $("#fullMenuToggle");
@@ -458,6 +466,7 @@ $("#langToggle").addEventListener("click", () => {
   applyLang();
 });
 $("#fullMenuToggle").addEventListener("click", () => { fullOpen = !fullOpen; renderFullToggle(); });
+$("#openFullMenu").addEventListener("click", () => { fullOpen = true; renderFullToggle(); $("#fullMenu").scrollIntoView({ behavior: "smooth", block: "start" }); });
 $("#menuTabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
   showTab(b.dataset.id);
