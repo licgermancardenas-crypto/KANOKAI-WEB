@@ -106,8 +106,6 @@ def process(name):
         if cfg.get("con_comida", False):       # la comida que sobresale del plato (choros, brochetas, decoración) se conserva
             from rembg import remove
             food = largest(np.asarray(remove(im, session=session(), only_mask=True)) > 128, .02)
-            if "comida_desde_y" in cfg:            # ignora lo detectado arriba de esa altura (copas, botellas)
-                food[: int(cfg["comida_desde_y"] * h)] = False
             mask = np.maximum(mask, ndimage.binary_fill_holes(food).astype(np.float32))
     alpha = cv2.GaussianBlur(mask, (0, 0), max(1.5, min(h, w) / 900))
     bg = slate(h, w)
