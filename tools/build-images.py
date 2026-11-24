@@ -56,6 +56,10 @@ PHOTOS = {
     "gx-lomo-pobre":          P + "4.16.59 PM (1).jpeg",
     "gx-tacu-tacu-seco":      P + "4.16.59 PM (5).jpeg",
     "gx-pollo-pobre":         P + "4.16.57 PM (6).jpeg",
+    # carta (identificadas con las fotos del PDF del cliente)
+    "m-pescado-plancha":      P + "4.16.55 PM (7).jpeg",
+    "m-huevera-macho":        P + "4.16.56 PM (4).jpeg",
+    "m-pargo-macho":          P + "4.16.56 PM (6).jpeg",
     # ubicación
     "loc-terraza":            P + "4.16.57 PM (2).jpeg",
     "loc-jardin":             P + "4.25.22 PM (2).jpeg",

@@ -64,9 +64,9 @@ const FEATURED = [
   { img: "ceviche-carretillero", price: "22.99", tag: "rec",
     en: ["Ceviche Carretillero", "Our classic ceviche crowned with crispy calamari, sweet potato and Peruvian corn."],
     es: ["Ceviche Carretillero", "Nuestro ceviche clásico coronado con chicharrón de calamar, camote y choclo."] },
-  { img: "tropikal-konakai", price: "58.99", tag: "share",
-    en: ["Tropikal Konakai", "Causa, jalea mixta, tostones and shrimp chalaca, with a vuelve a la vida cocktail."],
-    es: ["Tropikal Konakai", "Causa, jalea mixta, tostones y camarones a la chalaca, con su vuelve a la vida."] },
+  { img: "tropikal-konakai", price: "58.99", from: true, tag: "share",
+    en: ["Tropikal Konakai", "Causa, jalea mixta, tostones and shrimp chalaca, with a vuelve a la vida cocktail. Pictured: the lobster version (market price)."],
+    es: ["Tropikal Konakai", "Causa, jalea mixta, tostones y camarones a la chalaca, con su vuelve a la vida. En la foto: la versión con langosta (precio de mercado)."] },
   { img: "pulpo-anticuchero", price: "27.99", tag: "rec",
     en: ["Pulpo Anticuchero", "Octopus marinated in Peruvian spices and grilled, served sizzling with golden potatoes."],
     es: ["Pulpo Anticuchero", "Pulpo marinado en especias peruanas, a la parrilla y servido en plancha caliente con papas doradas."] },
@@ -85,9 +85,9 @@ const FEATURED = [
   { img: "tacacho-cecina-chorizo", price: "29.99", tag: "",
     en: ["Cecina, Chorizo con Tacacho", "From the Amazon: smoked cecina, regional chorizo and green-plantain tacacho."],
     es: ["Cecina, Chorizo con Tacacho", "De la selva: cecina ahumada, chorizo regional y tacacho de plátano verde."] },
-  { img: "anticuchos", price: "17.99", tag: "",
-    en: ["Anticuchos", "Beef heart skewers marinated in ají panca, grilled over high heat."],
-    es: ["Anticuchos", "Brochetas de corazón de res marinadas en ají panca, a la parrilla."] },
+  { img: "anticuchos", price: "34.99", tag: "share",
+    en: ["Anticucho con Rachi", "Beef-heart anticuchos and rachi (grilled beef tripe), marinated in ají panca and served sizzling."],
+    es: ["Anticucho con Rachi", "Anticuchos de corazón y rachi (panza de res), marinados en ají panca y servidos en plancha caliente."] },
 ];
 
 /* La carta completa está en menu-data.js (CARTA). */
@@ -104,7 +104,7 @@ const GALLERY = [
   ["gx-chupe", "Chupe", "Chupe"],
   ["gx-salmon-oriental", "Salmón Oriental", "Salmón Oriental"],
   ["gx-lomo-pobre", "Lomo Saltado a lo Pobre", "Lomo Saltado a lo Pobre"],
-  ["gx-special-platter", "Konakai Special Platter", "Konakai Special Platter"],
+  ["gx-special-platter", "Chifa: wok-fried with oriental vegetables", "Chifa: salteado al wok con verduras orientales"],
   ["gx-tacu-tacu-seco", "Tacu Tacu con Seco", "Tacu Tacu con Seco"],
   ["gx-tallarin-churrasco", "Tallarín Verde con Churrasco", "Tallarín Verde con Churrasco"],
   ["gx-pollo-pobre", "Pollo a la Parrilla a lo Pobre", "Pollo a la Parrilla a lo Pobre"],
@@ -116,7 +116,9 @@ const PHOTO_NAMES = {
   "g-causa-acevichada": ["Causa Acevichada", "Causa Acevichada"], "g-jalea-pargo": ["Jalea de Pargo", "Jalea de Pargo"],
   "g-pollo-pina": ["Chifa chicken with pineapple", "Pollo con piña (chifa)"], "g-aji-gallina": ["Ají de Gallina", "Ají de Gallina"],
   "g-torta-chocolate": ["Chocolate Cake", "Torta de Chocolate"], "g-flan": ["Flan", "Flan"],
-  "palta-rellena": ["Palta Rellena", "Palta Rellena"], "cheesecake-maracuya": ["Passion Fruit Cheesecake", "Cheesecake de Maracuyá"],
+  "palta-rellena": ["Palta Rellena", "Palta Rellena"], "ev-piqueo": ["Konakai Frío (platter)", "Piqueo Konakai Frío"],
+  "m-pescado-plancha": ["Pescado a la Plancha", "Pescado a la Plancha"], "m-huevera-macho": ["Huevera a lo Macho", "Huevera a lo Macho"],
+  "m-pargo-macho": ["Pargo a lo Macho", "Pargo a lo Macho"], "cheesecake-maracuya": ["Passion Fruit Cheesecake", "Cheesecake de Maracuyá"],
 };
 
 const ABOUT_IMGS = ["hero-trilogia-ceviches", "loc-noche", "loc-terraza"];
@@ -238,7 +240,7 @@ function renderFeatured() {
     return `<article class="dish" style="animation-delay:${i * 60}ms">
       <button type="button" data-zoom="${d.img}" aria-label="${name}">${pic(d.img, name, "(max-width: 600px) 92vw, (max-width: 980px) 46vw, 380px")}${tag}</button>
       <div class="dish-body">
-        <div class="dish-top"><h3>${name}</h3>${d.price ? `<span class="price">${money(d.price)}</span>` : ""}</div>
+        <div class="dish-top"><h3>${name}</h3>${d.price ? `<span class="price">${money(d.price, d.from)}</span>` : ""}</div>
         <p>${desc}</p>
       </div>
     </article>`;
