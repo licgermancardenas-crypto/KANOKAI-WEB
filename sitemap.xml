@@ -4,12 +4,42 @@
     <loc>https://konakai-web.vercel.app/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/"/>
     <lastmod>2026-11-24</lastmod><priority>1.0</priority>
   </url>
   <url>
     <loc>https://konakai-web.vercel.app/es/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/"/>
+    <lastmod>2026-11-24</lastmod><priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://konakai-web.vercel.app/menu</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/menu"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/menu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/menu"/>
     <lastmod>2026-11-24</lastmod><priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://konakai-web.vercel.app/es/menu</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/menu"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/menu"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/menu"/>
+    <lastmod>2026-11-24</lastmod><priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://konakai-web.vercel.app/events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/events"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/eventos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/events"/>
+    <lastmod>2026-11-24</lastmod><priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://konakai-web.vercel.app/es/eventos</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://konakai-web.vercel.app/events"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://konakai-web.vercel.app/es/eventos"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://konakai-web.vercel.app/events"/>
+    <lastmod>2026-11-24</lastmod><priority>0.8</priority>
   </url>
 </urlset>

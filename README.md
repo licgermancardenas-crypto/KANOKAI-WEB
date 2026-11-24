@@ -22,7 +22,7 @@ Todo está al inicio de `main.js`:
 ### Cambiar la carta
 
 1. Editar `menu-data.js` (platos, precios, descripciones EN/ES).
-2. Correr `node tools/build-menu.mjs`: escribe la carta dentro de `index.html` y genera la versión en español `es/index.html` (textos de `I18N.es` en `main.js`). Correrlo también después de cambiar cualquier texto de la página.
+2. Correr `node tools/build-menu.mjs`: arma las 6 páginas (`/`, `/menu`, `/events` y sus versiones `/es/`, `/es/menu`, `/es/eventos`). La portada `index.html` es también la plantilla común (cabecera, menú, pie y panel de reserva); el contenido propio de la carta y de eventos está en `pages/`. Los textos en español salen de `I18N.es` en `main.js`. Correrlo después de cambiar cualquier texto, página o plato.
 3. Commit y push: Vercel publica solo.
 
 Regla: un dato vacío se **oculta** en la web (nunca se publican datos inventados).

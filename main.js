@@ -167,6 +167,22 @@ const I18N = {
     "loc.parking": "Estacionamiento gratuito",
     "cta.call": "Llámanos",
     "cta.book": "Reserva tu mesa",
+    "a11y.skip": "Ir al contenido",
+    "pm.eyebrow": "Sabores que se sienten", "pm.title": "Nuestra Carta", "pm.sub": "Cocina peruana, chifa y de la selva · Sunrise, FL",
+    "pe.eyebrow": "Eventos y celebraciones", "pe.title": "Eventos privados, catering y karaoke", "pe.sub": "Konakai · Sunrise, Florida",
+    "pe.platters": "Ver piqueos para compartir", "ev.more": "Más sobre eventos y catering →",
+    "how.eyebrow": "Cómo funciona", "how.title": "Tu evento en tres pasos",
+    "how.1.t": "Cuéntanos tu idea", "how.1.p": "Fecha, cantidad de personas y qué quieres celebrar, por WhatsApp o por teléfono.",
+    "how.2.t": "Te proponemos el menú", "how.2.p": "Piqueos para compartir, platos de fondo y bebidas, con sus precios.",
+    "how.3.t": "Confirmas y celebras", "how.3.p": "Te guardamos el espacio y nos encargamos de la comida.",
+    "plat.eyebrow": "Para compartir", "plat.title": "Piqueos para tu grupo",
+    "plat.lead": "Precios de nuestra carta. Para grupos grandes armamos opciones a medida.",
+    "faq.eyebrow": "Preguntas frecuentes", "faq.title": "Lo que más nos preguntan",
+    "faq.1.q": "¿Cómo reservo para un evento?", "faq.1.a": "Escríbenos por WhatsApp al (954) 404-4272 o llama al (954) 909-5525 con la fecha y la cantidad de personas.",
+    "faq.2.q": "¿Cuándo hay karaoke?", "faq.2.a": "Los viernes y sábados desde las 9 PM.",
+    "faq.3.q": "¿Se incluye propina en los grupos?", "faq.3.a": "Sí: a los grupos de 5 o más personas se les agrega un 18% de propina.",
+    "faq.4.q": "¿Hacen catering?", "faq.4.a": "Sí. Cuéntanos la fecha, la cantidad de personas y el lugar, y te enviamos opciones y precios.",
+    "faq.5.q": "¿Hay estacionamiento?", "faq.5.a": "Sí, hay estacionamiento gratuito.",
     "open.now": "Abierto ahora · cierra a las", "open.closed": "Cerrado ahora · abre", "open.today": "hoy a las", "open.tomorrow": "mañana a las",
     "menu.cartaTitle": "La carta completa", "menu.searchLabel": "Buscar en la carta", "menu.searchPh": "Buscar: ceviche, chaufa, lomo…",
     "menu.noResults": "Ningún plato coincide con tu búsqueda.",
@@ -191,8 +207,9 @@ const I18N = {
 };
 const TAGS = { rec: { en: "Recommended", es: "Recomendado" }, share: { en: "To share", es: "Para compartir" } };
 
-const $ = (s, el = document) => el.querySelector(s);
-const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const $ = (s, el = document) => (el ? el.querySelector(s) : null);
+const $$ = (s, el = document) => (el ? [...el.querySelectorAll(s)] : []);
+const on = (sel, ev, fn) => { const el = $(sel); if (el) el.addEventListener(ev, fn); };
 const EN_DEFAULTS = {};
 $$("[data-i18n]").forEach(el => (EN_DEFAULTS[el.dataset.i18n] = el.innerHTML));
 EN_DEFAULTS["menu.less"] = "Hide the menu";
@@ -214,6 +231,7 @@ const dishName = img => {
 };
 
 function renderFeatured() {
+  if (!$("#featuredGrid")) return;
   $("#featuredGrid").innerHTML = FEATURED.map((d, i) => {
     const [name, desc] = d[lang];
     const tag = d.tag ? `<span class="tag tag-${d.tag}">${TAGS[d.tag][lang]}</span>` : "";
@@ -227,15 +245,17 @@ function renderFeatured() {
   }).join("");
 }
 function renderTabs() {
+  if (!$("#menuTabs")) return;
   $("#menuTabs").innerHTML = SECTIONS.map(c =>
     `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
 function renderList() {
+  if (!$("#menuList")) return;
   $("#menuList").innerHTML = renderCarta(lang, activeTab);
 }
 function showTab(id) {
   activeTab = id; renderTabs();
-  if ($("#menuSearch").value) { $("#menuSearch").value = ""; filterMenu(""); }
+  if ($("#menuSearch") && $("#menuSearch").value) { $("#menuSearch").value = ""; filterMenu(""); }
   $$("#menuList .mcat").forEach(sec => (sec.hidden = sec.dataset.cat !== id));
 }
 /* Buscador de la carta (ignora tildes y mayúsculas) */
@@ -263,6 +283,7 @@ function filterMenu(q) {
   $("#searchEmpty").hidden = total > 0;
 }
 function renderGallery() {
+  if (!$("#galleryGrid")) return;
   $("#galleryGrid").innerHTML = GALLERY.map(([img, en, es]) => {
     const name = lang === "es" ? es : en;
     return `<button type="button" class="gitem" data-zoom="${img}" aria-label="${name}">${pic(img, name, "(max-width: 760px) 92vw, 50vw")}<span class="gcap">${name}</span></button>`;
@@ -278,6 +299,7 @@ function renderEvents() {
   $$(".js-wa-event").forEach(a => (a.href = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`));
 }
 function renderOrder() {
+  if (!$("#orderBar")) return;
   const O = BUSINESS.order;
   const links = [
     ["direct", lang === "es" ? "Pedir en línea" : "Order online", "o-direct"],
@@ -289,18 +311,19 @@ function renderOrder() {
 }
 let beholdLoaded = false;
 function renderInstagram() {
-  if (!BUSINESS.beholdFeedId || beholdLoaded) return;
+  if (!BUSINESS.beholdFeedId || beholdLoaded || !$("#galleryGrid")) return;
   beholdLoaded = true;
   const s = document.createElement("script"); s.type = "module"; s.src = "https://w.behold.so/widget.js";
   document.head.appendChild(s);
   $("#galleryGrid").outerHTML = `<behold-widget feed-id="${BUSINESS.beholdFeedId}"></behold-widget>`;
 }
 function renderAbout() {
+  if (!$("#aboutImgs")) return;
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
     `<button type="button" class="ai ai-${i}" data-speed="${[0.05, -0.04, 0.02][i]}" data-zoom="${g}" aria-label="Konakai">${pic(g, "Konakai", "(max-width: 860px) 50vw, 28vw")}</button>`).join("");
 }
 function renderReviews() {
-  const box = $("#quotes");
+  const box = $("#quotes"); if (!box) return;
   box.hidden = !REVIEWS.length;
   box.innerHTML = REVIEWS.map(r =>
     `<figure class="quote"><div class="stars" aria-hidden="true">★★★★★</div><blockquote>“${r.text}”</blockquote><figcaption>${r.author} · ${r.source}</figcaption></figure>`).join("");
@@ -310,10 +333,10 @@ function renderBusiness() {
   $$(".js-address").forEach(el => (el.textContent = B.address));
   $$(".js-directions").forEach(el => (el.href = B.directionsUrl));
   const map = $(".js-map"), src = `https://maps.google.com/maps?q=${encodeURIComponent(B.mapQuery)}&z=15&output=embed`;
-  if (map.getAttribute("src") !== src) map.src = src;
+  if (map && map.getAttribute("src") !== src) map.src = src;
 
   const tel = p => `tel:+1${p.num.replace(/\D/g, "")}`;
-  $(".js-phones").innerHTML = B.phones.map(p => `<a class="phone-row" href="${tel(p)}"><span class="phone-label">${p[lang]}</span><span class="phone-num">${p.num}</span></a>`).join("");
+  if ($(".js-phones")) $(".js-phones").innerHTML = B.phones.map(p => `<a class="phone-row" href="${tel(p)}"><span class="phone-label">${p[lang]}</span><span class="phone-num">${p.num}</span></a>`).join("");
   $$(".js-call").forEach(el => (el.href = tel(B.phones[0])));
   $$(".js-phone1").forEach(el => (el.textContent = B.phones[0].num));
   $$(".js-wa-pickup").forEach(el => (el.href = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_PICKUP[lang])}`));
@@ -322,12 +345,12 @@ function renderBusiness() {
   const wa = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_TEXT[lang])}`;
   $$(".js-whatsapp").forEach(el => (el.href = wa));
   show(".js-whatsapp, .js-wa-dep", !!B.whatsapp);
-  $(".wa-float").setAttribute("aria-label", t("cta.whatsapp"));
+  $(".wa-float") && $(".wa-float").setAttribute("aria-label", t("cta.whatsapp"));
 
   $$(".js-ig").forEach(el => (el.href = B.instagram));
   $$(".js-email").forEach(el => { el.href = `mailto:${B.email}`; el.textContent = B.email; });
   $$(".js-reviews").forEach(el => (el.href = B.reviewsUrl));
-  $(".js-hours").innerHTML = B.hours.map(h => `<li><span>${h[lang]}</span><span>${h.time}</span></li>`).join("");
+  if ($(".js-hours")) $(".js-hours").innerHTML = B.hours.map(h => `<li><span>${h[lang]}</span><span>${h.time}</span></li>`).join("");
   renderOpenChip();
 }
 /* "Abierto ahora" según la hora de Florida. Horario: Dom–Jue 12–22 h · Vie–Sáb 12–01 h */
@@ -466,13 +489,13 @@ document.addEventListener("click", e => {
 /* ---------- Movimiento: parallax, revelados escalonados e inclinación 3D ---------- */
 (() => {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const hero = $(".hero"), heroImg = $(".hero img"), heroCopy = $(".hero-copy");
+  const hero = $(".hero, .page-hero"), heroImg = hero && $("img", hero), heroCopy = hero && $(".hero-copy, .page-hero-copy", hero);
   let ticking = false;
   const update = () => {
     ticking = false;
     const y = scrollY, vh = innerHeight;
     // Portada: la foto se aleja más lento y se acerca; el texto sube y se desvanece
-    if (hero && y < hero.offsetHeight) {
+    if (hero && heroImg && heroCopy && y < hero.offsetHeight) {
       const p = y / hero.offsetHeight;
       heroImg.style.transform = `translate3d(0, ${y * 0.35}px, 0) scale(${1 + p * 0.12})`;
       heroCopy.style.transform = `translate3d(0, ${y * -0.15}px, 0)`;
@@ -525,10 +548,10 @@ document.addEventListener("click", e => {
 
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
-  location.href = (lang === "es" ? "/" : "/es/") + location.hash;
+  const alt = document.querySelector(`link[rel="alternate"][hreflang="${lang === "es" ? "en" : "es"}"]`);
+  location.href = (alt ? new URL(alt.href).pathname : (lang === "es" ? "/" : "/es/")) + location.hash;
 });
-$("#openFullMenu").addEventListener("click", () => $("#fullMenu").scrollIntoView({ behavior: "smooth", block: "start" }));
-$("#menuSearch").addEventListener("input", e => filterMenu(e.target.value));
+on("#menuSearch", "input", e => filterMenu(e.target.value));
 
 /* Panel de reserva: se abre desde cualquier "Book your table" */
 const drawer = $("#reserveDrawer");
@@ -541,11 +564,11 @@ document.addEventListener("click", e => {
 drawer.addEventListener("close", () => document.body.classList.remove("drawer-open"));
 $(".drawer-close").addEventListener("click", () => drawer.close());
 drawer.addEventListener("click", e => { if (e.target === drawer) drawer.close(); });
-$("#menuTabs").addEventListener("click", e => {
+on("#menuTabs", "click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
   showTab(b.dataset.id);
 });
-$("#menuTabs").addEventListener("keydown", e => {
+on("#menuTabs", "keydown", e => {
   const i = SECTIONS.findIndex(c => c.id === activeTab);
   const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
   showTab(SECTIONS[(i + d + SECTIONS.length) % SECTIONS.length].id);
@@ -582,10 +605,11 @@ $$(".section-head, .about-grid, .score, .visit-grid, .masonry").forEach(el => { 
 $("#year").textContent = new Date().getFullYear();
 /* Link directo a la carta: /#carta o /#carta-chifa */
 const h = location.hash.match(/^#carta(?:-(\w+))?$/);
+if (h && !$("#menuList")) location.replace((lang === "es" ? "/es/menu" : "/menu") + location.hash);
 if (h && h[1]) activeTab = sectionOf(h[1]);
 
 applyLang();
-if (h) $("#fullMenu").scrollIntoView();
+if (h && $("#fullMenu")) $("#fullMenu").scrollIntoView();
 if (location.hash === "#reserve" && BUSINESS.whatsapp) openReserve();
 
 /* Botón flotante de WhatsApp: se oculta donde ya hay botones de reserva (portada, cierre, pie) */
@@ -595,7 +619,7 @@ if (location.hash === "#reserve" && BUSINESS.whatsapp) openReserve();
   new IntersectionObserver(es => {
     es.forEach(e => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target)));
     fab.classList.toggle("fab-hidden", vis.size > 0);
-  }, { threshold: .2 }).observe($(".hero"));
+  }, { threshold: .2 }).observe($(".hero") || $(".page-hero") || document.body);
   ["#visit + .visit", ".closing", ".footer", "#fullMenu"].forEach(sel => { const el = $(sel); el && new IntersectionObserver(es => {
     es.forEach(e => (e.isIntersecting ? vis.add(e.target) : vis.delete(e.target)));
     fab.classList.toggle("fab-hidden", vis.size > 0);
