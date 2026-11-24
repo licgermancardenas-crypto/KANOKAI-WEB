@@ -35,6 +35,9 @@ Todo se carga en `main.js`, en `BUSINESS` y `MENU`.
 - [x] Dirección, teléfonos y horario (de Google; confirmar)
 - [ ] ¿Qué número tiene WhatsApp?
 - [ ] 3 fotos de la FACHADA exterior en alta calidad (horizontales, de día y de noche) para el módulo de Ubicación. Hoy usa fotos de la terraza y el salón: reemplazar `img/loc-terraza`, `img/loc-jardin` e `img/loc-noche` (.jpg y .webp, mismos nombres)
+- [ ] Fotos y videos de eventos, karaoke y cumpleaños (el Instagram no se puede descargar automáticamente: pedirlos al cliente o compartir links de posts)
+- [ ] Confirmar link de Uber Eats y si usan DoorDash, Grubhub o pedidos propios (Toast/ChowNow) → `BUSINESS.order` en main.js
+- [ ] Feed de Instagram en vivo: el cliente conecta su cuenta en behold.so (gratis) y pega el Feed ID en `BUSINESS.beholdFeedId`
 - [ ] Confirmar estacionamiento gratuito (se muestra en Ubicación y en el Schema)
 - [ ] 3 reseñas favoritas para mostrar textualmente
 - [x] Carta completa en PDF (cargada)

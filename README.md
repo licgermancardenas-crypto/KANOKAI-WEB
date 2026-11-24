@@ -19,6 +19,12 @@ Todo está al inicio de `main.js`:
 - `MENU` — platos por categoría (nombre/descripción EN y ES, foto, precio).
 - `GALLERY` — fotos de la galería.
 
+### Cambiar la carta
+
+1. Editar `menu-data.js` (platos, precios, descripciones EN/ES).
+2. Correr `node tools/build-menu.mjs`: escribe la carta dentro de `index.html` para que Google la indexe.
+3. Commit y push: Vercel publica solo.
+
 Regla: un dato vacío se **oculta** en la web (nunca se publican datos inventados).
 
 Plan, pendientes del cliente y checklist de QA: ver [PROJECT.md](PROJECT.md).

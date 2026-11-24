@@ -306,3 +306,23 @@ const CARTA = [
     ]},
   ]},
 ];
+
+/* =========================================================
+   Renderizador de la carta (lo usan main.js en el navegador y
+   tools/build-menu.mjs para escribir la carta dentro del HTML)
+   ========================================================= */
+function renderCarta(lang, activeId) {
+  const es = lang === "es";
+  const fmt = p => p === "MKP" ? (es ? "Precio de mercado" : "Market price") : `$${p}`;
+  const desc = i => (es ? i.de || i.d : i.d) || "";
+  const item = i => `<li class="mi">
+      <div class="mi-row"><h4 class="ml-name">${i.n}</h4><span class="ml-dots" aria-hidden="true"></span>${i.p ? `<span class="ml-price">${i.from ? (es ? "desde " : "from ") : ""}${fmt(i.p)}</span>` : ""}</div>
+      ${desc(i) ? `<p class="mi-desc">${desc(i)}</p>` : ""}
+      ${i.v ? `<ul class="mi-vars">${i.v.map(([l, p, les]) => `<li><span>${es && les ? les : l}</span><span class="ml-price">${fmt(p)}</span></li>`).join("")}</ul>` : ""}
+    </li>`;
+  return CARTA.map(c => `<section class="mcat" data-cat="${c.id}" aria-label="${c[lang]}"${c.id === activeId ? "" : " hidden"}>
+    <h3 class="mcat-title">${c[lang]}</h3>
+    ${c.note ? `<p class="cat-note">${c.note[lang]}</p>` : ""}
+    ${c.groups.map(g => `<div class="mgroup">${g.en ? `<h4 class="mgroup-title">${g[lang]}</h4>` : ""}<ul class="mitems">${g.items.map(item).join("")}</ul></div>`).join("")}
+  </section>`).join("\n");
+}

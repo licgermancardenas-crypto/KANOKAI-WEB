@@ -13,12 +13,34 @@ const BUSINESS = {
   email: "konakai1992@gmail.com",
   whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
   instagram: "https://www.instagram.com/konakaiperuviancuisine/",
+  /* Pedidos online / delivery. Vacío = el botón se oculta. */
+  order: {
+    uberEats: "https://www.ubereats.com/store/konakai-peruvian-cuisine-sunrise/xiiVzcXHUcqFt3ue8vZhCA", // CONFIRMAR con el cliente
+    doordash: "",
+    grubhub: "",
+    direct: "",          // web propia de pedidos (Toast, ChowNow…)
+  },
+  /* Feed de Instagram en vivo con Behold (behold.so): pegar aquí el Feed ID cuando el cliente conecte su cuenta. */
+  beholdFeedId: "",
   reviewsUrl: "https://www.google.com/maps/search/?api=1&query=Konakai+Peruvian+Cuisine+4305+NW+88th+Ave+Sunrise+FL",
   hours: [
     { en: "Mon–Thu & Sun", es: "Lun–Jue y Dom", time: "12:00 PM – 10:00 PM" },
     { en: "Fri – Sat", es: "Vie – Sáb", time: "12:00 PM – 1:00 AM" },
   ],
 };
+
+/* Mensaje de WhatsApp para eventos (se completa con el tipo elegido) */
+const WA_EVENT = {
+  es: t => `Hola KONAKAI, quiero organizar ${t} y me gustaría recibir asesoría. Fecha aproximada: ___ · Cantidad de personas: ___`,
+  en: t => `Hi KONAKAI, I'd like to plan ${t} and would love some guidance. Approximate date: ___ · Number of guests: ___`,
+};
+const EVENT_TYPES = [
+  { id: "bday",     es: "un cumpleaños",       en: "a birthday",       les: "Cumpleaños",       len: "Birthday" },
+  { id: "private",  es: "un evento privado",   en: "a private event",  les: "Evento privado",   len: "Private event" },
+  { id: "catering", es: "un servicio de catering", en: "catering",     les: "Catering",         len: "Catering" },
+  { id: "karaoke",  es: "una noche de karaoke", en: "a karaoke night", les: "Karaoke",          len: "Karaoke" },
+  { id: "custom",   es: "un evento a medida",  en: "a custom event",   les: "Otro / a medida",  len: "Something else" },
+];
 
 /* Mensaje predefinido de WhatsApp */
 const WA_TEXT = {
@@ -110,6 +132,18 @@ const I18N = {
     "visit.lunch": "Almuerzos ejecutivos de lunes a viernes, 12–3:30 PM (excepto feriados)",
     "visit.events": "Karaoke viernes y sábado desde las 9 PM · Eventos privados y cumpleaños · Delivery",
     "visit.email": "Email",
+    "nav.events": "Eventos",
+    "ev.eyebrow": "Eventos y celebraciones", "ev.title": "Arma tu evento en Konakai",
+    "ev.lead": "Cumpleaños, reuniones de empresa, aniversarios o una noche de karaoke con amigos: ponemos la comida peruana, el ambiente y la música. Tú solo disfruta.",
+    "ev.1.t": "Eventos privados", "ev.1.p": "Reserva un espacio para tu grupo con menú pensado para la ocasión.",
+    "ev.2.t": "Servicio de catering", "ev.2.p": "Llevamos nuestros piqueos, ceviches y chifa a tu oficina, casa o celebración.",
+    "ev.3.t": "Karaoke", "ev.3.p": "Viernes y sábado desde las 9 PM. Comida, rumba y amigos.",
+    "ev.4.t": "Festeja tu cumpleaños", "ev.4.p": "Celebra con tu familia y te ayudamos a que sea un día especial.",
+    "ev.5.t": "Arma tu evento", "ev.5.p": "Piqueos para compartir, menú a medida y bebidas para tu grupo.",
+    "ev.cta.t": "Te asesoramos en directo", "ev.cta.p": "Cuéntanos qué tienes en mente y te respondemos por WhatsApp con opciones y precios.",
+    "ev.cta.pick": "¿Qué quieres celebrar?", "ev.cta.btn": "Hablar con un asesor",
+    "order.title": "¿Lo quieres en casa?", "order.sub": "Pide delivery o recoge en el local.",
+    "order.pickup": "Para llevar:",
     "loc.eyebrow": "Ubicación", "loc.title": "Tu mesa te espera en Sunrise.",
     "loc.parking": "Estacionamiento gratuito",
     "cta.call": "Llámanos",
@@ -166,24 +200,45 @@ function renderTabs() {
   $("#menuTabs").innerHTML = CARTA.map(c =>
     `<button class="tab" role="tab" data-id="${c.id}" aria-selected="${c.id === activeTab}" tabindex="${c.id === activeTab ? 0 : -1}">${c[lang]}</button>`).join("");
 }
-const fmt = p => p === "MKP" ? (lang === "es" ? "Precio de mercado" : "Market price") : `$${p}`;
-const desc = i => (lang === "es" ? i.de || i.d : i.d) || "";
 function renderList() {
-  const cat = CARTA.find(c => c.id === activeTab);
-  const item = i => `<li class="mi">
-      <div class="mi-row"><span class="ml-name">${i.n}</span><span class="ml-dots" aria-hidden="true"></span>${i.p ? `<span class="ml-price">${i.from ? (lang === "es" ? "desde " : "from ") : ""}${fmt(i.p)}</span>` : ""}</div>
-      ${desc(i) ? `<p class="mi-desc">${desc(i)}</p>` : ""}
-      ${i.v ? `<ul class="mi-vars">${i.v.map(([l, p, les]) => `<li><span>${lang === "es" && les ? les : l}</span><span class="ml-price">${fmt(p)}</span></li>`).join("")}</ul>` : ""}
-    </li>`;
-  $("#menuList").innerHTML =
-    (cat.note ? `<p class="cat-note">${cat.note[lang]}</p>` : "") +
-    cat.groups.map(g => `<section class="mgroup">${g.en ? `<h3 class="mgroup-title">${g[lang]}</h3>` : ""}<ul class="mitems">${g.items.map(item).join("")}</ul></section>`).join("");
+  $("#menuList").innerHTML = renderCarta(lang, activeTab);
+}
+function showTab(id) {
+  activeTab = id; renderTabs();
+  $$("#menuList .mcat").forEach(sec => (sec.hidden = sec.dataset.cat !== id));
 }
 function renderGallery() {
   $("#galleryGrid").innerHTML = GALLERY.map(([img, en, es]) => {
     const name = lang === "es" ? es : en;
     return `<button type="button" class="gitem" data-zoom="${img}" aria-label="${name}">${pic(img, name)}<span class="gcap">${name}</span></button>`;
   }).join("");
+}
+let eventType = "bday";
+function renderEvents() {
+  const box = $("#evChips"); if (!box) return;
+  box.innerHTML = EVENT_TYPES.map(e =>
+    `<button type="button" class="chip" data-ev="${e.id}" aria-pressed="${e.id === eventType}">${lang === "es" ? e.les : e.len}</button>`).join("");
+  const ev = EVENT_TYPES.find(e => e.id === eventType);
+  const msg = WA_EVENT[lang](lang === "es" ? ev.es : ev.en);
+  $$(".js-wa-event").forEach(a => (a.href = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(msg)}`));
+}
+function renderOrder() {
+  const O = BUSINESS.order;
+  const links = [
+    ["direct", lang === "es" ? "Pedir en línea" : "Order online", "o-direct"],
+    ["uberEats", "Uber Eats", "o-uber"], ["doordash", "DoorDash", "o-dd"], ["grubhub", "Grubhub", "o-gh"],
+  ].filter(([k]) => O[k]);
+  $("#orderLinks").innerHTML = links.map(([k, label, cls]) =>
+    `<a class="obtn ${cls}" href="${O[k]}" target="_blank" rel="noopener">${label}<span aria-hidden="true">↗</span></a>`).join("");
+  $("#orderBar").hidden = !links.length && !BUSINESS.phones.length;
+}
+let beholdLoaded = false;
+function renderInstagram() {
+  if (!BUSINESS.beholdFeedId || beholdLoaded) return;
+  beholdLoaded = true;
+  const s = document.createElement("script"); s.type = "module"; s.src = "https://w.behold.so/widget.js";
+  document.head.appendChild(s);
+  $("#galleryGrid").outerHTML = `<behold-widget feed-id="${BUSINESS.beholdFeedId}"></behold-widget>`;
 }
 function renderAbout() {
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
@@ -204,6 +259,7 @@ function renderBusiness() {
 
   $(".js-phones").innerHTML = B.phones.map(p => `<a href="tel:+1${p.replace(/\D/g, "")}">${p}</a>`).join("<br>");
   $$(".js-call").forEach(el => (el.href = `tel:+1${B.phones[0].replace(/\D/g, "")}`));
+  $$(".js-phone1").forEach(el => (el.textContent = B.phones[0]));
   show(".js-phone-row", B.phones.length > 0);
 
   const wa = `https://wa.me/${B.whatsapp}?text=${encodeURIComponent(WA_TEXT[lang])}`;
@@ -233,27 +289,9 @@ function applyLang() {
   const tg = $("#langToggle");
   tg.textContent = lang === "es" ? "EN" : "ES";
   tg.setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
-  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderGallery(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
+  renderFeatured(); renderTabs(); renderList(); renderAbout(); renderGallery(); renderInstagram(); renderEvents(); renderOrder(); renderReviews(); renderBusiness(); renderFullToggle(); renderReserve();
 }
 
-/* SEO: carta como datos estructurados */
-function injectMenuSchema() {
-  const data = {
-    "@context": "https://schema.org", "@type": "Menu", "@id": "https://konakai-web.vercel.app/#menu",
-    name: "Konakai Peruvian Cuisine Menu", inLanguage: ["en", "es"],
-    hasMenuSection: CARTA.map(c => ({
-      "@type": "MenuSection", name: c.en,
-      hasMenuItem: c.groups.flatMap(g => g.items).map(i => {
-        const price = i.p && i.p !== "MKP" ? i.p : (i.v || []).map(v => v[1]).find(x => x !== "MKP");
-        return { "@type": "MenuItem", name: i.n, ...(i.d && { description: i.d }),
-          ...(price && { offers: { "@type": "Offer", price, priceCurrency: "USD" } }) };
-      }),
-    })),
-  };
-  const sc = document.createElement("script");
-  sc.type = "application/ld+json"; sc.textContent = JSON.stringify(data);
-  document.head.appendChild(sc);
-}
 
 /* ---------- Reserva por WhatsApp ---------- */
 const pad = n => String(n).padStart(2, "0");
@@ -345,6 +383,12 @@ $("#reserveForm").addEventListener("submit", e => {
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
 })();
 
+/* Chips de eventos */
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-ev]"); if (!c) return;
+  eventType = c.dataset.ev; renderEvents();
+});
+
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
   lang = lang === "es" ? "en" : "es";
@@ -354,12 +398,12 @@ $("#langToggle").addEventListener("click", () => {
 $("#fullMenuToggle").addEventListener("click", () => { fullOpen = !fullOpen; renderFullToggle(); });
 $("#menuTabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
-  activeTab = b.dataset.id; renderTabs(); renderList();
+  showTab(b.dataset.id);
 });
 $("#menuTabs").addEventListener("keydown", e => {
   const i = CARTA.findIndex(c => c.id === activeTab);
   const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
-  activeTab = CARTA[(i + d + CARTA.length) % CARTA.length].id; renderTabs(); renderList();
+  showTab(CARTA[(i + d + CARTA.length) % CARTA.length].id);
   $(`.tab[data-id="${activeTab}"]`).focus();
 });
 
@@ -395,6 +439,5 @@ $("#year").textContent = new Date().getFullYear();
 const h = location.hash.match(/^#carta(?:-(\w+))?$/);
 if (h) { fullOpen = true; if (CARTA.some(c => c.id === h[1])) activeTab = h[1]; }
 
-injectMenuSchema();
 applyLang();
 if (h) $("#fullMenu").scrollIntoView();
