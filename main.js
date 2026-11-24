@@ -244,7 +244,7 @@ function renderInstagram() {
 }
 function renderAbout() {
   $("#aboutImgs").innerHTML = ABOUT_IMGS.map((g, i) =>
-    `<button type="button" class="ai ai-${i}" data-zoom="${g}" aria-label="Konakai">${pic(g, "Konakai", "(max-width: 860px) 50vw, 28vw")}</button>`).join("");
+    `<button type="button" class="ai ai-${i}" data-speed="${[0.05, -0.04, 0.02][i]}" data-zoom="${g}" aria-label="Konakai">${pic(g, "Konakai", "(max-width: 860px) 50vw, 28vw")}</button>`).join("");
 }
 function renderReviews() {
   const box = $("#quotes");
@@ -390,6 +390,66 @@ document.addEventListener("click", e => {
   const c = e.target.closest("[data-ev]"); if (!c) return;
   eventType = c.dataset.ev; renderEvents();
 });
+
+/* ---------- Movimiento: parallax, revelados escalonados e inclinación 3D ---------- */
+(() => {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const hero = $(".hero"), heroImg = $(".hero img"), heroCopy = $(".hero-copy");
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const y = scrollY, vh = innerHeight;
+    // Portada: la foto se aleja más lento y se acerca; el texto sube y se desvanece
+    if (hero && y < hero.offsetHeight) {
+      const p = y / hero.offsetHeight;
+      heroImg.style.transform = `translate3d(0, ${y * 0.35}px, 0) scale(${1 + p * 0.12})`;
+      heroCopy.style.transform = `translate3d(0, ${y * -0.15}px, 0)`;
+      heroCopy.style.opacity = String(Math.max(0, 1 - p * 1.4));
+    }
+    // Capas con distinta velocidad (sensación de profundidad)
+    for (const el of $$("[data-speed]")) {      // elementos con parallax (velocidad relativa)
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) continue;
+      const center = r.top + r.height / 2 - vh / 2;
+      el.style.transform = `translate3d(0, ${center * -parseFloat(el.dataset.speed)}px, 0)`;
+    }
+  };
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  addEventListener("resize", update);
+  heroImg && (heroImg.style.animation = "none");   // el zoom de entrada lo reemplaza el parallax
+  update();
+
+  // Revelado escalonado de tarjetas y fotos al entrar en pantalla
+  const stagger = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const kids = [...e.target.children];
+    kids.forEach((k, i) => { k.style.transitionDelay = `${Math.min(i, 8) * 70}ms`; k.classList.add("pop-in"); });
+    stagger.unobserve(e.target);
+  }), { rootMargin: "0px 0px -10% 0px" });
+  const watchStagger = () => $$(".dish-grid, .masonry, .ev-cards, .pillars").forEach(g => {
+    if (g.dataset.staggered) return; g.dataset.staggered = "1";
+    [...g.children].forEach(k => k.classList.add("pop"));
+    stagger.observe(g);
+  });
+  // esperar a que applyLang() pinte las grillas; luego, en cada re-render (cambio de idioma) mostrarlas sin animar
+  requestAnimationFrame(() => {
+    watchStagger();
+    const mo = new MutationObserver(() => $$(".dish-grid, .masonry").forEach(g => [...g.children].forEach(k => k.classList.add("pop", "pop-in"))));
+    $$(".dish-grid, .masonry").forEach(g => mo.observe(g, { childList: true }));
+  });
+
+  // Inclinación 3D de las fotos de eventos y nosotros siguiendo el mouse
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    $$(".ev-photos, .about-imgs").forEach(box => {
+      box.addEventListener("pointermove", e => {
+        const r = box.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        box.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${y * -7}deg)`;
+      });
+      box.addEventListener("pointerleave", () => (box.style.transform = ""));
+    });
+  }
+})();
 
 /* Eventos */
 $("#langToggle").addEventListener("click", () => {
