@@ -772,3 +772,23 @@ body.drawer-open { overflow: hidden; }
   .tabs::-webkit-scrollbar { display: none; }
   .tab { flex: none; scroll-snap-align: start; }
 }
+
+/* Responsive: los globos del glosario no deben ocupar espacio mientras están ocultos */
+.gl::after { display: none; }
+.gl:hover::after, .gl:focus::after { display: block; }
+/* Botón de Instagram con usuario largo en pantallas chicas */
+.btn-ig { max-width: 100%; }
+.btn-ig span { overflow-wrap: anywhere; }
+/* Navegación en tablets/laptops chicas: menos separación para que entre el botón de reserva */
+@media (max-width: 1240px) and (min-width: 861px) {
+  .nav-links { gap: 1.1rem; }
+  .nav-links a { letter-spacing: .12em; }
+  .brand { letter-spacing: .22em; }
+}
+/* La carta nunca debe ensanchar la página (columnas que pueden encogerse) */
+.menu-list { grid-template-columns: minmax(0, 1fr); }
+.mcat, .mi-main, .mgroup, .mitems { min-width: 0; }
+.mi { grid-template-columns: minmax(0, 1fr); }
+.mi.has-thumb { grid-template-columns: 72px minmax(0, 1fr); }
+@media (max-width: 600px) { .mi.has-thumb { grid-template-columns: 60px minmax(0, 1fr); } }
+.ml-name, .mi-desc, .mi-vars span:first-child { overflow-wrap: anywhere; }
