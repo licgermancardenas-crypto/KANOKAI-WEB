@@ -8,7 +8,7 @@ const BUSINESS = {
   mapQuery: "Konakai Peruvian Cuisine, 4305 NW 88th Ave, Sunrise, FL 33351",
   directionsUrl: "https://maps.google.com/?cid=11511504645038760523",
   /* Vista 360°: punto frente al local (OpenStreetMap) y hacia dónde mira la cámara (0=N, 90=E, 180=S, 270=O) */
-  streetView: { lat: 26.177652, lng: -80.2694242, heading: 270, pitch: 5 },
+  streetView: { lat: 26.177652, lng: -80.2694242, heading: 0, pitch: 5 },
   phones: ["(954) 909-5525", "(954) 404-4272"],
   email: "konakai1992@gmail.com",
   whatsapp: "19544044272",   // CONFIRMAR con el cliente cuál número tiene WhatsApp
