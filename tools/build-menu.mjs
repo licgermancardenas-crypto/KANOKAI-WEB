@@ -97,7 +97,7 @@ const platters = lang => {
     const photo = DISH_PHOTOS[i.n] || null;
     const price = i.p ? `<span class="ml-price">$${i.p}</span>` : "";
     const vars = i.v ? `<ul class="mi-vars">${i.v.map(([l, p, les]) => `<li><span>${es && les ? les : l}</span><span class="ml-price">${p === "MKP" ? (es ? "Precio de mercado" : "Market price") : "$" + p}</span></li>`).join("")}</ul>` : "";
-    return `      <article class="plat-card">${photo ? `<button type="button" class="plat-img" data-zoom="${photo}" aria-label="${i.n}"><img src="/img/${photo}-800.webp" alt="${i.n}" loading="lazy"></button>` : ""}
+    return `      <article class="plat-card">${photo ? `<button type="button" class="plat-img" data-zoom="${photo}" aria-label="${i.n}"><img src="/img/${photo}-800.webp?v=5" alt="${i.n}" loading="lazy"></button>` : ""}
         <div class="plat-body"><div class="plat-top"><h3>${i.n}</h3>${price}</div><p>${es ? i.de || i.d : i.d}</p>${vars}</div></article>`;
   }).join("\n");
 };

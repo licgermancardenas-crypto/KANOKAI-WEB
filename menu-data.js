@@ -482,7 +482,7 @@ function renderCarta(lang, activeId) {
   const desc = i => (es ? i.de || i.d : i.d) || (DESC_EXTRA[i.n] ? DESC_EXTRA[i.n][es ? 1 : 0] : "");
   const sub = i => es ? i.te : i.t;
   const thumb = n => DISH_PHOTOS[n]
-    ? `<button type="button" class="mi-thumb" data-zoom="${DISH_PHOTOS[n]}" aria-label="${esc(n)}"><img src="/img/${DISH_PHOTOS[n]}-400.webp" alt="${esc(n)}" loading="lazy" width="72" height="72"></button>` : "";
+    ? `<button type="button" class="mi-thumb" data-zoom="${DISH_PHOTOS[n]}" aria-label="${esc(n)}"><img src="/img/${DISH_PHOTOS[n]}-400.webp?v=5" alt="${esc(n)}" loading="lazy" width="72" height="72"></button>` : "";
   const item = i => {
     const used = new Set();
     return `<li class="mi${DISH_PHOTOS[i.n] ? " has-thumb" : ""}">

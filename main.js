@@ -222,9 +222,10 @@ const t = k => (lang === "es" && I18N.es[k]) || EN_DEFAULTS[k];
 const money = (p, from) => p ? `${from ? (lang === "es" ? "desde " : "from ") : ""}$${p}` : "";
 
 /* Foto responsive: el navegador elige 800/1400/2400 px según el tamaño en pantalla y la densidad */
-const srcset = n => `/img/${n}-400.webp 400w, /img/${n}-800.webp 800w, /img/${n}-1400.webp 1400w, /img/${n}-2400.webp 2400w`;
+const IMGV = "?v=5";   // subir el número cuando se reemplacen fotos (evita que el navegador muestre las viejas)
+const srcset = n => `/img/${n}-400.webp${IMGV} 400w, /img/${n}-800.webp${IMGV} 800w, /img/${n}-1400.webp${IMGV} 1400w, /img/${n}-2400.webp${IMGV} 2400w`;
 const pic = (name, alt, sizes = "100vw", lazy = true) =>
-  `<picture><source type="image/webp" srcset="${srcset(name)}" sizes="${sizes}"><img src="/img/${name}.jpg" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ""}></picture>`;
+  `<picture><source type="image/webp" srcset="${srcset(name)}" sizes="${sizes}"><img src="/img/${name}.jpg${IMGV}" alt="${alt}"${lazy ? ' loading="lazy" decoding="async"' : ""}></picture>`;
 const dishName = img => {
   const d = FEATURED.find(x => x.img === img); if (d) return d[lang][0];
   const g = GALLERY.find(x => x[0] === img); if (g) return lang === "es" ? g[2] : g[1];
@@ -590,7 +591,7 @@ addEventListener("keydown", e => { if (e.key === "Escape") setNav(false); });
 const lb = $("#lightbox");
 document.addEventListener("click", e => {
   const z = e.target.closest("[data-zoom]"); if (!z) return;
-  $("img", lb).src = `/img/${z.dataset.zoom}-2400.webp`;
+  $("img", lb).src = `/img/${z.dataset.zoom}-2400.webp${IMGV}`;
   $("img", lb).alt = $(".lb-cap", lb).textContent = dishName(z.dataset.zoom);
   lb.showModal();
 });
