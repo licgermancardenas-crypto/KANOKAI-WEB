@@ -38,7 +38,7 @@ PHOTOS = {
     "g-ceviche-mixto":        P + "4.16.57 PM (2).jpeg",
     "g-trilogia-copas":       P + "5.10.03 PM (2).jpeg",
     "g-causa-acevichada":     P + "4.25.22 PM (3).jpeg",
-    "g-chaufa-camaron":       P + "4.25.19 PM (3).jpeg",
+    "g-chaufa-especial":      P + "4.25.19 PM (3).jpeg",
     "g-jalea-pargo":          P + "5.10.02 PM (1).jpeg",
     "g-leche-tigre":          P + "5.09.59 PM (1).jpeg",
     "g-pollo-pina":           P + "4.13.58 PM (5).jpeg",

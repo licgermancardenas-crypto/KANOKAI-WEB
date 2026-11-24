@@ -188,7 +188,7 @@ const CARTA = [
     ]},
     { en: "Fried rice & noodles", es: "Chaufa y tallarines", items: [
       { n: "Arroz Chaufa", t: "Peruvian-Chinese fried rice", te: "Arroz frito al wok, al estilo chifa",
-        v: [["Special Konakai", "22.99", "Especial Konakai"], ["Seafood", "24.99", "Mariscos"], ["Beef", "21.99", "Carne"], ["Chicken", "17.99", "Pollo"],
+        v: [["Special Konakai (chicken, pork & shrimp)", "22.99", "Especial Konakai (pollo, puerco y camarón)"], ["Seafood", "24.99", "Mariscos"], ["Beef", "21.99", "Carne"], ["Chicken", "17.99", "Pollo"],
             ["Veggie", "17.99", "Vegetariano"], ["Roast pork", "17.99", "Chancho asado"], ["Shrimp", "21.99", "Camarón"], ["Sam-Sen (mixed)", "19.99", "Sam-Sen (mixto)"]] },
       { n: "Aeropuerto", d: "House chaufa tossed with stir-fried noodles and bean sprouts.", de: "Chaufa de la casa salteado con tallarín y brotes de soya.",
         v: [["Beef", "22.99", "Carne"], ["Chicken", "20.99", "Pollo"], ["Shrimp", "22.99", "Camarón"], ["Veggie", "20.99", "Vegetariano"],
@@ -436,7 +436,7 @@ const DISH_PHOTOS = {
   "Palta Rellena": "palta-rellena", "Anticucho": "anticuchos", "Pulpo Anticuchero": "pulpo-anticuchero",
   "Tropikal Konakai": "tropikal-konakai", "Lomo Saltado": "lomo-saltado", "Ají de Gallina": "g-aji-gallina",
   "Arroz con Mariscos": "arroz-con-mariscos", "Jalea de Pargo": "g-jalea-pargo",
-  "Kam Lu Wonton": "kam-lu-wonton", "Arroz Chaufa": "g-chaufa-camaron", "Chicken": "g-pollo-pina",
+  "Kam Lu Wonton": "kam-lu-wonton", "Arroz Chaufa": "g-chaufa-especial", "Chicken": "g-pollo-pina",
   "Cecina, Chorizo con Tacacho": "tacacho-cecina-chorizo",
   "Chijaukay": "gx-chijaukay", "Konakai Special Platter": "gx-special-platter", "Salmón Oriental": "gx-salmon-oriental",
   "Parihuela": "gx-parihuela", "Arroz a la Norteña": "gx-arroz-nortena", "Chupe": "gx-chupe",

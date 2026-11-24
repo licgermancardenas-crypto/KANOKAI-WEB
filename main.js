@@ -111,7 +111,7 @@ const GALLERY = [
 ];
 /* Nombres de las fotos usadas en la carta (para la ampliación) */
 const PHOTO_NAMES = {
-  "g-chaufa-camaron": ["Arroz Chaufa de Camarón · Shrimp fried rice", "Arroz Chaufa de Camarón"],
+  "g-chaufa-especial": ["Arroz Chaufa Especial Konakai · chicken, pork & shrimp fried rice", "Arroz Chaufa Especial Konakai · pollo, puerco y camarón"],
   "g-trilogia-copas": ["Trilogía de Ceviches", "Trilogía de Ceviches"], "g-leche-tigre": ["Leche de Tigre", "Leche de Tigre"],
   "g-causa-acevichada": ["Causa Acevichada", "Causa Acevichada"], "g-jalea-pargo": ["Jalea de Pargo", "Jalea de Pargo"],
   "g-pollo-pina": ["Chifa chicken with pineapple", "Pollo con piña (chifa)"], "g-aji-gallina": ["Ají de Gallina", "Ají de Gallina"],
