@@ -1,7 +1,7 @@
 /* =========================================================
    KONAKAI — Identidad visual (Fase 3: negro elegante)
    Negro cálido · Dorado champagne · Marfil · toque terracota
-   Playfair Display (títulos) + Cormorant Garamond itálica (acentos) + Plus Jakarta Sans (texto)
+   Tipografía única: Fraunces (ver bloque "TIPOGRAFÍA ÚNICA" al final)
    ========================================================= */
 :root {
   color-scheme: dark;
@@ -19,10 +19,10 @@
   --green-dark: #255546;
   --line: rgba(201, 163, 94, .18);
   --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.45);
-  --script: "Cormorant Garamond", Georgia, serif;
+  --script: "Fraunces", Georgia, serif;
   --radius: 16px;
-  --serif: "Cormorant Garamond", Georgia, serif;
-  --sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+  --sans: "Fraunces", Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -551,7 +551,7 @@ h2 { color: #F6EFE4; }
 /* =========================================================
    ESTILO F&B — serif fina, composición centrada, botones de línea
    ========================================================= */
-:root { --display: "Cormorant Garamond", "Playfair Display", Georgia, serif; --radius: 6px; }
+:root { --display: "Fraunces", Georgia, serif; --radius: 6px; }
 h1, h2, h3, .ml-name, .mcat-title, .reserve-title { font-family: var(--display); }
 h2 { font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.05; color: #EAD9B5; }
 .dish h3, .ev-cards h3, .pillars strong { font-family: var(--display); font-weight: 600; font-size: 1.35rem; letter-spacing: .01em; }
@@ -667,7 +667,7 @@ h2 { font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.05;
    AUDITORÍA: legibilidad, áreas táctiles, panel de reserva, carta
    ========================================================= */
 .sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-:root { --display: "Cormorant Garamond", Georgia, serif; }
+:root { --display: "Fraunces", Georgia, serif; }
 .orderbar-text strong, .ev-cta h3, .reserve-title, .quote blockquote, .lb-cap, .sv360-head h3 { font-family: var(--display); }
 
 /* Tamaños mínimos (≥ 12.8 px) */
@@ -845,3 +845,52 @@ body.drawer-open { overflow: hidden; }
   .page-hero { min-height: 78svh; }
   .page-hero .hero-ctas .btn { flex: 1 1 auto; }
 }
+
+
+/* =========================================================
+   TIPOGRAFÍA ÚNICA: Fraunces en toda la web
+   (serif suave, cercana a la de la carta impresa del cliente;
+    su eje óptico ajusta el dibujo para títulos grandes y textos chicos)
+   ========================================================= */
+:root {
+  --font: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: var(--font); --serif: var(--font); --display: var(--font); --script: var(--font);
+}
+html, body, button, input, select, textarea { font-family: var(--font); font-optical-sizing: auto; }
+body { font-size: 17px; font-weight: 400; line-height: 1.6; letter-spacing: .003em; }
+
+/* Jerarquía con una sola familia: tamaño y peso, sin cursivas decorativas */
+h1, h2, h3, h4, .page-h1, .h1-brand, .carta-title, .mcat-title { font-family: var(--font); letter-spacing: -.01em; }
+.h1-brand, .page-h1 { font-weight: 400; }
+h2 { font-weight: 400; }
+h3, .ml-name, .dish h3, .ev-cards h3, .steps h3, .plat-top h3, .faq summary, .glossary dt, .mcat-sub, .reserve-title { font-weight: 500; }
+
+/* Antetítulos: texto corto y sobrio en lugar de la cursiva dorada */
+.eyebrow, .hero .eyebrow, .about .eyebrow, .events .eyebrow, .location .eyebrow {
+  font-family: var(--font); font-style: normal; font-weight: 600; font-size: .8rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .7rem;
+}
+.hero-hours-label, .fav-title, .mi-sub, .search-empty { font-style: normal; }
+.fav-title { font-family: var(--font); font-weight: 500; font-size: clamp(1.4rem, 2.6vw, 1.8rem); color: #EAD9B5; }
+.fav-title::before, .fav-title::after { display: none; }
+.mi-sub { color: var(--gold); font-size: .88rem; }
+
+/* Sin líneas doradas decorativas bajo cada título */
+.section-head h2::after, .events h2::after, .about h2::after, .location h2::after,
+.center-head h2::after, .closing h2::after { display: none; }
+
+/* Textos de interfaz (menú, botones, etiquetas) en la misma familia */
+.nav-links a, .btn, .tab, .chip, .obtn, .tag, .lang, .h1-sub, .footer-links, .info dt, .mgroup-title, .phone-label {
+  font-family: var(--font);
+}
+.btn { font-weight: 600; letter-spacing: .1em; }
+.nav-links a { font-weight: 500; letter-spacing: .14em; }
+.brand { font-family: var(--font); font-weight: 500; letter-spacing: .26em; }
+.ml-price, .price { font-weight: 600; font-variant-numeric: lining-nums tabular-nums; }
+.field input, .field select, .menu-search input { font-family: var(--font); }
+/* Contacto en pantallas chicas: una columna; el email puede partirse */
+.visit-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.visit-side, .reserve-card { min-width: 0; }
+.js-email { overflow-wrap: anywhere; }
+@media (max-width: 860px) { .visit-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .visit-side .info { grid-template-columns: 1fr; } }
