@@ -13,6 +13,8 @@ from PIL import Image, ImageOps, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT.parent / "FOTOS PLATOS HD"
+SRC2 = ROOT.parent / "FOTOS PLATOS"      # fotos agregadas después (nombre con prefijo "@")
+def src_of(f): return SRC2 / f[1:] if f.startswith("@") else SRC / f
 OUT = ROOT / "img"
 WIDTHS = (400, 800, 1400, 2400)          # se limita al tamaño real del original
 JPG_SIZE, JPG_Q, WEBP_Q = 1600, 88, 86
@@ -60,6 +62,9 @@ PHOTOS = {
     "m-pescado-plancha":      P + "4.16.55 PM (7).jpeg",
     "m-huevera-macho":        P + "4.16.56 PM (4).jpeg",
     "m-pargo-macho":          P + "4.16.56 PM (6).jpeg",
+    # nuevas (nov 23)
+    "m-anticucho":            P + "4.25.06 PM (4).jpeg",
+    "m-anticucho-huancaina":  "@WhatsApp Image 2026-11-23 at 10.25.45 PM.jpeg",
     # ubicación
     "loc-terraza":            P + "4.16.57 PM (2).jpeg",
     "loc-jardin":             P + "4.25.22 PM (2).jpeg",
@@ -78,13 +83,13 @@ def fit(im, w):
 
 def main():
     only = set(sys.argv[1:])          # opcional: generar solo estos nombres
-    missing = [f for f in PHOTOS.values() if not (SRC / f).exists()]
+    missing = [f for f in PHOTOS.values() if not src_of(f).exists()]
     if missing:
         raise SystemExit("Faltan originales:\n  " + "\n  ".join(missing))
     for name, fname in PHOTOS.items():
         if only and name not in only:
             continue
-        im = ImageOps.exif_transpose(Image.open(SRC / fname)).convert("RGB")
+        im = ImageOps.exif_transpose(Image.open(src_of(fname))).convert("RGB")
         # srcset por ANCHO: -800, -1400, -2400 (si el original es más angosto, se guarda a su ancho real)
         made = []
         for w in WIDTHS:

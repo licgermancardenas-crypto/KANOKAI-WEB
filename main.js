@@ -118,7 +118,8 @@ const PHOTO_NAMES = {
   "g-torta-chocolate": ["Chocolate Cake", "Torta de Chocolate"], "g-flan": ["Flan", "Flan"],
   "palta-rellena": ["Palta Rellena", "Palta Rellena"], "ev-piqueo": ["Konakai Frío (platter)", "Piqueo Konakai Frío"],
   "m-pescado-plancha": ["Pescado a la Plancha", "Pescado a la Plancha"], "m-huevera-macho": ["Huevera a lo Macho", "Huevera a lo Macho"],
-  "m-pargo-macho": ["Pargo a lo Macho", "Pargo a lo Macho"], "cheesecake-maracuya": ["Passion Fruit Cheesecake", "Cheesecake de Maracuyá"],
+  "m-pargo-macho": ["Pargo a lo Macho", "Pargo a lo Macho"],
+  "m-anticucho": ["Anticucho", "Anticucho"], "m-anticucho-huancaina": ["Anticucho con Papa a la Huancaína", "Anticucho con Papa a la Huancaína"], "cheesecake-maracuya": ["Passion Fruit Cheesecake", "Cheesecake de Maracuyá"],
 };
 
 const ABOUT_IMGS = ["hero-trilogia-ceviches", "loc-noche", "loc-terraza"];
