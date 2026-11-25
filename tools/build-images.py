@@ -65,6 +65,7 @@ PHOTOS = {
     # nuevas (nov 23)
     "m-anticucho":            P + "4.25.06 PM (4).jpeg",
     "m-anticucho-huancaina":  "@WhatsApp Image 2026-11-23 at 10.25.45 PM.jpeg",
+    "m-cau-cau":              "@WhatsApp Image 2026-11-24 at 11.25.56 PM.jpeg",
     "hero-ceviche-mixto":     P + "4.25.27 PM (1).jpeg",
     # ubicación
     "loc-terraza":            P + "4.16.57 PM (2).jpeg",
