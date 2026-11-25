@@ -219,6 +219,7 @@ const CARTA = [
     { n: "Flan", p: "6.99", from: true },
     { n: "Passion Fruit Cheesecake", p: "6.99", from: true, de: "Cheesecake de maracuyá." },
     { n: "Chocolate Cake", de: "Torta de chocolate." },
+    { n: "Alfajores", d: "Melt-in-your-mouth shortbread cookies filled with dulce de leche and dusted with powdered sugar.", de: "Galletas de masa suave rellenas de manjar blanco y espolvoreadas con azúcar en polvo." },
   ]}]},
 
   { id: "more", en: "Salads, kids & sides", es: "Ensaladas, niños y extras", groups: [
@@ -433,7 +434,7 @@ const GLOSSARY = [
 const DISH_PHOTOS = {
   "Ceviche Carretillero": "ceviche-carretillero", "Ceviche Afrodisíaco del Chef": "ceviche-afrodisiaco",
   "Trilogía de Ceviches": "g-trilogia-copas", "Leche de Tigre": "g-leche-tigre", "Causa Acevichada": "g-causa-acevichada",
-  "Palta Rellena": "m-palta-rellena", "Anticucho con Rachi": "anticuchos", "Anticucho": "m-anticucho", "Anticucho con Papa a la Huancaína": "m-anticucho-huancaina", "Cau Cau": "m-cau-cau", "Aeropuerto": "m-aeropuerto-pollo", "Special House Wonton Soup": "m-sopa-wonton", "Konakai Special Platter": "m-special-platter", "Criollo": "m-criollo", "Konakai Frío": "ev-piqueo", "Pulpo Anticuchero": "pulpo-anticuchero",
+  "Palta Rellena": "m-palta-rellena", "Anticucho con Rachi": "anticuchos", "Anticucho": "m-anticucho", "Anticucho con Papa a la Huancaína": "m-anticucho-huancaina", "Cau Cau": "m-cau-cau", "Aeropuerto": "m-aeropuerto-pollo", "Special House Wonton Soup": "m-sopa-wonton", "Konakai Special Platter": "m-special-platter", "Criollo": "m-criollo", "Alfajores": "gx-alfajores", "Konakai Frío": "ev-piqueo", "Pulpo Anticuchero": "pulpo-anticuchero",
   "Tropikal Konakai": "tropikal-konakai", "Lomo Saltado": "lomo-saltado", "Ají de Gallina": "g-aji-gallina",
   "Arroz con Mariscos": "arroz-con-mariscos", "Jalea de Pargo": "g-jalea-pargo",
   "Kam Lu Wonton": "kam-lu-wonton", "Arroz Chaufa": "g-chaufa-especial", "Chicken": "g-pollo-pina",
