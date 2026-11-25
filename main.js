@@ -196,7 +196,7 @@ const I18N = {
     "order.waPickup": "Pedir para llevar por WhatsApp", "order.call": "Llamar:",
     "hero.sub": "Sunrise, Florida · desde 1992", "hero.hours": "Horario de atención",
     "hero.note": "Reservas por WhatsApp o teléfono · Estacionamiento gratuito · Karaoke vie y sáb",
-    "menu.lead": "Ceviches curados al momento, platos tradicionales al wok, nuestro famoso chifa y los sabores de la selva. 173 platos, cocinados como lo hace nuestra familia desde 1992.",
+    "menu.lead": "Ceviches curados al momento, platos tradicionales al wok, nuestro famoso chifa y los sabores de la selva. 174 platos, cocinados como lo hace nuestra familia desde 1992.",
     "menu.favs": "Favoritos de la casa",
     "closing.eyebrow": "Hasta pronto", "closing.title": "Te esperamos para compartir la mesa",
     "sv.open": "Ver la fachada en 360°", "sv.eyebrow": "Vista 360°", "sv.title": "Fachada de Konakai · 4305 NW 88th Ave",
