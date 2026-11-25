@@ -439,7 +439,7 @@ const DISH_PHOTOS = {
   "Kam Lu Wonton": "kam-lu-wonton", "Arroz Chaufa": "g-chaufa-especial", "Chicken": "g-pollo-pina",
   "Cecina, Chorizo con Tacacho": "tacacho-cecina-chorizo",
   "Chijaukay": "gx-chijaukay", "Salmón Oriental": "gx-salmon-oriental",
-  "Parihuela": "gx-parihuela", "Pescado a la Plancha": "m-pescado-plancha", "Huevera Frita": "m-huevera-macho", "Pargo a lo Macho": "m-pargo-macho", "Arroz a la Norteña": "gx-arroz-nortena", "Chupe": "gx-chupe",
+  "Parihuela": "m-parihuela", "Pescado a la Plancha": "m-pescado-plancha", "Huevera Frita": "m-huevera-macho", "Pargo a lo Macho": "m-pargo-macho", "Arroz a la Norteña": "gx-arroz-nortena", "Chupe": "gx-chupe",
   "Lomo Saltado a lo Pobre": "gx-lomo-pobre", "Pollo a la Parrilla a lo Pobre": "gx-pollo-pobre",
   "Flan": "g-flan", "Passion Fruit Cheesecake": "cheesecake-maracuya", "Chocolate Cake": "g-torta-chocolate",
 };
