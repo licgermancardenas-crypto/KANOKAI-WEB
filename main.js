@@ -133,7 +133,7 @@ const I18N = {
     "cta.reserve": "Reservar mesa", "cta.whatsapp": "Reservar por WhatsApp", "cta.menu": "Ver la carta",
     "cta.directions": "Cómo llegar",
     "hero.rating": "+1,400 reseñas en Google",
-    "hero.eyebrow": "Cocina peruana y chifa desde 1992",
+
     "hero.title": "La mesa peruana de confianza en Broward desde 1992.",
     "hero.lead": "Ceviches, lomo saltado humeante, el mejor chifa de la zona y sabores de la selva. A minutos de Sawgrass Mills y Fort Lauderdale.",
     "menu.eyebrow": "Sabores que se sienten", "menu.title": "Nuestra Carta",
