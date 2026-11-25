@@ -108,6 +108,10 @@ const GALLERY = [
   ["gx-tacu-tacu-seco", "Tacu Tacu con Seco", "Tacu Tacu con Seco"],
   ["gx-tallarin-churrasco", "Tallarín Verde con Churrasco", "Tallarín Verde con Churrasco"],
   ["gx-pollo-pobre", "Pollo a la Parrilla a lo Pobre", "Pollo a la Parrilla a lo Pobre"],
+  ["gx-ceviche-terraza", "Ceviche on the terrace", "Ceviche en la terraza"],
+  ["gx-cocteles", "Cocktails: Blue Long Island, Margarita & Mojito", "Cócteles: Blue Long Island, Margarita y Mojito"],
+  ["gx-vinos", "Our Peruvian wines", "Nuestros vinos peruanos"],
+  ["gx-alfajores", "Alfajores", "Alfajores"],
 ];
 /* Nombres de las fotos usadas en la carta (para la ampliación) */
 const PHOTO_NAMES = {

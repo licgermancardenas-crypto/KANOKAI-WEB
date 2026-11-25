@@ -72,6 +72,10 @@ PHOTOS = {
     "m-special-platter":      "@WhatsApp Image 2026-11-24 at 11.27.29 PM.jpeg",
     "m-criollo":               "@WhatsApp Image 2026-11-24 at 11.35.16 PM (1).jpeg",
     "m-palta-rellena":         "@WhatsApp Image 2026-11-24 at 11.35.15 PM.jpeg",
+    "gx-alfajores":            "@WhatsApp Image 2026-11-24 at 11.35.14 PM.jpeg",
+    "gx-cocteles":             "@WhatsApp Image 2026-11-24 at 11.35.16 PM.jpeg",
+    "gx-vinos":                "@WhatsApp Image 2026-11-24 at 11.35.15 PM (1).jpeg",
+    "gx-ceviche-terraza":      "@WhatsApp Image 2026-11-24 at 11.36.59 PM.jpeg",
     "hero-ceviche-mixto":     P + "4.25.27 PM (1).jpeg",
     # ubicación
     "loc-terraza":            P + "4.16.57 PM (2).jpeg",
