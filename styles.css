@@ -593,10 +593,10 @@ h2 { font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.05;
 .menu-intro { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-bottom: clamp(64px, 8vw, 100px); }
 .menu-intro-copy p:not(.eyebrow) { color: #BDB2A3; font-size: 1.05rem; max-width: 34em; }
 .menu-intro-copy h2 { font-size: clamp(3rem, 6.5vw, 5rem); }
-.menu-orb { position: relative; margin: 0 auto; width: min(420px, 80vw); aspect-ratio: 1; }
-.menu-orb::before { content: ""; position: absolute; inset: -18px; border-radius: 50%; border: 1px solid rgba(201,163,94,.55); }
-.menu-orb::after { content: ""; position: absolute; inset: -34px; border-radius: 50%; border: 1px solid rgba(201,163,94,.18); }
-.menu-orb picture, .menu-orb img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.menu-orb { position: relative; margin: 0 auto; width: min(520px, 88vw); aspect-ratio: 4 / 3; }
+.menu-orb::before { content: ""; position: absolute; inset: -14px; border-radius: 4px; border: 1px solid rgba(201,163,94,.55); pointer-events: none; }
+.menu-orb::after { content: ""; position: absolute; inset: -28px; border-radius: 6px; border: 1px solid rgba(201,163,94,.18); pointer-events: none; }
+.menu-orb picture, .menu-orb img { display: block; width: 100%; height: 100%; border-radius: 3px; object-fit: cover; }
 .menu-orb img { box-shadow: 0 30px 70px rgba(0,0,0,.6); }
 .fav-title { font-family: var(--script); font-style: italic; font-weight: 500; color: var(--gold); text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 1.8rem; }
 .fav-title::before, .fav-title::after { content: ""; display: inline-block; vertical-align: middle; width: 60px; height: 1px; margin: 0 1rem; background: rgba(201,163,94,.5); }
@@ -660,7 +660,7 @@ h2 { font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1.05;
   .monogram { margin: 0 auto; grid-row: 1; }
   .hero .hero-ctas .btn { flex: 1 1 auto; }
 }
-@media (max-width: 860px) { .menu-orb { width: min(320px, 68vw); margin-top: 1rem; } .footer-copy { padding: 0 16px; } }
+@media (max-width: 860px) { .menu-orb { width: min(420px, 80vw); margin-top: 1.5rem; } .footer-copy { padding: 0 16px; } }
 
 
 /* =========================================================
